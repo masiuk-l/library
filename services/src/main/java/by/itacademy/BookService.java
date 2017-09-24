@@ -1,5 +1,8 @@
 package by.itacademy;
 
+import by.itacademy.VO.BookVO;
+import by.itacademy.entities.Book;
+
 import java.util.List;
 
 /**

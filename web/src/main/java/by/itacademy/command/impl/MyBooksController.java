@@ -1,13 +1,13 @@
 package by.itacademy.command.impl;
 
-import by.itacademy.FormVO;
-import by.itacademy.Form;
-import by.itacademy.Reader;
 import by.itacademy.BookService;
 import by.itacademy.FormService;
+import by.itacademy.VO.FormVO;
+import by.itacademy.command.Controller;
+import by.itacademy.entities.Form;
+import by.itacademy.entities.Reader;
 import by.itacademy.impl.BookServiceImpl;
 import by.itacademy.impl.FormServiceImpl;
-import by.itacademy.command.Controller;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;

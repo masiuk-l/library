@@ -1,5 +1,11 @@
 package by.itacademy;
 
+import by.itacademy.VO.FormVO;
+import by.itacademy.entities.Book;
+import by.itacademy.entities.Form;
+import by.itacademy.entities.Librarian;
+import by.itacademy.entities.Reader;
+
 import java.util.List;
 
 /**

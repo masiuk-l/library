@@ -1,7 +1,12 @@
 package by.itacademy.impl;
 
-import by.itacademy.*;
-import by.itacademy.transfer.BookTransfer;
+import by.itacademy.BookService;
+import by.itacademy.ServiceException;
+import by.itacademy.VO.BookVO;
+import by.itacademy.VO.transfer.BookTransfer;
+import by.itacademy.dao.*;
+import by.itacademy.dao.impl.*;
+import by.itacademy.entities.*;
 
 import java.io.Serializable;
 import java.sql.SQLException;

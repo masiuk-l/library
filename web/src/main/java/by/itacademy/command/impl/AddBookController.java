@@ -1,7 +1,11 @@
 package by.itacademy.command.impl;
 
-import by.itacademy.*;
+import by.itacademy.AuthorService;
+import by.itacademy.BookAuthorService;
+import by.itacademy.BookService;
 import by.itacademy.command.Controller;
+import by.itacademy.entities.Book;
+import by.itacademy.entities.BookAuthor;
 import by.itacademy.impl.AuthorServiceImpl;
 import by.itacademy.impl.BookAuthorServiceImpl;
 import by.itacademy.impl.BookServiceImpl;

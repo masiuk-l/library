@@ -1,5 +1,8 @@
 package by.itacademy;
 
+import by.itacademy.VO.ReaderVO;
+import by.itacademy.entities.Reader;
+
 import java.util.List;
 
 /**

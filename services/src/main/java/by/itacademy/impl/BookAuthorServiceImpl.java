@@ -1,6 +1,12 @@
 package by.itacademy.impl;
 
-import by.itacademy.*;
+import by.itacademy.BookAuthorService;
+import by.itacademy.ServiceException;
+import by.itacademy.dao.BookAuthorDAO;
+import by.itacademy.dao.impl.BookAuthorDAOImpl;
+import by.itacademy.entities.Author;
+import by.itacademy.entities.Book;
+import by.itacademy.entities.BookAuthor;
 
 import java.io.Serializable;
 import java.sql.SQLException;

@@ -1,8 +1,18 @@
 package by.itacademy.impl;
 
-import by.itacademy.*;
-import by.itacademy.auth.Encoder;
-import by.itacademy.transfer.ReaderTransfer;
+import by.itacademy.FormService;
+import by.itacademy.ReaderService;
+import by.itacademy.ServiceException;
+import by.itacademy.VO.FormVO;
+import by.itacademy.VO.ReaderVO;
+import by.itacademy.VO.transfer.ReaderTransfer;
+import by.itacademy.dao.FormDAO;
+import by.itacademy.dao.ReaderDAO;
+import by.itacademy.dao.auth.Encoder;
+import by.itacademy.dao.impl.FormDAOImpl;
+import by.itacademy.dao.impl.ReaderDAOImpl;
+import by.itacademy.entities.Form;
+import by.itacademy.entities.Reader;
 
 import java.io.Serializable;
 import java.sql.SQLException;

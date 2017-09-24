@@ -1,5 +1,7 @@
 package by.itacademy;
 
+import by.itacademy.entities.Author;
+
 import java.util.List;
 
 

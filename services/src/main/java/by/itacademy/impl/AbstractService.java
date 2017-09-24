@@ -1,7 +1,7 @@
 package by.itacademy.impl;
 
-import by.itacademy.ConnectionManager;
-import by.itacademy.DBException;
+import by.itacademy.db.ConnectionManager;
+import by.itacademy.db.DBException;
 
 import java.sql.Connection;
 import java.sql.SQLException;

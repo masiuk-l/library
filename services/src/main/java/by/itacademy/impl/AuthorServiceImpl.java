@@ -1,9 +1,10 @@
 package by.itacademy.impl;
 
-import by.itacademy.Author;
-import by.itacademy.AuthorDAO;
 import by.itacademy.AuthorService;
 import by.itacademy.ServiceException;
+import by.itacademy.dao.AuthorDAO;
+import by.itacademy.dao.impl.AuthorDAOImpl;
+import by.itacademy.entities.Author;
 
 import java.io.Serializable;
 import java.sql.SQLException;

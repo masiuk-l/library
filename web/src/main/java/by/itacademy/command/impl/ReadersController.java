@@ -1,10 +1,10 @@
 package by.itacademy.command.impl;
 
-import by.itacademy.ReaderVO;
-import by.itacademy.Reader;
 import by.itacademy.ReaderService;
-import by.itacademy.impl.ReaderServiceImpl;
+import by.itacademy.VO.ReaderVO;
 import by.itacademy.command.Controller;
+import by.itacademy.entities.Reader;
+import by.itacademy.impl.ReaderServiceImpl;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
