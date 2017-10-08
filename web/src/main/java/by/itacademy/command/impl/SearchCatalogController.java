@@ -1,7 +1,6 @@
 package by.itacademy.command.impl;
 
 import by.itacademy.BookService;
-import by.itacademy.VO.BookVO;
 import by.itacademy.command.Controller;
 import by.itacademy.entities.Book;
 import by.itacademy.impl.BookServiceImpl;
@@ -38,13 +37,8 @@ public class SearchCatalogController implements Controller {
                 dispatcher.forward(req, resp);
                 return;
             } else {
-                ArrayList<BookVO> bookVOS = new ArrayList<>();
-                for (Book book : books) {
-                    BookVO bookVO = bookService.getBookVO(book);
-                    bookVOS.add(bookVO);
-                }
 
-                req.getSession().setAttribute("bookVOS", bookVOS);
+                req.getSession().setAttribute("books", books);
                 req.getSession().setAttribute("Msg", "");
                 RequestDispatcher dispatcher = req.getRequestDispatcher(MAIN_PAGE);
                 dispatcher.forward(req, resp);

@@ -1,7 +1,6 @@
 package by.itacademy.command.impl;
 
 import by.itacademy.BookService;
-import by.itacademy.VO.BookVO;
 import by.itacademy.command.Controller;
 import by.itacademy.entities.Book;
 import by.itacademy.impl.BookServiceImpl;
@@ -22,8 +21,7 @@ public class BookController implements Controller {
     public void execute(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
         int bookID = Integer.parseInt(req.getParameter("id"));
         Book book = bookService.get(bookID);
-        BookVO bookVO = bookService.getBookVO(book);
-        req.getSession().setAttribute("bookVO", bookVO);
+        req.getSession().setAttribute("book", book);
         req.getRequestDispatcher(MAIN_PAGE).forward(req, resp);
     }
 }

@@ -39,7 +39,7 @@ public class ReturnBookController implements Controller {
         bookService.update(book);
         ArrayList<Form> forms = new ArrayList<>(formService.getByBook(book));
         for (Form f : forms) {
-            if (f.getReaderID() == readerID)
+            if (f.getReader().getReaderID() == readerID)
                 form = f;
         }
         if (form == null) {

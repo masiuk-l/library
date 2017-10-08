@@ -1,13 +1,10 @@
 package by.itacademy.command.impl;
 
 import by.itacademy.AuthorService;
-import by.itacademy.BookAuthorService;
 import by.itacademy.BookService;
 import by.itacademy.command.Controller;
 import by.itacademy.entities.Book;
-import by.itacademy.entities.BookAuthor;
 import by.itacademy.impl.AuthorServiceImpl;
-import by.itacademy.impl.BookAuthorServiceImpl;
 import by.itacademy.impl.BookServiceImpl;
 
 import javax.servlet.RequestDispatcher;
@@ -23,7 +20,6 @@ import java.time.LocalDate;
 public class AddBookController implements Controller {
     private AuthorService authorService = AuthorServiceImpl.getInstance();
     private BookService bookService = BookServiceImpl.getInstance();
-    private BookAuthorService bookAuthorService = BookAuthorServiceImpl.getInstance();
 
     @Override
     public void execute(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
@@ -73,14 +69,11 @@ public class AddBookController implements Controller {
             }
 
             if (validData) {
-                bookService.save(book);
                 String[] authorIDs = req.getParameterValues("author");
                 for (String authorID : authorIDs) {
-                    BookAuthor bookAuthor = new BookAuthor();
-                    bookAuthor.setBookID(book.getBookID());
-                    bookAuthor.setAuthorID(Integer.parseInt(authorID));
-                    bookAuthorService.save(bookAuthor);
+                    book.getAuthors().add(authorService.get(authorID));
                 }
+                bookService.save(book);
                 req.getSession().setAttribute("errorMsg", "");
                 String contextPath = req.getContextPath();
                 resp.sendRedirect(contextPath + "/frontController?command=catalog");

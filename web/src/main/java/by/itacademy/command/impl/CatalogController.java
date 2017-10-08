@@ -1,7 +1,6 @@
 package by.itacademy.command.impl;
 
 import by.itacademy.BookService;
-import by.itacademy.VO.BookVO;
 import by.itacademy.command.Controller;
 import by.itacademy.entities.Book;
 import by.itacademy.impl.BookServiceImpl;
@@ -21,13 +20,9 @@ public class CatalogController implements Controller {
     @Override
     public void execute(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         ArrayList<Book> books = new ArrayList<>(bookService.getAll());
-        ArrayList<BookVO> bookVOS = new ArrayList<>();
-        for (Book book : books) {
-            BookVO bookVO = bookService.getBookVO(book);
-            bookVOS.add(bookVO);
-        }
+
         req.getSession().setAttribute("Msg", "");
-        req.getSession().setAttribute("bookVOS", bookVOS);
+        req.getSession().setAttribute("books", books);
         req.getRequestDispatcher(MAIN_PAGE).forward(req, resp);
     }
 }

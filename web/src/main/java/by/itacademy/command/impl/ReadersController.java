@@ -1,7 +1,6 @@
 package by.itacademy.command.impl;
 
 import by.itacademy.ReaderService;
-import by.itacademy.VO.ReaderVO;
 import by.itacademy.command.Controller;
 import by.itacademy.entities.Reader;
 import by.itacademy.impl.ReaderServiceImpl;
@@ -21,13 +20,7 @@ public class ReadersController implements Controller {
     @Override
     public void execute(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         ArrayList<Reader> readers = new ArrayList<>(readerService.getAll());
-        ArrayList<ReaderVO> readerVOS = new ArrayList<>();
-        for (Reader reader : readers) {
-            ReaderVO readerVO = readerService.getReaderVO(reader);
-            readerVOS.add(readerVO);
-        }
-
-        req.getSession().setAttribute("readerVOS", readerVOS);
+        req.getSession().setAttribute("readers", readers);
         req.getRequestDispatcher(MAIN_PAGE).forward(req, resp);
     }
 }
