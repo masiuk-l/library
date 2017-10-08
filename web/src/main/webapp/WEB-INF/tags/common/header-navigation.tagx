@@ -54,7 +54,7 @@
                 </c:choose>
 
 
-                <c:url var="path" value="/frontController?.command=${sessionScope.pageName}"></c:url>
+                <c:url var="path" value="/frontController?command=${sessionScope.pageName}"></c:url>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown">
                         <fmt:message key="menu.language" bundle="${i18n}"></fmt:message>
