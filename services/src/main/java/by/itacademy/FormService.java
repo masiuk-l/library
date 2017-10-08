@@ -1,6 +1,5 @@
 package by.itacademy;
 
-import by.itacademy.VO.FormVO;
 import by.itacademy.entities.Book;
 import by.itacademy.entities.Form;
 import by.itacademy.entities.Librarian;
@@ -42,6 +41,6 @@ public interface FormService extends Service<Form> {
      * @param form form
      * @return Value object of the form
      */
-    FormVO getFormVO(Form form);
+//    FormVO getFormVO(Form form);
 
 }

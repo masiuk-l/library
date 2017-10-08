@@ -1,6 +1,5 @@
 package by.itacademy;
 
-import by.itacademy.VO.BookVO;
 import by.itacademy.entities.Book;
 
 import java.util.List;
@@ -44,5 +43,5 @@ public interface BookService extends Service<Book> {
      * @param book book
      * @return Value object of the book
      */
-    BookVO getBookVO(Book book);
+//    BookVO getBookVO(Book book);
 }

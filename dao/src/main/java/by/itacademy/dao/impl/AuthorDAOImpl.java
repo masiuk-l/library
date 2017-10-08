@@ -2,7 +2,6 @@ package by.itacademy.dao.impl;
 
 import by.itacademy.dao.AuthorDAO;
 import by.itacademy.entities.Author;
-import by.itacademy.util.SFUtil;
 import lombok.extern.log4j.Log4j;
 import org.hibernate.Session;
 
@@ -37,9 +36,6 @@ public class AuthorDAOImpl extends BaseDAOImpl<Author> implements AuthorDAO {
         return authorDAO;
     }
 
-    public Session getSession() {
-        return SFUtil.getSession();
-    }
 
     @Override
     public List<Author> getBySurname(String surname) throws SQLException {

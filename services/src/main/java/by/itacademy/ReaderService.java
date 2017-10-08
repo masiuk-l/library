@@ -1,6 +1,5 @@
 package by.itacademy;
 
-import by.itacademy.VO.ReaderVO;
 import by.itacademy.entities.Reader;
 
 import java.util.List;
@@ -31,7 +30,7 @@ public interface ReaderService extends Service<Reader> {
      * @param reader reader
      * @return Value object of the reader
      */
-    ReaderVO getReaderVO(Reader reader);
+//    ReaderVO getReaderVO(Reader reader);
 
     /**
      * @param oldReader initial reader

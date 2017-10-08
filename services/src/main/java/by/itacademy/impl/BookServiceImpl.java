@@ -2,11 +2,15 @@ package by.itacademy.impl;
 
 import by.itacademy.BookService;
 import by.itacademy.ServiceException;
-import by.itacademy.VO.BookVO;
-import by.itacademy.VO.transfer.BookTransfer;
-import by.itacademy.dao.*;
-import by.itacademy.dao.impl.*;
-import by.itacademy.entities.*;
+import by.itacademy.dao.AuthorDAO;
+import by.itacademy.dao.BookDAO;
+import by.itacademy.dao.FormDAO;
+import by.itacademy.dao.ReaderDAO;
+import by.itacademy.dao.impl.AuthorDAOImpl;
+import by.itacademy.dao.impl.BookDAOImpl;
+import by.itacademy.dao.impl.FormDAOImpl;
+import by.itacademy.dao.impl.ReaderDAOImpl;
+import by.itacademy.entities.Book;
 
 import java.io.Serializable;
 import java.sql.SQLException;
@@ -25,7 +29,6 @@ public class BookServiceImpl extends AbstractService implements BookService {
     private ReaderDAO readerDAO = ReaderDAOImpl.getInstance();
     private AuthorDAO authorDAO = AuthorDAOImpl.getInstance();
     private FormDAO formDAO = FormDAOImpl.getInstance();
-    private BookAuthorDAO bookAuthorDAO = BookAuthorDAOImpl.getInstance();
 
     private BookServiceImpl() {
     }
@@ -105,11 +108,6 @@ public class BookServiceImpl extends AbstractService implements BookService {
         try {
             startTransaction();
             Book book = bookDAO.get(id);
-            List<BookAuthor> bookAuthors = new ArrayList<>(bookAuthorDAO.getByBookID(book));
-            for (BookAuthor bookAuthor : bookAuthors) {
-                bookAuthorDAO.delete(bookAuthor.getBookAuthorID());
-            }
-
             int rows = bookDAO.delete(id);
             commit();
             return rows;
@@ -180,30 +178,30 @@ public class BookServiceImpl extends AbstractService implements BookService {
         }
     }
 
-    @Override
-    public BookVO getBookVO(Book book) {
-        try {
-            startTransaction();
-            List<BookAuthor> bookAuthors = new ArrayList<>(bookAuthorDAO.getByBookID(book));
-            List<Author> authors = new ArrayList<>();
-            for (BookAuthor bookAuthor : bookAuthors) {
-                Author author = authorDAO.get(bookAuthor.getAuthorID());
-                authors.add(author);
-            }
-            List<Form> forms = formDAO.getByBook(book);
-            List<Reader> readers = new ArrayList<>();
-            for (Form form : forms) {
-                Reader reader = readerDAO.get(form.getReaderID());
-                readers.add(reader);
-            }
-            BookVO bookVO = BookTransfer.toValueObject(book, readers, authors);
-            commit();
-            return bookVO;
-        } catch (SQLException e) {
-            rollback();
-            throw new ServiceException("Error creating bookVO", e);
-        }
-    }
+//    @Override
+//    public BookVO getBookVO(Book book) {
+//        try {
+//            startTransaction();
+//            List<BookAuthor> bookAuthors = new ArrayList<>(bookAuthorDAO.getByBookID(book));
+//            List<Author> authors = new ArrayList<>();
+//            for (BookAuthor bookAuthor : bookAuthors) {
+//                Author author = authorDAO.get(bookAuthor.getAuthorID());
+//                authors.add(author);
+//            }
+//            List<Form> forms = formDAO.getByBook(book);
+//            List<Reader> readers = new ArrayList<>();
+//            for (Form form : forms) {
+//                Reader reader = readerDAO.get(form.getReaderID());
+//                readers.add(reader);
+//            }
+//            BookVO bookVO = BookTransfer.toValueObject(book, readers, authors);
+//            commit();
+//            return bookVO;
+//        } catch (SQLException e) {
+//            rollback();
+//            throw new ServiceException("Error creating bookVO", e);
+//        }
+//    }
 
     @Override
     public List<Book> getAll() {

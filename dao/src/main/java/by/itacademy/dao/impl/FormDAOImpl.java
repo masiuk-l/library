@@ -6,6 +6,7 @@ import by.itacademy.entities.Form;
 import by.itacademy.entities.Librarian;
 import by.itacademy.entities.Reader;
 import lombok.extern.log4j.Log4j;
+import org.hibernate.Session;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -42,22 +43,38 @@ public class FormDAOImpl extends BaseDAOImpl<Form> implements FormDAO {
 
     @Override
     public List<Form> getByBook(Book book) throws SQLException {
-
+        log.info("Get forms by book:" + book);
+        Session session = getSession();
+        javax.persistence.Query query = session.createQuery("from FORM were BOOK_ID = :bookID");
+        query.setParameter("bookID", book.getBookID());
+        return query.getResultList();
     }
 
     @Override
     public List<Form> getByReader(Reader reader) throws SQLException {
-
+        log.info("Get forms by reader:" + reader);
+        Session session = getSession();
+        javax.persistence.Query query = session.createQuery("from FORM were READER_ID = :readerID");
+        query.setParameter("readerID", reader.getReaderID());
+        return query.getResultList();
     }
 
     @Override
     public List<Form> getByLibrarian(Librarian librarian) throws SQLException {
-
+        log.info("Get forms by librarian:" + librarian);
+        Session session = getSession();
+        javax.persistence.Query query = session.createQuery("from FORM were LIBRARIAN_ID = :librarianID");
+        query.setParameter("librarianID", librarian.getLibrarianID());
+        return query.getResultList();
     }
 
     @Override
     public List<Form> getByReceivalType(String receivalType) throws SQLException {
-
+        log.info("Get forms by receivalType:" + receivalType);
+        Session session = getSession();
+        javax.persistence.Query query = session.createQuery("from FORM were RECEIVAL_TYPE = :receivalType");
+        query.setParameter("receivalType", receivalType);
+        return query.getResultList();
     }
 
 }

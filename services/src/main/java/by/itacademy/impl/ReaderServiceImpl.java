@@ -3,15 +3,11 @@ package by.itacademy.impl;
 import by.itacademy.FormService;
 import by.itacademy.ReaderService;
 import by.itacademy.ServiceException;
-import by.itacademy.VO.FormVO;
-import by.itacademy.VO.ReaderVO;
-import by.itacademy.VO.transfer.ReaderTransfer;
 import by.itacademy.dao.FormDAO;
 import by.itacademy.dao.ReaderDAO;
 import by.itacademy.dao.auth.Encoder;
 import by.itacademy.dao.impl.FormDAOImpl;
 import by.itacademy.dao.impl.ReaderDAOImpl;
-import by.itacademy.entities.Form;
 import by.itacademy.entities.Reader;
 
 import java.io.Serializable;
@@ -167,25 +163,25 @@ public class ReaderServiceImpl extends AbstractService implements ReaderService 
         }
     }
 
-    @Override
-    public ReaderVO getReaderVO(Reader reader) {
-        try {
-            startTransaction();
-            ReaderVO readerVO;
-            List<FormVO> formVOS = new ArrayList<>();
-            List<Form> forms = formDAO.getByReader(reader);
-            for (Form form : forms) {
-                FormVO formVO = formService.getFormVO(form);
-                formVOS.add(formVO);
-            }
-            readerVO = ReaderTransfer.toValueObject(reader, formVOS);
-            commit();
-            return readerVO;
-        } catch (SQLException e) {
-            rollback();
-            throw new ServiceException("Error creating ReaderVO", e);
-        }
-    }
+//    @Override
+//    public ReaderVO getReaderVO(Reader reader) {
+//        try {
+//            startTransaction();
+//            ReaderVO readerVO;
+//            List<FormVO> formVOS = new ArrayList<>();
+//            List<Form> forms = formDAO.getByReader(reader);
+//            for (Form form : forms) {
+//                FormVO formVO = formService.getFormVO(form);
+//                formVOS.add(formVO);
+//            }
+//            readerVO = ReaderTransfer.toValueObject(reader, formVOS);
+//            commit();
+//            return readerVO;
+//        } catch (SQLException e) {
+//            rollback();
+//            throw new ServiceException("Error creating ReaderVO", e);
+//        }
+//    }
 
     @Override
     public List<Reader> getAll() {

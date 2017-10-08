@@ -2,7 +2,6 @@ package by.itacademy.dao.impl;
 
 import by.itacademy.dao.BookDAO;
 import by.itacademy.entities.Book;
-import by.itacademy.util.SFUtil;
 import lombok.extern.log4j.Log4j;
 import org.hibernate.Session;
 
@@ -36,9 +35,6 @@ public class BookDAOImpl extends BaseDAOImpl<Book> implements BookDAO {
         return bookDAO;
     }
 
-    public Session getSession() {
-        return SFUtil.getSession();
-    }
 
     @Override
     public List<Book> getByName(String name) throws SQLException {

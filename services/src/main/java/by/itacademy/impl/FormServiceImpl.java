@@ -3,9 +3,6 @@ package by.itacademy.impl;
 import by.itacademy.BookService;
 import by.itacademy.FormService;
 import by.itacademy.ServiceException;
-import by.itacademy.VO.BookVO;
-import by.itacademy.VO.FormVO;
-import by.itacademy.VO.transfer.FormTransfer;
 import by.itacademy.dao.BookDAO;
 import by.itacademy.dao.FormDAO;
 import by.itacademy.dao.LibrarianDAO;
@@ -168,23 +165,23 @@ public class FormServiceImpl extends AbstractService implements FormService {
         }
     }
 
-    @Override
-    public FormVO getFormVO(Form form) {
-        try {
-            startTransaction();
-            FormVO formVO;
-            Reader reader = readerDAO.get(form.getReaderID());
-            Book book = bookDAO.get(form.getBookID());
-            BookVO bookVO = bookService.getBookVO(book);
-            Librarian librarian = librarianDAO.get(form.getLibrarianID());
-            formVO = FormTransfer.toValueObject(form, bookVO, librarian, reader);
-            commit();
-            return formVO;
-        } catch (SQLException e) {
-            rollback();
-            throw new ServiceException("Error creating formVO", e);
-        }
-    }
+//    @Override
+//    public FormVO getFormVO(Form form) {
+//        try {
+//            startTransaction();
+//            FormVO formVO;
+//            Reader reader = readerDAO.get(form.getReaderID());
+//            Book book = bookDAO.get(form.getBookID());
+//            BookVO bookVO = bookService.getBookVO(book);
+//            Librarian librarian = librarianDAO.get(form.getLibrarianID());
+//            formVO = FormTransfer.toValueObject(form, bookVO, librarian, reader);
+//            commit();
+//            return formVO;
+//        } catch (SQLException e) {
+//            rollback();
+//            throw new ServiceException("Error creating formVO", e);
+//        }
+//    }
 
     @Override
     public List<Form> getAll() {
