@@ -4,7 +4,10 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.Set;
 
 
 /**
@@ -13,11 +16,23 @@ import java.time.LocalDate;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Entity
 public class Author {
-    private int authorID;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "AUTHOR_ID")
+    private Integer authorID;
+    @Column(name = "NAME")
     private String name;
+    @Column(name = "SURNAME")
     private String surname;
+    @Column(name = "SECOND_NAME")
     private String secondName;
+    @Column(name = "BIRTHDAY")
     private LocalDate birthday;
+    @Column(name = "COUNTRY")
     private String country;
+
+    @ManyToMany(mappedBy = "authors", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+    private Set<Book> books = new HashSet<>(0);
 }
