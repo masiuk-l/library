@@ -21,7 +21,7 @@ import java.util.List;
  */
 
 @Log4j
-public class ReaderDAOImpl extends AbstractDAO implements ReaderDAO {
+public class ReaderDAOImpl extends DAO implements ReaderDAO {
     private static final String SAVE_READER_QUERY = "INSERT INTO READERS (SURNAME, NAME, SECOND_NAME, PASSWORD, EMAIL, BIRTHDAY, GENDER, STATUS) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
     private static final String UPDATE_READER_QUERY = "UPDATE READERS SET SURNAME=?, NAME=?, SECOND_NAME=?, PASSWORD=?, EMAIL=?, BIRTHDAY=?, GENDER=?, STATUS=? WHERE READER_ID=?";
     private static final String GET_READER_QUERY = "SELECT * FROM READERS WHERE READER_ID=?";
