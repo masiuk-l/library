@@ -2,6 +2,7 @@ package by.itacademy.impl;
 
 import by.itacademy.util.SFUtil;
 import org.hibernate.Session;
+import org.hibernate.Transaction;
 
 import java.sql.SQLException;
 
@@ -11,13 +12,16 @@ import java.sql.SQLException;
  * Transaction util methods
  */
 public abstract class AbstractService {
+    private Transaction transaction;
 
-    public void startTransaction() throws SQLException {
-        getSession().getTransaction().begin();
+    public Transaction startTransaction() throws SQLException {
+        transaction = getSession().getTransaction();
+        transaction.begin();
+        return transaction;
     }
 
     public void commit() throws SQLException {
-        getSession().getTransaction().commit();
+        transaction.commit();
     }
 
     public Session getSession() {
@@ -25,7 +29,7 @@ public abstract class AbstractService {
     }
 
     public void rollback() {
-        getSession().getTransaction().rollback();
+        transaction.rollback();
 
     }
 }

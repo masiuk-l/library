@@ -17,7 +17,7 @@ import java.util.List;
  */
 
 @Log4j
-public abstract class BaseDAOImpl<T> implements DAO<T> {
+public abstract class BaseDAOImpl<T> implements DAO<T> {//todo нормальный вызов сессии
 
 
     public Session getSession() {
@@ -47,20 +47,26 @@ public abstract class BaseDAOImpl<T> implements DAO<T> {
     public int delete(Serializable id) throws SQLException {
         log.info("Delete:" + id);
         Session session = getSession();
-        javax.persistence.Query query = session.createQuery("delete from" + getPersistentClass().getName().toUpperCase() + "where id=:id");
+        javax.persistence.Query query = session.createQuery("delete from " + getClassName(getPersistentClass()) + " where id=:id");
         query.setParameter("id", id);
-        return query.executeUpdate();
+        query.executeUpdate();
+        return 0;
     }
 
     @Override
     public List<T> getAll() throws SQLException {
         log.info("Get all:" + getPersistentClass().getName());
         Session session = getSession();
-        javax.persistence.Query query = session.createQuery("from" + getPersistentClass().getName().toUpperCase());
+        javax.persistence.Query query = session.createQuery("from " + getClassName(getPersistentClass()));
         return query.getResultList();
     }
 
     private Class getPersistentClass() {
         return (Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
+    }
+
+    private String getClassName(Class clazz) {
+        String[] tokens = clazz.getName().split("\\.");
+        return tokens[tokens.length - 1];
     }
 }

@@ -16,6 +16,8 @@ import java.util.Set;
 @EqualsAndHashCode(callSuper = true)
 @AllArgsConstructor
 @NoArgsConstructor
+@Entity
+@Table(name = "LIBRARIAN")
 public class Librarian extends Person {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -23,7 +23,7 @@ public class SearchCatalogController implements Controller {
 
         String name = req.getParameter("name");
         if (name.length() < 3 || name.length() > 30) {
-            req.getSession().setAttribute("bookVOS", null);
+            req.getSession().setAttribute("books", null);
             req.getSession().setAttribute("Msg", "Invalid input");
             RequestDispatcher dispatcher = req.getRequestDispatcher(MAIN_PAGE);
             dispatcher.forward(req, resp);
@@ -31,7 +31,7 @@ public class SearchCatalogController implements Controller {
         } else {
             ArrayList<Book> books = new ArrayList<>(bookService.searchByName(name));
             if (books.isEmpty()) {
-                req.getSession().setAttribute("bookVOS", null);
+                req.getSession().setAttribute("books", null);
                 req.getSession().setAttribute("Msg", "No books match your input");
                 RequestDispatcher dispatcher = req.getRequestDispatcher(MAIN_PAGE);
                 dispatcher.forward(req, resp);

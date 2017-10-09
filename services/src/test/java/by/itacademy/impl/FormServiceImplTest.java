@@ -1,7 +1,10 @@
 package by.itacademy.impl;
 
 import by.itacademy.FormService;
+import by.itacademy.entities.Book;
 import by.itacademy.entities.Form;
+import by.itacademy.entities.Librarian;
+import by.itacademy.entities.Reader;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -21,9 +24,9 @@ public class FormServiceImplTest {
     public void createForm() {
         formService = FormServiceImpl.getInstance();
         form = new Form();
-        form.setBookID(5);
-        form.setReaderID(3);
-        form.setLibrarianID(2);
+        form.setBook(new Book());
+        form.setReader(new Reader());
+        form.setLibrarian(new Librarian());
         form.setReceivalType("Формуляр");
         form.setReceivalDate(LocalDate.now());
         form.setReturnDate(LocalDate.now().plus(14, ChronoUnit.DAYS));

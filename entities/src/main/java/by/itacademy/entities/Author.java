@@ -17,6 +17,7 @@ import java.util.Set;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
+@Table(name = "AUTHOR")
 public class Author {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

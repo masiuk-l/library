@@ -18,6 +18,8 @@ import java.util.Set;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Entity
+@Table(name = "READER")
 public class Reader extends Person {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

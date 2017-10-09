@@ -21,15 +21,16 @@ public class SFUtil {
         // Hibernate settings equivalent to hibernate.cfg.xml's properties
         Map<String, String> settings = new HashMap<>();
         settings.put(Environment.DRIVER, "com.mysql.jdbc.Driver");
-        settings.put(Environment.URL, "jdbc:mysql://localhost:3306/KR");
+        settings.put(Environment.URL, "jdbc:mysql://localhost:3306/KRRRR?createDatabaseIfNotExist=true");
 //        settings.put(Environment.DRIVER, "org.h2.Driver");
 //        settings.put(Environment.URL, "jdbc:h2:mem:connections");
 
         settings.put(Environment.USER, "root");
         settings.put(Environment.PASS, "4242");
-        settings.put(Environment.HBM2DDL_AUTO, "validate");
+        settings.put(Environment.HBM2DDL_AUTO, "create-drop");
         settings.put(Environment.SHOW_SQL, "true");
         settings.put(Environment.STORAGE_ENGINE, "innodb");
+
         // Apply settings
         serviceRegistryBuilder.applySettings(settings);
         // Create registry
@@ -55,4 +56,5 @@ public class SFUtil {
     public static void closeSessionFactory() {
         sessionFactory.close();
     }
+
 }

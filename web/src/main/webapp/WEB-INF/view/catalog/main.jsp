@@ -24,37 +24,37 @@
     </c:if>
     <div class="card-columns">
 
-        <c:forEach var="bookVO" items="${bookVOS}">
+        <c:forEach var="book" items="${books}">
             <div class="card">
                 <div class="card-body">
-                    <h4 class="card-title">${bookVO.book.name}</h4>
+                    <h4 class="card-title">${book.name}</h4>
                     <p class="card-text">
                         <b>
                             <fmt:message bundle="${i18n}" key="catalog.genre"/>:
                         </b>
-                            ${bookVO.book.genre}
+                            ${book.genre}
                     </p>
                 </div>
                 <ul class="list-group list-group-flush">
                     <li class="list-group-item">
                         <b><fmt:message bundle="${i18n}" key="catalog.author"/>: </b>
-                        <c:forEach var="author" items="${bookVO.authors}" varStatus="status">
+                        <c:forEach var="author" items="${authors}" varStatus="status">
                             ${author.name} ${author.surname}
                             <c:if test="${not status.last}">,</c:if>
                         </c:forEach>
                     </li>
                     <li class="list-group-item">
                         <b><fmt:message bundle="${i18n}" key="catalog.year"/>: </b>
-                            ${bookVO.book.year}</li>
+                            ${book.year}</li>
                 </ul>
                 <c:choose>
                     <c:when test="${not empty slibrarian}">
                         <div class="card-body">
-                            <a href="${pageContext.request.contextPath}/frontController?command=editbook&id=${bookVO.book.bookID}"
+                            <a href="${pageContext.request.contextPath}/frontController?command=editbook&id=${book.bookID}"
                                class="btn btn-primary">
                                 <fmt:message bundle="${i18n}" key="cabinet.edit"/>
                             </a>
-                            <a href="${pageContext.request.contextPath}/frontController?command=deletebook&id=${bookVO.book.bookID}"
+                            <a href="${pageContext.request.contextPath}/frontController?command=deletebook&id=${book.bookID}"
                                class="btn btn-danger">
                                 <fmt:message bundle="${i18n}" key="book.delete"/>
                             </a>
@@ -72,7 +72,7 @@
                             </c:when>
                             <c:otherwise>
                                 <div class="card-body">
-                                    <a href="${pageContext.request.contextPath}/frontController?command=book&id=${bookVO.book.bookID}"
+                                    <a href="${pageContext.request.contextPath}/frontController?command=book&id=${book.bookID}"
                                        class="btn btn-primary">
                                         <fmt:message bundle="${i18n}" key="catalog.reserve"/>
                                     </a>
