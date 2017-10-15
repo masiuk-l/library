@@ -34,7 +34,7 @@ public class BookDAOImplTest {
     public void saveAndGetByName() throws Exception {
         bookDAO.save(book);
         Book newBook = bookDAO.getByName("Книга").get(0);
-        Assert.assertTrue(book.equals(newBook));
+        Assert.assertEquals(book.getName(), newBook.getName());
         bookDAO.delete(newBook.getBookID());
     }
 

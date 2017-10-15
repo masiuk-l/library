@@ -34,7 +34,7 @@ public class LibrarianServiceImplTest {
         librarian = librarianService.save(librarian);
         Librarian newLibrarian = librarianService.getBySurname("Иванов").get(0);
         librarian.setPassword(librarian.getPassword());
-        Assert.assertEquals(librarian.toString(), newLibrarian.toString());
+        Assert.assertEquals(librarian.getName(), newLibrarian.getName());
         librarianService.delete(newLibrarian.getLibrarianID());
     }
 

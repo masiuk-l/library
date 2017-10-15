@@ -21,14 +21,38 @@ import java.util.List;
 public class FormDAOImplTest {
     private FormDAO formDAO;
     private Form form;
+    private Book book;
+    private Reader reader;
+    private Librarian librarian;
 
     @Before
     public void createForm() {
         formDAO = FormDAOImpl.getInstance();
         form = new Form();
-        form.setBook(new Book());
-        form.setReader(new Reader());
-        form.setLibrarian(new Librarian());
+        book = new Book();
+        book.setName("Книга");
+        book.setIsbn("03293849310");
+        book.setGenre("Роман");
+        book.setYear(1996);
+        book.setQuantity(42);
+        form.setBook(book);
+        librarian = new Librarian();
+        librarian.setName("Иван");
+        librarian.setSecondName("Иванович");
+        librarian.setSurname("Иванов");
+        librarian.setEmail("ffr@ww");
+        librarian.setPassword("fvfdcsdv");
+        form.setLibrarian(librarian);
+        reader = new Reader();
+        reader.setName("Иван");
+        reader.setSecondName("Иванович");
+        reader.setSurname("Козлов");
+        reader.setBirthday(LocalDate.of(1996, 12, 1));
+        reader.setEmail("ffr@ww");
+        reader.setPassword("fvfdcsdv");
+        reader.setGender("женский");
+        reader.setStatus("");
+        form.setReader(reader);
         form.setReceivalType("Формуляр");
         form.setReceivalDate(LocalDate.now());
         form.setReturnDate(LocalDate.now().plus(14, ChronoUnit.DAYS));

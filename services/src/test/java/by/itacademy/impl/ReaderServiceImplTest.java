@@ -39,7 +39,7 @@ public class ReaderServiceImplTest {
         reader = readerService.save(reader);
         reader.setPassword(Encoder.encode(reader.getPassword()));
         Reader newReader = readerService.getBySurname("Козлов").get(0);
-        Assert.assertEquals(reader.toString(), newReader.toString());
+        Assert.assertEquals(reader.getName(), newReader.getName());
         readerService.delete(reader.getReaderID());
     }
 

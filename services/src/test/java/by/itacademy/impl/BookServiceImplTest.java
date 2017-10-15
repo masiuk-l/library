@@ -33,7 +33,7 @@ public class BookServiceImplTest {
     public void saveAndGetByName() throws Exception {
         bookService.save(book);
         Book newBook = bookService.getByName("Книга").get(0);
-        Assert.assertTrue(book.equals(newBook));
+        Assert.assertEquals(book.getName(), newBook.getName());
         bookService.delete(newBook.getBookID());
     }
 

@@ -35,7 +35,7 @@ public class LibrarianDAOImplTest {
         librarian = librarianDAO.save(librarian);
         Librarian newLibrarian = librarianDAO.getBySurname("Иванов").get(0);
         librarian.setPassword(librarian.getPassword());
-        Assert.assertEquals(librarian.toString(), newLibrarian.toString());
+        Assert.assertEquals(librarian.getName(), newLibrarian.getName());
         librarianDAO.delete(newLibrarian.getLibrarianID());
     }
 

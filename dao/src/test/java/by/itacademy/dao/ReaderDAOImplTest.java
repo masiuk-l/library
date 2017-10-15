@@ -40,7 +40,7 @@ public class ReaderDAOImplTest {
         reader = readerDAO.save(reader);
         reader.setPassword(Encoder.encode(reader.getPassword()));
         Reader newReader = readerDAO.getBySurname("Козлов").get(0);
-        Assert.assertEquals(reader.toString(), newReader.toString());
+        Assert.assertEquals(reader.getName(), newReader.getName());
         readerDAO.delete(reader.getReaderID());
     }
 
