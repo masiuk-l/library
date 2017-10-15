@@ -45,7 +45,7 @@ public class FormDAOImpl extends BaseDAOImpl<Form> implements FormDAO {
     public List<Form> getByBook(Book book) throws SQLException {
         log.info("Get forms by book:" + book);
         Session session = getSession();
-        javax.persistence.Query query = session.createQuery("from FORM were BOOK_ID = :bookID");
+        javax.persistence.Query query = session.createQuery("from Form where BOOK_ID = :bookID");
         query.setParameter("bookID", book.getBookID());
         return query.getResultList();
     }
@@ -54,7 +54,7 @@ public class FormDAOImpl extends BaseDAOImpl<Form> implements FormDAO {
     public List<Form> getByReader(Reader reader) throws SQLException {
         log.info("Get forms by reader:" + reader);
         Session session = getSession();
-        javax.persistence.Query query = session.createQuery("from FORM were READER_ID = :readerID");
+        javax.persistence.Query query = session.createQuery("from Form where READER_ID = :readerID");
         query.setParameter("readerID", reader.getReaderID());
         return query.getResultList();
     }
@@ -63,7 +63,7 @@ public class FormDAOImpl extends BaseDAOImpl<Form> implements FormDAO {
     public List<Form> getByLibrarian(Librarian librarian) throws SQLException {
         log.info("Get forms by librarian:" + librarian);
         Session session = getSession();
-        javax.persistence.Query query = session.createQuery("from FORM were LIBRARIAN_ID = :librarianID");
+        javax.persistence.Query query = session.createQuery("from Form where LIBRARIAN_ID = :librarianID");
         query.setParameter("librarianID", librarian.getLibrarianID());
         return query.getResultList();
     }
@@ -72,7 +72,7 @@ public class FormDAOImpl extends BaseDAOImpl<Form> implements FormDAO {
     public List<Form> getByReceivalType(String receivalType) throws SQLException {
         log.info("Get forms by receivalType:" + receivalType);
         Session session = getSession();
-        javax.persistence.Query query = session.createQuery("from FORM were RECEIVAL_TYPE = :receivalType");
+        javax.persistence.Query query = session.createQuery("from Form where RECEIVAL_TYPE = :receivalType");
         query.setParameter("receivalType", receivalType);
         return query.getResultList();
     }

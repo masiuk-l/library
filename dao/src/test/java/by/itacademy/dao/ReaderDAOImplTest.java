@@ -3,6 +3,8 @@ package by.itacademy.dao;
 import by.itacademy.dao.auth.Encoder;
 import by.itacademy.dao.impl.ReaderDAOImpl;
 import by.itacademy.entities.Reader;
+import by.itacademy.util.HibernateUtil;
+import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -29,6 +31,8 @@ public class ReaderDAOImplTest {
         reader.setPassword("fvfdcsdv");
         reader.setGender("женский");
         reader.setStatus("");
+        HibernateUtil.getEntityManager();
+        HibernateUtil.beginTransaction();
     }
 
     @Test
@@ -61,5 +65,11 @@ public class ReaderDAOImplTest {
         readerDAO.delete(reader.getReaderID());
         readers = readerDAO.getAll();
         Assert.assertEquals(oldSize - 1, readers.size());
+    }
+
+    @After
+    public void tearDown() {
+        HibernateUtil.commit();
+        HibernateUtil.closeEntityManager();
     }
 }

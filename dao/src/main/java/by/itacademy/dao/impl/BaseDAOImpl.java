@@ -1,7 +1,7 @@
 package by.itacademy.dao.impl;
 
 import by.itacademy.dao.DAO;
-import by.itacademy.util.SFUtil;
+import by.itacademy.util.HibernateUtil;
 import lombok.extern.log4j.Log4j;
 import org.hibernate.Session;
 
@@ -17,11 +17,11 @@ import java.util.List;
  */
 
 @Log4j
-public abstract class BaseDAOImpl<T> implements DAO<T> {//todo нормальный вызов сессии
+public abstract class BaseDAOImpl<T> implements DAO<T> {
 
 
     public Session getSession() {
-        return SFUtil.getSession();
+        return HibernateUtil.getEntityManager().unwrap(Session.class);
     }
 
     @Override

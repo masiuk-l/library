@@ -2,6 +2,8 @@ package by.itacademy.dao;
 
 import by.itacademy.dao.impl.AuthorDAOImpl;
 import by.itacademy.entities.Author;
+import by.itacademy.util.HibernateUtil;
+import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -25,6 +27,8 @@ public class AuthorDAOImplTest {
         author.setSurname("Козлов");
         author.setBirthday(LocalDate.of(1996, 12, 1));
         author.setCountry("Россия");
+        HibernateUtil.getEntityManager();
+        HibernateUtil.beginTransaction();
     }
 
     @Test
@@ -38,8 +42,8 @@ public class AuthorDAOImplTest {
 
     @Test
     public void getAndUpdate() throws Exception {
+        author = authorDAO.save(author);
 
-        author = authorDAO.get(1);
         String oldSurname = author.getSurname();
         String newSurname = "Иванова";
         author.setSurname(newSurname);
@@ -48,16 +52,22 @@ public class AuthorDAOImplTest {
         Assert.assertEquals(author.getSurname(), newAuthor.getSurname());
         newAuthor.setSurname(oldSurname);
         authorDAO.update(newAuthor);
+        authorDAO.delete(author.getAuthorID());
     }
 
     @Test
     public void getAllAndDelete() throws Exception {
-
         authorDAO.save(author);
         List<Author> authors = authorDAO.getAll();
         int oldSize = authors.size();
         authorDAO.delete(author.getAuthorID());
         authors = authorDAO.getAll();
         Assert.assertEquals(oldSize - 1, authors.size());
+    }
+
+    @After
+    public void tearDown() {
+        HibernateUtil.commit();
+        HibernateUtil.closeEntityManager();
     }
 }

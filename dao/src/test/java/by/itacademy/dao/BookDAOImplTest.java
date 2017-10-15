@@ -2,6 +2,8 @@ package by.itacademy.dao;
 
 import by.itacademy.dao.impl.BookDAOImpl;
 import by.itacademy.entities.Book;
+import by.itacademy.util.HibernateUtil;
+import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -24,6 +26,8 @@ public class BookDAOImplTest {
         book.setGenre("Роман");
         book.setYear(1996);
         book.setQuantity(42);
+        HibernateUtil.getEntityManager();
+        HibernateUtil.beginTransaction();
     }
 
     @Test
@@ -54,5 +58,11 @@ public class BookDAOImplTest {
         bookDAO.delete(book.getBookID());
         books = bookDAO.getAll();
         Assert.assertEquals(oldSize - 1, books.size());
+    }
+
+    @After
+    public void tearDown() {
+        HibernateUtil.commit();
+        HibernateUtil.closeEntityManager();
     }
 }

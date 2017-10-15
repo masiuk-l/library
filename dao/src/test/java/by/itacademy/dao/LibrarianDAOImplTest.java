@@ -2,6 +2,8 @@ package by.itacademy.dao;
 
 import by.itacademy.dao.impl.LibrarianDAOImpl;
 import by.itacademy.entities.Librarian;
+import by.itacademy.util.HibernateUtil;
+import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -24,6 +26,8 @@ public class LibrarianDAOImplTest {
         librarian.setSurname("Иванов");
         librarian.setEmail("ffr@ww");
         librarian.setPassword("fvfdcsdv");
+        HibernateUtil.getEntityManager();
+        HibernateUtil.beginTransaction();
     }
 
     @Test
@@ -57,6 +61,12 @@ public class LibrarianDAOImplTest {
         librarianDAO.delete(librarian.getLibrarianID());
         librarians = librarianDAO.getAll();
         Assert.assertEquals(oldSize - 1, librarians.size());
+    }
+
+    @After
+    public void tearDown() {
+        HibernateUtil.commit();
+        HibernateUtil.closeEntityManager();
     }
 
 }

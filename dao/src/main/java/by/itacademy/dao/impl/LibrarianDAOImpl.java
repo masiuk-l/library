@@ -39,7 +39,7 @@ public class LibrarianDAOImpl extends BaseDAOImpl<Librarian> implements Libraria
     public List<Librarian> getBySurname(String surname) throws SQLException {
         log.info("Get librarians by surname:" + surname);
         Session session = getSession();
-        javax.persistence.Query query = session.createQuery("from LIBRARIAN were SURNAME = :surname");
+        javax.persistence.Query query = session.createQuery("from Librarian where SURNAME = :surname");
         query.setParameter("surname", surname);
         return query.getResultList();
     }
@@ -48,7 +48,7 @@ public class LibrarianDAOImpl extends BaseDAOImpl<Librarian> implements Libraria
     public List<Librarian> getByLogin(String login) throws SQLException {
         log.info("Get librarians by login:" + login);
         Session session = getSession();
-        javax.persistence.Query query = session.createQuery("from LIBRARIAN were EMAIL = :login");
+        javax.persistence.Query query = session.createQuery("from Librarian where EMAIL = :login");
         query.setParameter("login", login);
         return query.getResultList();
     }

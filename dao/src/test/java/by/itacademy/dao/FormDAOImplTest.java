@@ -5,6 +5,8 @@ import by.itacademy.entities.Book;
 import by.itacademy.entities.Form;
 import by.itacademy.entities.Librarian;
 import by.itacademy.entities.Reader;
+import by.itacademy.util.HibernateUtil;
+import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -30,6 +32,8 @@ public class FormDAOImplTest {
         form.setReceivalType("Формуляр");
         form.setReceivalDate(LocalDate.now());
         form.setReturnDate(LocalDate.now().plus(14, ChronoUnit.DAYS));
+        HibernateUtil.getEntityManager();
+        HibernateUtil.beginTransaction();
     }
 
     @Test
@@ -59,6 +63,12 @@ public class FormDAOImplTest {
         formDAO.delete(form.getFormID());
         forms = formDAO.getAll();
         Assert.assertEquals(oldSize - 1, forms.size());
+    }
+
+    @After
+    public void tearDown() {
+        HibernateUtil.commit();
+        HibernateUtil.closeEntityManager();
     }
 
 }

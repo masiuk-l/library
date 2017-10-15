@@ -4,6 +4,7 @@ import by.itacademy.dao.AuthorDAO;
 import by.itacademy.entities.Author;
 import lombok.extern.log4j.Log4j;
 import org.hibernate.Session;
+import org.hibernate.query.Query;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -41,7 +42,7 @@ public class AuthorDAOImpl extends BaseDAOImpl<Author> implements AuthorDAO {
     public List<Author> getBySurname(String surname) throws SQLException {
         log.info("Get authors by surname:" + surname);
         Session session = getSession();
-        javax.persistence.Query query = session.createQuery("from AUTHOR were SURNAME = :surname");
+        Query query = session.createQuery("from Author a where a.surname = :surname");
         query.setParameter("surname", surname);
         return query.getResultList();
     }
