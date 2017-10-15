@@ -5,6 +5,7 @@ import by.itacademy.ServiceException;
 import by.itacademy.dao.AuthorDAO;
 import by.itacademy.dao.impl.AuthorDAOImpl;
 import by.itacademy.entities.Author;
+import org.hibernate.HibernateException;
 
 import java.io.Serializable;
 import java.sql.SQLException;
@@ -48,7 +49,7 @@ public class AuthorServiceImpl extends AbstractService implements AuthorService 
             } else {
                 throw new ServiceException("Author not defined");
             }
-        } catch (SQLException e) {
+        } catch (HibernateException | SQLException e) {
             rollback();
             throw new ServiceException("Error creating Author", e);
         }
@@ -63,7 +64,7 @@ public class AuthorServiceImpl extends AbstractService implements AuthorService 
             author = authorDAO.get(id);
             commit();
             return author;
-        } catch (SQLException e) {
+        } catch (HibernateException | SQLException e) {
             rollback();
             throw new ServiceException("Error getting Author", e);
         }
@@ -75,7 +76,7 @@ public class AuthorServiceImpl extends AbstractService implements AuthorService 
             startTransaction();
             authorDAO.update(author);
             commit();
-        } catch (SQLException e) {
+        } catch (HibernateException | SQLException e) {
             rollback();
             throw new ServiceException("Error updating Author", e);
         }
@@ -88,7 +89,7 @@ public class AuthorServiceImpl extends AbstractService implements AuthorService 
             int rows = authorDAO.delete(id);
             commit();
             return rows;
-        } catch (SQLException e) {
+        } catch (HibernateException | SQLException e) {
             rollback();
             throw new ServiceException("Error deleting Author", e);
         }
@@ -102,7 +103,7 @@ public class AuthorServiceImpl extends AbstractService implements AuthorService 
             authors = new ArrayList<>(authorDAO.getBySurname(surname));
             commit();
             return authors;
-        } catch (SQLException e) {
+        } catch (HibernateException | SQLException e) {
             rollback();
             throw new ServiceException("Error finding Author", e);
         }
@@ -116,7 +117,7 @@ public class AuthorServiceImpl extends AbstractService implements AuthorService 
             authors = new ArrayList<>(authorDAO.getAll());
             commit();
             return authors;
-        } catch (SQLException e) {
+        } catch (HibernateException | SQLException e) {
             rollback();
             throw new ServiceException("Error finding Author", e);
         }

@@ -6,6 +6,7 @@ import by.itacademy.ServiceException;
 import by.itacademy.dao.LibrarianDAO;
 import by.itacademy.dao.impl.LibrarianDAOImpl;
 import by.itacademy.entities.Librarian;
+import org.hibernate.HibernateException;
 
 import java.io.Serializable;
 import java.sql.SQLException;
@@ -50,7 +51,7 @@ public class LibrarianServiceImpl extends AbstractService implements LibrarianSe
             } else {
                 throw new ServiceException("Librarian not defined");
             }
-        } catch (SQLException e) {
+        } catch (HibernateException | SQLException e) {
             rollback();
             throw new ServiceException("Error creating Librarian", e);
         }
@@ -65,7 +66,7 @@ public class LibrarianServiceImpl extends AbstractService implements LibrarianSe
             librarian = librarianDAO.get(id);
             commit();
             return librarian;
-        } catch (SQLException e) {
+        } catch (HibernateException | SQLException e) {
             rollback();
             throw new ServiceException("Error getting Librarian", e);
         }
@@ -77,7 +78,7 @@ public class LibrarianServiceImpl extends AbstractService implements LibrarianSe
             startTransaction();
             librarianDAO.update(librarian);
             commit();
-        } catch (SQLException e) {
+        } catch (HibernateException | SQLException e) {
             rollback();
             throw new ServiceException("Error updating Librarian", e);
         }
@@ -90,7 +91,7 @@ public class LibrarianServiceImpl extends AbstractService implements LibrarianSe
             int rows = librarianDAO.delete(id);
             commit();
             return rows;
-        } catch (SQLException e) {
+        } catch (HibernateException | SQLException e) {
             rollback();
             throw new ServiceException("Error deleting Librarian", e);
         }
@@ -104,7 +105,7 @@ public class LibrarianServiceImpl extends AbstractService implements LibrarianSe
             librarians = new ArrayList<>(librarianDAO.getBySurname(surname));
             commit();
             return librarians;
-        } catch (SQLException e) {
+        } catch (HibernateException | SQLException e) {
             rollback();
             throw new ServiceException("Error finding Librarian", e);
         }
@@ -120,7 +121,7 @@ public class LibrarianServiceImpl extends AbstractService implements LibrarianSe
                 throw new ServiceException("Multiple login Error");
             commit();
             return librarians.get(0);
-        } catch (SQLException e) {
+        } catch (HibernateException | SQLException e) {
             rollback();
             throw new ServiceException("Error finding Librarian", e);
         }
@@ -134,7 +135,7 @@ public class LibrarianServiceImpl extends AbstractService implements LibrarianSe
             librarians = new ArrayList<>(librarianDAO.getAll());
             commit();
             return librarians;
-        } catch (SQLException e) {
+        } catch (HibernateException | SQLException e) {
             rollback();
             throw new ServiceException("Error finding Librarian", e);
         }

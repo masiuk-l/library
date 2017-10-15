@@ -3,6 +3,8 @@ package by.itacademy.impl;
 import by.itacademy.ReaderService;
 import by.itacademy.dao.auth.Encoder;
 import by.itacademy.entities.Reader;
+import by.itacademy.util.HibernateUtil;
+import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -29,6 +31,7 @@ public class ReaderServiceImplTest {
         reader.setPassword("fvfdcsdv");
         reader.setGender("женский");
         reader.setStatus("");
+        HibernateUtil.getEntityManager();
     }
 
     @Test
@@ -61,6 +64,11 @@ public class ReaderServiceImplTest {
         readerService.delete(reader.getReaderID());
         readers = readerService.getAll();
         Assert.assertEquals(oldSize - 1, readers.size());
+    }
+
+    @After
+    public void tearDown() {
+        HibernateUtil.closeEntityManager();
     }
 
 }

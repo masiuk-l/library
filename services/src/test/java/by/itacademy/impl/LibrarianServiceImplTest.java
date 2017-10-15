@@ -2,6 +2,8 @@ package by.itacademy.impl;
 
 import by.itacademy.LibrarianService;
 import by.itacademy.entities.Librarian;
+import by.itacademy.util.HibernateUtil;
+import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -24,6 +26,7 @@ public class LibrarianServiceImplTest {
         librarian.setSurname("Иванов");
         librarian.setEmail("ffr@ww");
         librarian.setPassword("fvfdcsdv");
+        HibernateUtil.getEntityManager();
     }
 
     @Test
@@ -58,5 +61,8 @@ public class LibrarianServiceImplTest {
         Assert.assertEquals(oldSize - 1, librarians.size());
     }
 
-
+    @After
+    public void tearDown() {
+        HibernateUtil.closeEntityManager();
+    }
 }

@@ -9,6 +9,7 @@ import by.itacademy.dao.auth.Encoder;
 import by.itacademy.dao.impl.FormDAOImpl;
 import by.itacademy.dao.impl.ReaderDAOImpl;
 import by.itacademy.entities.Reader;
+import org.hibernate.HibernateException;
 
 import java.io.Serializable;
 import java.sql.SQLException;
@@ -56,7 +57,7 @@ public class ReaderServiceImpl extends AbstractService implements ReaderService 
             } else {
                 throw new ServiceException("Reader not defined");
             }
-        } catch (SQLException e) {
+        } catch (HibernateException | SQLException e) {
             rollback();
             throw new ServiceException("Error creating Reader", e);
         }
@@ -71,7 +72,7 @@ public class ReaderServiceImpl extends AbstractService implements ReaderService 
             reader = readerDAO.get(id);
             commit();
             return reader;
-        } catch (SQLException e) {
+        } catch (HibernateException | SQLException e) {
             rollback();
             throw new ServiceException("Error getting Reader", e);
         }
@@ -83,7 +84,7 @@ public class ReaderServiceImpl extends AbstractService implements ReaderService 
             startTransaction();
             readerDAO.update(reader);
             commit();
-        } catch (SQLException e) {
+        } catch (HibernateException | SQLException e) {
             rollback();
             throw new ServiceException("Error updating Reader", e);
         }
@@ -111,7 +112,7 @@ public class ReaderServiceImpl extends AbstractService implements ReaderService 
             int rows = readerDAO.delete(id);
             commit();
             return rows;
-        } catch (SQLException e) {
+        } catch (HibernateException | SQLException e) {
             rollback();
             throw new ServiceException("Error deleting Reader", e);
         }
@@ -125,7 +126,7 @@ public class ReaderServiceImpl extends AbstractService implements ReaderService 
             readers = new ArrayList<>(readerDAO.getBySurname(surname));
             commit();
             return readers;
-        } catch (SQLException e) {
+        } catch (HibernateException | SQLException e) {
             rollback();
             throw new ServiceException("Error finding Reader", e);
         }
@@ -139,7 +140,7 @@ public class ReaderServiceImpl extends AbstractService implements ReaderService 
             readers = new ArrayList<>(readerDAO.getByStatus(status));
             commit();
             return readers;
-        } catch (SQLException e) {
+        } catch (HibernateException | SQLException e) {
             rollback();
             throw new ServiceException("Error finding Reader", e);
         }
@@ -157,7 +158,7 @@ public class ReaderServiceImpl extends AbstractService implements ReaderService 
             if (readers.isEmpty())
                 return null;
             return readers.get(0);
-        } catch (SQLException e) {
+        } catch (HibernateException | SQLException e) {
             rollback();
             throw new ServiceException("Error finding Reader", e);
         }
@@ -177,7 +178,7 @@ public class ReaderServiceImpl extends AbstractService implements ReaderService 
 //            readerVO = ReaderTransfer.toValueObject(reader, formVOS);
 //            commit();
 //            return readerVO;
-//        } catch (SQLException e) {
+//        } catch (HibernateException | SQLException e) {
 //            rollback();
 //            throw new ServiceException("Error creating ReaderVO", e);
 //        }
@@ -191,7 +192,7 @@ public class ReaderServiceImpl extends AbstractService implements ReaderService 
             readers = new ArrayList<>(readerDAO.getAll());
             commit();
             return readers;
-        } catch (SQLException e) {
+        } catch (HibernateException | SQLException e) {
             rollback();
             throw new ServiceException("Error finding Reader", e);
         }

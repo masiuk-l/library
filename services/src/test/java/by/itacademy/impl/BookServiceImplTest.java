@@ -2,6 +2,8 @@ package by.itacademy.impl;
 
 import by.itacademy.BookService;
 import by.itacademy.entities.Book;
+import by.itacademy.util.HibernateUtil;
+import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -24,6 +26,7 @@ public class BookServiceImplTest {
         book.setGenre("Роман");
         book.setYear(1996);
         book.setQuantity(42);
+        HibernateUtil.getEntityManager();
     }
 
     @Test
@@ -54,6 +57,11 @@ public class BookServiceImplTest {
         bookService.delete(book.getBookID());
         books = bookService.getAll();
         Assert.assertEquals(oldSize - 1, books.size());
+    }
+
+    @After
+    public void tearDown() {
+        HibernateUtil.closeEntityManager();
     }
 
 }

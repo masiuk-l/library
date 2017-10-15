@@ -11,6 +11,7 @@ import by.itacademy.dao.impl.BookDAOImpl;
 import by.itacademy.dao.impl.FormDAOImpl;
 import by.itacademy.dao.impl.ReaderDAOImpl;
 import by.itacademy.entities.Book;
+import org.hibernate.HibernateException;
 
 import java.io.Serializable;
 import java.sql.SQLException;
@@ -58,7 +59,7 @@ public class BookServiceImpl extends AbstractService implements BookService {
             } else {
                 throw new ServiceException("Book not defined");
             }
-        } catch (SQLException e) {
+        } catch (HibernateException | SQLException e) {
             rollback();
             throw new ServiceException("Error creating Book", e);
         }
@@ -73,7 +74,7 @@ public class BookServiceImpl extends AbstractService implements BookService {
             book = bookDAO.get(id);
             commit();
             return book;
-        } catch (SQLException e) {
+        } catch (HibernateException | SQLException e) {
             rollback();
             throw new ServiceException("Error getting Book", e);
         }
@@ -85,7 +86,7 @@ public class BookServiceImpl extends AbstractService implements BookService {
             startTransaction();
             bookDAO.update(book);
             commit();
-        } catch (SQLException e) {
+        } catch (HibernateException | SQLException e) {
             rollback();
             throw new ServiceException("Error updating Book", e);
         }
@@ -111,7 +112,7 @@ public class BookServiceImpl extends AbstractService implements BookService {
             int rows = bookDAO.delete(id);
             commit();
             return rows;
-        } catch (SQLException e) {
+        } catch (HibernateException | SQLException e) {
             rollback();
             throw new ServiceException("Error deleting Book", e);
         }
@@ -125,7 +126,7 @@ public class BookServiceImpl extends AbstractService implements BookService {
             books = new ArrayList<>(bookDAO.getByName(name));
             commit();
             return books;
-        } catch (SQLException e) {
+        } catch (HibernateException | SQLException e) {
             rollback();
             throw new ServiceException("Error finding Book", e);
         }
@@ -144,7 +145,7 @@ public class BookServiceImpl extends AbstractService implements BookService {
             }
             commit();
             return books;
-        } catch (SQLException e) {
+        } catch (HibernateException | SQLException e) {
             rollback();
             throw new ServiceException("Error finding Book", e);
         }
@@ -158,7 +159,7 @@ public class BookServiceImpl extends AbstractService implements BookService {
             books = new ArrayList<>(bookDAO.getByIsbn(isbn));
             commit();
             return books;
-        } catch (SQLException e) {
+        } catch (HibernateException | SQLException e) {
             rollback();
             throw new ServiceException("Error finding Book", e);
         }
@@ -172,7 +173,7 @@ public class BookServiceImpl extends AbstractService implements BookService {
             books = new ArrayList<>(bookDAO.getByGenre(genre));
             commit();
             return books;
-        } catch (SQLException e) {
+        } catch (HibernateException | SQLException e) {
             rollback();
             throw new ServiceException("Error finding Book", e);
         }
@@ -197,7 +198,7 @@ public class BookServiceImpl extends AbstractService implements BookService {
 //            BookVO bookVO = BookTransfer.toValueObject(book, readers, authors);
 //            commit();
 //            return bookVO;
-//        } catch (SQLException e) {
+//        } catch (HibernateException | SQLException e) {
 //            rollback();
 //            throw new ServiceException("Error creating bookVO", e);
 //        }
@@ -211,7 +212,7 @@ public class BookServiceImpl extends AbstractService implements BookService {
             books = new ArrayList<>(bookDAO.getAll());
             commit();
             return books;
-        } catch (SQLException e) {
+        } catch (HibernateException | SQLException e) {
             rollback();
             throw new ServiceException("Error finding Book", e);
         }

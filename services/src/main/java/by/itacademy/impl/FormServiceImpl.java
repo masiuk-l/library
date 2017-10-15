@@ -15,6 +15,7 @@ import by.itacademy.entities.Book;
 import by.itacademy.entities.Form;
 import by.itacademy.entities.Librarian;
 import by.itacademy.entities.Reader;
+import org.hibernate.HibernateException;
 
 import java.io.Serializable;
 import java.sql.SQLException;
@@ -63,7 +64,7 @@ public class FormServiceImpl extends AbstractService implements FormService {
             } else {
                 throw new ServiceException("Form not defined");
             }
-        } catch (SQLException e) {
+        } catch (HibernateException | SQLException e) {
             rollback();
             throw new ServiceException("Error creating Form", e);
         }
@@ -78,7 +79,7 @@ public class FormServiceImpl extends AbstractService implements FormService {
             form = formDAO.get(id);
             commit();
             return form;
-        } catch (SQLException e) {
+        } catch (HibernateException | SQLException e) {
             rollback();
             throw new ServiceException("Error getting Form", e);
         }
@@ -90,7 +91,7 @@ public class FormServiceImpl extends AbstractService implements FormService {
             startTransaction();
             formDAO.update(form);
             commit();
-        } catch (SQLException e) {
+        } catch (HibernateException | SQLException e) {
             rollback();
             throw new ServiceException("Error updating Form", e);
         }
@@ -103,7 +104,7 @@ public class FormServiceImpl extends AbstractService implements FormService {
             int rows = formDAO.delete(id);
             commit();
             return rows;
-        } catch (SQLException e) {
+        } catch (HibernateException | SQLException e) {
             rollback();
             throw new ServiceException("Error deleting Form", e);
         }
@@ -117,7 +118,7 @@ public class FormServiceImpl extends AbstractService implements FormService {
             forms = new ArrayList<>(formDAO.getByReader(reader));
             commit();
             return forms;
-        } catch (SQLException e) {
+        } catch (HibernateException | SQLException e) {
             rollback();
             throw new ServiceException("Error finding Form", e);
         }
@@ -131,7 +132,7 @@ public class FormServiceImpl extends AbstractService implements FormService {
             forms = new ArrayList<>(formDAO.getByLibrarian(librarian));
             commit();
             return forms;
-        } catch (SQLException e) {
+        } catch (HibernateException | SQLException e) {
             rollback();
             throw new ServiceException("Error finding Form", e);
         }
@@ -145,7 +146,7 @@ public class FormServiceImpl extends AbstractService implements FormService {
             forms = new ArrayList<>(formDAO.getByBook(book));
             commit();
             return forms;
-        } catch (SQLException e) {
+        } catch (HibernateException | SQLException e) {
             rollback();
             throw new ServiceException("Error finding Form", e);
         }
@@ -159,7 +160,7 @@ public class FormServiceImpl extends AbstractService implements FormService {
             forms = new ArrayList<>(formDAO.getByReceivalType(receivalType));
             commit();
             return forms;
-        } catch (SQLException e) {
+        } catch (HibernateException | SQLException e) {
             rollback();
             throw new ServiceException("Error finding Form", e);
         }
@@ -177,7 +178,7 @@ public class FormServiceImpl extends AbstractService implements FormService {
 //            formVO = FormTransfer.toValueObject(form, bookVO, librarian, reader);
 //            commit();
 //            return formVO;
-//        } catch (SQLException e) {
+//        } catch (HibernateException | SQLException e) {
 //            rollback();
 //            throw new ServiceException("Error creating formVO", e);
 //        }
@@ -191,7 +192,7 @@ public class FormServiceImpl extends AbstractService implements FormService {
             forms = new ArrayList<>(formDAO.getAll());
             commit();
             return forms;
-        } catch (SQLException e) {
+        } catch (HibernateException | SQLException e) {
             rollback();
             throw new ServiceException("Error finding Form", e);
         }

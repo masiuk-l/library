@@ -1,8 +1,7 @@
 package by.itacademy.impl;
 
-import by.itacademy.util.SFUtil;
+import by.itacademy.util.HibernateUtil;
 import org.hibernate.Session;
-import org.hibernate.Transaction;
 
 import java.sql.SQLException;
 
@@ -12,24 +11,21 @@ import java.sql.SQLException;
  * Transaction util methods
  */
 public abstract class AbstractService {
-    private Transaction transaction;
 
-    public Transaction startTransaction() throws SQLException {
-        transaction = getSession().getTransaction();
-        transaction.begin();
-        return transaction;
+    public void startTransaction() {
+        HibernateUtil.beginTransaction();
     }
 
     public void commit() throws SQLException {
-        transaction.commit();
+        HibernateUtil.commit();
     }
 
     public Session getSession() {
-        return SFUtil.getCurrentSession();
+        return HibernateUtil.getEntityManager().unwrap(Session.class);
     }
 
     public void rollback() {
-        transaction.rollback();
+        HibernateUtil.rollback();
 
     }
 }

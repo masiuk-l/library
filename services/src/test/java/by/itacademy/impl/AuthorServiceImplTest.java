@@ -2,6 +2,8 @@ package by.itacademy.impl;
 
 import by.itacademy.AuthorService;
 import by.itacademy.entities.Author;
+import by.itacademy.util.HibernateUtil;
+import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -25,6 +27,7 @@ public class AuthorServiceImplTest {
         author.setSurname("Козлов");
         author.setBirthday(LocalDate.of(1996, 12, 1));
         author.setCountry("Россия");
+        HibernateUtil.getEntityManager();
     }
 
     @Test
@@ -38,8 +41,7 @@ public class AuthorServiceImplTest {
 
     @Test
     public void getAndUpdate() throws Exception {
-
-        author = authorService.get(1);
+        author = authorService.save(author);
         String oldSurname = author.getSurname();
         String newSurname = "Иванова";
         author.setSurname(newSurname);
@@ -48,6 +50,7 @@ public class AuthorServiceImplTest {
         Assert.assertEquals(author.getSurname(), newAuthor.getSurname());
         newAuthor.setSurname(oldSurname);
         authorService.update(newAuthor);
+        authorService.delete(author.getAuthorID());
     }
 
     @Test
@@ -59,6 +62,11 @@ public class AuthorServiceImplTest {
         authorService.delete(author.getAuthorID());
         authors = authorService.getAll();
         Assert.assertEquals(oldSize - 1, authors.size());
+    }
+
+    @After
+    public void tearDown() {
+        HibernateUtil.closeEntityManager();
     }
 
 }
