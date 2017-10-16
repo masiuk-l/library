@@ -1,7 +1,7 @@
-package by.itacademy.dao;
+package by.itacademy.dao.impl;
 
+import by.itacademy.dao.ReaderDAO;
 import by.itacademy.dao.auth.Encoder;
-import by.itacademy.dao.impl.ReaderDAOImpl;
 import by.itacademy.entities.Reader;
 import by.itacademy.util.HibernateUtil;
 import org.junit.After;

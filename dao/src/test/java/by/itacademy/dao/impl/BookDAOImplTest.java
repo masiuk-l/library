@@ -1,6 +1,6 @@
-package by.itacademy.dao;
+package by.itacademy.dao.impl;
 
-import by.itacademy.dao.impl.BookDAOImpl;
+import by.itacademy.dao.BookDAO;
 import by.itacademy.entities.Book;
 import by.itacademy.util.HibernateUtil;
 import org.junit.After;

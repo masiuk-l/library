@@ -1,6 +1,6 @@
-package by.itacademy.dao;
+package by.itacademy.dao.impl;
 
-import by.itacademy.dao.impl.FormDAOImpl;
+import by.itacademy.dao.FormDAO;
 import by.itacademy.entities.Book;
 import by.itacademy.entities.Form;
 import by.itacademy.entities.Librarian;
