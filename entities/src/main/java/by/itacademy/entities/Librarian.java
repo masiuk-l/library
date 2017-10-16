@@ -24,7 +24,31 @@ public class Librarian extends Person {
     @Column(name = "LIBRARIAN_ID")
     private Integer librarianID;
 
-    @OneToMany(mappedBy = "librarian", cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "librarian", cascade = CascadeType.ALL)
     private Set<Form> forms = new HashSet<>(0);
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+
+        Librarian librarian = (Librarian) o;
+
+        return librarianID != null ? librarianID.equals(librarian.librarianID) : librarian.librarianID == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = super.hashCode();
+        result = 31 * result + (librarianID != null ? librarianID.hashCode() : 0);
+        return result;
+    }
+
+    @Override
+    public String toString() {
+        return "Librarian{" +
+                "librarianID=" + librarianID +
+                '}';
+    }
 }

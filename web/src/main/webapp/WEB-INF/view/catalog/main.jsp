@@ -38,7 +38,7 @@
                 <ul class="list-group list-group-flush">
                     <li class="list-group-item">
                         <b><fmt:message bundle="${i18n}" key="catalog.author"/>: </b>
-                        <c:forEach var="author" items="${authors}" varStatus="status">
+                        <c:forEach var="author" items="${book.authors}" varStatus="status">
                             ${author.name} ${author.surname}
                             <c:if test="${not status.last}">,</c:if>
                         </c:forEach>
