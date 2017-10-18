@@ -22,12 +22,6 @@
                       value="jdbc:mysql://localhost:3306/kr"/>
             <property name="javax.persistence.jdbc.user" value="root"/>
             <property name="javax.persistence.jdbc.password" value="4242"/>
-            <property name="hibernate.cache.region.factory_class"
-                      value="org.hibernate.cache.ehcache.EhCacheRegionFactory"/>
-            <property name="hibernate.cache.use_second_level_cache" value="true"/>
-            <property name="hibernate.cache.use_query_cache"
-                      value="true"/>
-            <property name="net.sf.ehcache.configurationResourceName" value="ehcache.xml"/>
         </properties>
     </persistence-unit>
 </persistence>
