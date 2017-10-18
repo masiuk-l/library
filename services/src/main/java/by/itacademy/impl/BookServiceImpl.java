@@ -179,30 +179,6 @@ public class BookServiceImpl extends AbstractService implements BookService {
         }
     }
 
-//    @Override
-//    public BookVO getBookVO(Book book) {
-//        try {
-//            startTransaction();
-//            List<BookAuthor> bookAuthors = new ArrayList<>(bookAuthorDAO.getByBookID(book));
-//            List<Author> authors = new ArrayList<>();
-//            for (BookAuthor bookAuthor : bookAuthors) {
-//                Author author = authorDAO.get(bookAuthor.getAuthorID());
-//                authors.add(author);
-//            }
-//            List<Form> forms = formDAO.getByBook(book);
-//            List<Reader> readers = new ArrayList<>();
-//            for (Form form : forms) {
-//                Reader reader = readerDAO.get(form.getReaderID());
-//                readers.add(reader);
-//            }
-//            BookVO bookVO = BookTransfer.toValueObject(book, readers, authors);
-//            commit();
-//            return bookVO;
-//        } catch (HibernateException | SQLException e) {
-//            rollback();
-//            throw new ServiceException("Error creating bookVO", e);
-//        }
-//    }
 
     @Override
     public List<Book> getAll() {
@@ -218,4 +194,17 @@ public class BookServiceImpl extends AbstractService implements BookService {
         }
     }
 
+    @Override
+    public List<Book> getCatalogPage(int pageNumber, int size) {
+        ArrayList<Book> books;
+        try {
+            startTransaction();
+            books = new ArrayList<>(bookDAO.getCatalogPage(pageNumber, size));
+            commit();
+            return books;
+        } catch (HibernateException | SQLException e) {
+            rollback();
+            throw new ServiceException("Error finding Book", e);
+        }
+    }
 }

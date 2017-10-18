@@ -31,4 +31,8 @@ public interface BookDAO extends DAO<Book> {
      */
     List<Book> getByGenre(String genre) throws SQLException;
 
+    List<Book> getCatalogPage(int pageNumber, int size) throws SQLException;
+
+
+
 }

@@ -39,9 +39,5 @@ public interface BookService extends Service<Book> {
      */
     List<Book> searchByName(String name);
 
-    /**
-     * @param book book
-     * @return Value object of the book
-     */
-//    BookVO getBookVO(Book book);
+    List<Book> getCatalogPage(int pageNumber, int size);
 }

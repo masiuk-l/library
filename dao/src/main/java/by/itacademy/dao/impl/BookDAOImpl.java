@@ -63,6 +63,14 @@ public class BookDAOImpl extends BaseDAOImpl<Book> implements BookDAO {
         return query.getResultList();
     }
 
-
+    @Override
+    public List<Book> getCatalogPage(int pageNumber, int size) throws SQLException {
+        log.info("Get catalog page:" + pageNumber);
+        Session session = getSession();
+        javax.persistence.Query query = session.createQuery("from Book");
+        query.setFirstResult(size * (pageNumber - 1));
+        query.setMaxResults(size);
+        return query.getResultList();
+    }
 }
 

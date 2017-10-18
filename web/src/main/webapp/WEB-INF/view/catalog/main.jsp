@@ -22,7 +22,7 @@
             </c:otherwise>
         </c:choose>
     </c:if>
-    <div class="card-columns">
+    <div class="card-deck">
 
         <c:forEach var="book" items="${books}">
             <div class="card">
@@ -86,4 +86,22 @@
             </div>
         </c:forEach>
     </div>
+    <nav>
+        <ul class="pagination justify-content-center">
+            <c:forEach var="page" begin="1" end="${pageCount}">
+                <c:choose>
+                    <c:when test="${page eq pageNumber}">
+                        <li class="page-item active"><a class="page-link"
+                                                        href="${pageContext.request.contextPath}/frontController?command=catalog&page=${page}&pageSize=3">${page}</a>
+                        </li>
+                    </c:when>
+                    <c:otherwise>
+                        <li class="page-item"><a class="page-link"
+                                                 href="${pageContext.request.contextPath}/frontController?command=catalog&page=${page}&pageSize=3">${page}</a>
+                        </li>
+                    </c:otherwise>
+                </c:choose>
+            </c:forEach>
+        </ul>
+    </nav>
 </div>
