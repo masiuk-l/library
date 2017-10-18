@@ -27,7 +27,7 @@ public class AuthorServiceImplTest {
         author.setSurname("Козлов");
         author.setBirthday(LocalDate.of(1996, 12, 1));
         author.setCountry("Россия");
-        HibernateUtil.getEntityManager();
+        HibernateUtil.getEntityManager("by.itacademy.test");
     }
 
     @Test

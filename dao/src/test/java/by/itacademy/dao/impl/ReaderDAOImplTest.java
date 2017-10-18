@@ -31,7 +31,7 @@ public class ReaderDAOImplTest {
         reader.setPassword("fvfdcsdv");
         reader.setGender("женский");
         reader.setStatus("");
-        HibernateUtil.getEntityManager();
+        HibernateUtil.getEntityManager("by.itacademy.test");
         HibernateUtil.beginTransaction();
     }
 

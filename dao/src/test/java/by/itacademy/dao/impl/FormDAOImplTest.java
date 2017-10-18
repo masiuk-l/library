@@ -56,7 +56,7 @@ public class FormDAOImplTest {
         form.setReceivalType("Формуляр");
         form.setReceivalDate(LocalDate.now());
         form.setReturnDate(LocalDate.now().plus(14, ChronoUnit.DAYS));
-        HibernateUtil.getEntityManager();
+        HibernateUtil.getEntityManager("by.itacademy.test");
         HibernateUtil.beginTransaction();
     }
 

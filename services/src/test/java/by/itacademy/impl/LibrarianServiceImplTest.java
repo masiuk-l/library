@@ -26,7 +26,7 @@ public class LibrarianServiceImplTest {
         librarian.setSurname("Иванов");
         librarian.setEmail("ffr@ww");
         librarian.setPassword("fvfdcsdv");
-        HibernateUtil.getEntityManager();
+        HibernateUtil.getEntityManager("by.itacademy.test");
     }
 
     @Test

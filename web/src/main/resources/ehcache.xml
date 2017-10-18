@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ehcache>
+    <defaultCache maxEntriesLocalHeap="20" eternal="false"
+                  timeToIdleSeconds="120" timeToLiveSeconds="200" memoryStoreEvictionPolicy="LRU"/>
+    <cache name="by.itacademy.entities.Reader"
+           maxEntriesLocalHeap="6" eternal="true">
+    </cache>
+    <cache name="by.itacademy.entities.Librarian"
+           maxEntriesLocalHeap="6" eternal="true">
+    </cache>
+    <cache name="by.itacademy.entities.Book"
+           maxEntriesLocalHeap="6" eternal="true">
+    </cache>
+    <cache name="by.itacademy.entities.Form"
+           maxEntriesLocalHeap="6" eternal="true">
+    </cache>
+    <cache name="by.itacademy.entities.Reader"
+           maxEntriesLocalHeap="6" eternal="true">
+    </cache>
+    <cache name="by.itacademy.entities.Author"
+           maxEntriesLocalHeap="6" eternal="true">
+    </cache>
+
+    <cache name="org.hibernate.cache.StandardQueryCache" maxEntriesLocalHeap="5" eternal="false"
+           timeToLiveSeconds="120">
+        <persistence
+                strategy="localTempSwap"/>
+    </cache>
+</ehcache>

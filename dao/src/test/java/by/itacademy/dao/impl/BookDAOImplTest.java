@@ -26,7 +26,7 @@ public class BookDAOImplTest {
         book.setGenre("Роман");
         book.setYear(1996);
         book.setQuantity(42);
-        HibernateUtil.getEntityManager();
+        HibernateUtil.getEntityManager("by.itacademy.test");
         HibernateUtil.beginTransaction();
     }
 

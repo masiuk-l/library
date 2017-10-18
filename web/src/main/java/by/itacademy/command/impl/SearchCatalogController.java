@@ -32,17 +32,17 @@ public class SearchCatalogController implements Controller {
             ArrayList<Book> books = new ArrayList<>(bookService.searchByName(name));
             if (books.isEmpty()) {
                 req.getSession().setAttribute("books", null);
+                req.getSession().setAttribute("pageCount", null);
                 req.getSession().setAttribute("Msg", "No books match your input");
                 RequestDispatcher dispatcher = req.getRequestDispatcher(MAIN_PAGE);
                 dispatcher.forward(req, resp);
-                return;
             } else {
-
                 req.getSession().setAttribute("books", books);
+                int pageCount = (int) Math.ceil(books.size() / (double) 3);//todo заменить на количество страниц в настройках
+                req.getSession().setAttribute("pageCount", pageCount);
                 req.getSession().setAttribute("Msg", "");
                 RequestDispatcher dispatcher = req.getRequestDispatcher(MAIN_PAGE);
                 dispatcher.forward(req, resp);
-                return;
             }
 
         }
