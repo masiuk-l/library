@@ -72,5 +72,6 @@ public class BookDAOImpl extends BaseDAOImpl<Book> implements BookDAO {
         query.setMaxResults(size);
         return query.getResultList();
     }
+
 }
 

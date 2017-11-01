@@ -207,4 +207,5 @@ public class BookServiceImpl extends AbstractService implements BookService {
             throw new ServiceException("Error finding Book", e);
         }
     }
+
 }

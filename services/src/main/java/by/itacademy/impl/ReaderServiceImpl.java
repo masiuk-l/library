@@ -164,25 +164,6 @@ public class ReaderServiceImpl extends AbstractService implements ReaderService 
         }
     }
 
-//    @Override
-//    public ReaderVO getReaderVO(Reader reader) {
-//        try {
-//            startTransaction();
-//            ReaderVO readerVO;
-//            List<FormVO> formVOS = new ArrayList<>();
-//            List<Form> forms = formDAO.getByReader(reader);
-//            for (Form form : forms) {
-//                FormVO formVO = formService.getFormVO(form);
-//                formVOS.add(formVO);
-//            }
-//            readerVO = ReaderTransfer.toValueObject(reader, formVOS);
-//            commit();
-//            return readerVO;
-//        } catch (HibernateException | SQLException e) {
-//            rollback();
-//            throw new ServiceException("Error creating ReaderVO", e);
-//        }
-//    }
 
     @Override
     public List<Reader> getAll() {

@@ -27,12 +27,6 @@ public interface ReaderService extends Service<Reader> {
     List<Reader> getByStatus(String status);
 
     /**
-     * @param reader reader
-     * @return Value object of the reader
-     */
-//    ReaderVO getReaderVO(Reader reader);
-
-    /**
      * @param oldReader initial reader
      * @param newReader updated info
      */

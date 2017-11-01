@@ -59,6 +59,7 @@ public class BookServiceImplTest {
         Assert.assertEquals(oldSize - 1, books.size());
     }
 
+
     @After
     public void tearDown() {
         HibernateUtil.closeEntityManager();

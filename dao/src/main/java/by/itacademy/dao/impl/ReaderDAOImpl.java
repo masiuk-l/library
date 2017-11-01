@@ -65,5 +65,6 @@ public class ReaderDAOImpl extends BaseDAOImpl<Reader> implements ReaderDAO {
 
     }
 
+
 }
 

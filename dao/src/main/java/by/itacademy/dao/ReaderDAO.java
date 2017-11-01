@@ -31,4 +31,5 @@ public interface ReaderDAO extends DAO<Reader> {
      */
     List<Reader> getByStatus(String status) throws SQLException;
 
+
 }

@@ -21,29 +21,26 @@ import java.util.List;
 public class FormServiceImplTest {
     private FormService formService;
     private Form form;
-    private Book book;
-    private Librarian librarian;
-    private Reader reader;
 
     @Before
     public void createForm() {
         formService = FormServiceImpl.getInstance();
         form = new Form();
-        book = new Book();
+        Book book = new Book();
         book.setName("Книга");
         book.setIsbn("03293849310");
         book.setGenre("Роман");
         book.setYear(1996);
         book.setQuantity(42);
         form.setBook(book);
-        librarian = new Librarian();
+        Librarian librarian = new Librarian();
         librarian.setName("Иван");
         librarian.setSecondName("Иванович");
         librarian.setSurname("Иванов");
         librarian.setEmail("ffr@ww");
         librarian.setPassword("fvfdcsdv");
         form.setLibrarian(librarian);
-        reader = new Reader();
+        Reader reader = new Reader();
         reader.setName("Иван");
         reader.setSecondName("Иванович");
         reader.setSurname("Козлов");
@@ -87,6 +84,7 @@ public class FormServiceImplTest {
         forms = formService.getAll();
         Assert.assertEquals(oldSize - 1, forms.size());
     }
+
 
     @After
     public void tearDown() {

@@ -40,4 +40,5 @@ public interface BookService extends Service<Book> {
     List<Book> searchByName(String name);
 
     List<Book> getCatalogPage(int pageNumber, int size);
+
 }
