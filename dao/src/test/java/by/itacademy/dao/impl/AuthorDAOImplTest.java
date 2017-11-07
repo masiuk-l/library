@@ -12,6 +12,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -19,7 +20,7 @@ import java.util.List;
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("classpath:test-context.xml")
-@Transactional(transactionManager = "txManager")
+@Transactional(transactionManager = "transactionManager")
 public class AuthorDAOImplTest {
     @Autowired
     AuthorDAO authorDAO;
@@ -38,11 +39,11 @@ public class AuthorDAOImplTest {
     @Test
     public void saveAndGet() throws Exception {
         author = authorDAO.save(author);
-        Author newAuthor = authorDAO.getAll().get(0);
+        Author newAuthor = authorDAO.findAll().iterator().next();
         Assert.assertEquals(author.toString(), newAuthor.toString());
         authorDAO.delete(author.getAuthorID());
     }
-
+//
 
     @Test
     public void getAndUpdate() throws Exception {
@@ -50,21 +51,23 @@ public class AuthorDAOImplTest {
         String oldSurname = author.getSurname();
         String newSurname = "Иванова";
         author.setSurname(newSurname);
-        authorDAO.update(author);
-        Author newAuthor = authorDAO.get(author.getAuthorID());
+        authorDAO.save(author);
+        Author newAuthor = authorDAO.findOne(author.getAuthorID());
         Assert.assertEquals(author.getSurname(), newAuthor.getSurname());
         newAuthor.setSurname(oldSurname);
-        authorDAO.update(newAuthor);
+        authorDAO.save(newAuthor);
         authorDAO.delete(author.getAuthorID());
     }
 
     @Test
     public void getAllAndDelete() throws Exception {
         authorDAO.save(author);
-        List<Author> authors = authorDAO.getAll();
+        List<Author> authors = new ArrayList<>();
+        authorDAO.findAll().forEach(authors::add);
         int oldSize = authors.size();
         authorDAO.delete(author.getAuthorID());
-        authors = authorDAO.getAll();
+        authors.clear();
+        authorDAO.findAll().forEach(authors::add);
         Assert.assertEquals(oldSize - 1, authors.size());
     }
 

@@ -1,7 +1,5 @@
 package by.itacademy.dao.impl;
 
-import by.itacademy.dao.AuthorDAO;
-import by.itacademy.entities.Author;
 import lombok.extern.log4j.Log4j;
 import org.springframework.stereotype.Repository;
 
@@ -13,5 +11,5 @@ import org.springframework.stereotype.Repository;
 
 @Log4j
 @Repository
-public class AuthorDAOImpl extends BaseDAOImpl<Author> implements AuthorDAO {
+public class AuthorDAOImpl {
 }

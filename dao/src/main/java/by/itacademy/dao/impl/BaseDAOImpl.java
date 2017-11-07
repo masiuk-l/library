@@ -9,9 +9,6 @@ import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import java.io.Serializable;
-import java.lang.reflect.ParameterizedType;
-import java.util.List;
 
 /**
  * Project KR. Created by masiuk-l on 06.08.2017.
@@ -32,49 +29,4 @@ public abstract class BaseDAOImpl<T> implements DAO<T> {
         return em.unwrap(Session.class);
     }
 
-    @Override
-    public T save(T t) {
-        getSession().save(t);
-        log.info("Save:" + t);
-        return t;
-    }
-
-    @Override
-    public T get(Serializable id) {
-        log.info("Get:" + id);
-        return (T) getSession().load(getPersistentClass(), id);
-    }
-
-    @Override
-    public void update(T t) {
-        getSession().update(t);
-        log.info("Update:" + t);
-    }
-
-    @Override
-    public int delete(Serializable id) {
-        log.info("Delete:" + id);
-        Session session = getSession();
-        javax.persistence.Query query = session.createQuery("delete from " + getClassName(getPersistentClass()) + " where id=:id");
-        query.setParameter("id", id);
-        query.executeUpdate();
-        return 0;
-    }
-
-    @Override
-    public List<T> getAll() {
-        log.info("Get all:" + getPersistentClass().getName());
-        Session session = getSession();
-        javax.persistence.Query query = session.createQuery("from " + getClassName(getPersistentClass()));
-        return query.getResultList();
-    }
-
-    private Class getPersistentClass() {
-        return (Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
-    }
-
-    private String getClassName(Class clazz) {
-        String[] tokens = clazz.getName().split("\\.");
-        return tokens[tokens.length - 1];
-    }
 }

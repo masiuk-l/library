@@ -11,6 +11,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -19,7 +20,7 @@ import java.util.List;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("classpath:test-context.xml")
-@Transactional(transactionManager = "txManager")
+@Transactional(transactionManager = "transactionManager")
 public class LibrarianDAOImplTest {
     @Autowired
     LibrarianDAO librarianDAO;
@@ -38,7 +39,7 @@ public class LibrarianDAOImplTest {
     @Test
     public void saveAndGetBySurname() throws Exception {
         librarian = librarianDAO.save(librarian);
-        Librarian newLibrarian = librarianDAO.getByLogin("ffr@ww").get(0);
+        Librarian newLibrarian = librarianDAO.findAll().iterator().next();
         librarian.setPassword(librarian.getPassword());
         Assert.assertEquals(librarian.getName(), newLibrarian.getName());
         librarianDAO.delete(newLibrarian.getLibrarianID());
@@ -49,22 +50,23 @@ public class LibrarianDAOImplTest {
     public void getAndUpdate() throws Exception {
         librarianDAO.save(librarian);
         String newSurname = "Иванова";
-        librarian = librarianDAO.getByLogin("ffr@ww").get(0);
+        librarian = librarianDAO.findByEmail("ffr@ww").get(0);
         librarian.setSurname(newSurname);
-        librarianDAO.update(librarian);
-        Librarian newLibrarian = librarianDAO.get(librarian.getLibrarianID());
+        librarianDAO.save(librarian);
+        Librarian newLibrarian = librarianDAO.findOne(librarian.getLibrarianID());
         Assert.assertTrue(librarian.equals(newLibrarian));
         librarianDAO.delete(librarian.getLibrarianID());
     }
 
     @Test
     public void getAllAndDelete() throws Exception {
-
         librarianDAO.save(librarian);
-        List<Librarian> librarians = librarianDAO.getAll();
+        List<Librarian> librarians = new ArrayList<>();
+        librarianDAO.findAll().forEach(librarians::add);
         int oldSize = librarians.size();
         librarianDAO.delete(librarian.getLibrarianID());
-        librarians = librarianDAO.getAll();
+        librarians.clear();
+        librarianDAO.findAll().forEach(librarians::add);
         Assert.assertEquals(oldSize - 1, librarians.size());
     }
 

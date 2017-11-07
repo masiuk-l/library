@@ -16,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -24,7 +25,7 @@ import java.util.List;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("classpath:test-context.xml")
-@Transactional(transactionManager = "txManager")
+@Transactional(transactionManager = "transactionManager")
 public class FormDAOImplTest {
     @Autowired
     FormDAO formDAO;
@@ -68,7 +69,7 @@ public class FormDAOImplTest {
     @Test
     public void saveAndGetByReceivalType() throws Exception {
         form = formDAO.save(form);
-        Form newForm = formDAO.getByBook(book).get(0);
+        Form newForm = formDAO.findAll().iterator().next();
         Assert.assertEquals(form.toString(), newForm.toString());
         formDAO.delete(newForm.getFormID());
     }
@@ -78,19 +79,21 @@ public class FormDAOImplTest {
     public void getAndUpdate() throws Exception {
         form = formDAO.save(form);
         form.setReceivalType("Формулярpp");
-        formDAO.update(form);
-        Form newForm = formDAO.get(form.getFormID());
+        formDAO.save(form);
+        Form newForm = formDAO.findAll().iterator().next();
         Assert.assertEquals(form.toString(), newForm.toString());
         formDAO.delete(form.getFormID());
     }
 
     @Test
     public void getAllAndDelete() throws Exception {
-        form = formDAO.save(form);
-        List<Form> forms = formDAO.getAll();
+        formDAO.save(form);
+        List<Form> forms = new ArrayList<>();
+        formDAO.findAll().forEach(forms::add);
         int oldSize = forms.size();
         formDAO.delete(form.getFormID());
-        forms = formDAO.getAll();
+        forms.clear();
+        formDAO.findAll().forEach(forms::add);
         Assert.assertEquals(oldSize - 1, forms.size());
     }
 

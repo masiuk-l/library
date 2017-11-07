@@ -11,6 +11,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -18,7 +19,7 @@ import java.util.List;
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("classpath:test-context.xml")
-@Transactional(transactionManager = "txManager")
+@Transactional(transactionManager = "transactionManager")
 public class BookDAOImplTest {
     @Autowired
     BookDAO bookDAO;
@@ -37,7 +38,7 @@ public class BookDAOImplTest {
     @Test
     public void saveAndGet() throws Exception {
         book = bookDAO.save(book);
-        Book newBook = bookDAO.getAll().get(0);
+        Book newBook = bookDAO.findAll().iterator().next();
         Assert.assertEquals(book.getName(), newBook.getName());
         bookDAO.delete(newBook.getBookID());
     }
@@ -46,10 +47,10 @@ public class BookDAOImplTest {
     @Test
     public void getAndUpdate() throws Exception {
         bookDAO.save(book);
-        book = bookDAO.getCatalogPage(1, 3).get(0);
+        book = bookDAO.findAll().iterator().next();
         book.setName("Не книга");
-        bookDAO.update(book);
-        Book newBook = bookDAO.get(book.getBookID());
+        bookDAO.save(book);
+        Book newBook = bookDAO.findOne(book.getBookID());
         Assert.assertTrue(book.equals(newBook));
         bookDAO.delete(book.getBookID());
     }
@@ -57,10 +58,12 @@ public class BookDAOImplTest {
     @Test
     public void getAllAndDelete() throws Exception {
         bookDAO.save(book);
-        List<Book> books = bookDAO.getAll();
+        List<Book> books = new ArrayList<>();
+        bookDAO.findAll().forEach(books::add);
         int oldSize = books.size();
         bookDAO.delete(book.getBookID());
-        books = bookDAO.getAll();
+        books.clear();
+        bookDAO.findAll().forEach(books::add);
         Assert.assertEquals(oldSize - 1, books.size());
     }
 

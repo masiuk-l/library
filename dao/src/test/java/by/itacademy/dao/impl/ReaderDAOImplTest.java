@@ -13,6 +13,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -21,7 +22,7 @@ import java.util.List;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("classpath:test-context.xml")
-@Transactional(transactionManager = "txManager")
+@Transactional(transactionManager = "transactionManager")
 public class ReaderDAOImplTest {
     @Autowired
     ReaderDAO readerDAO;
@@ -44,7 +45,7 @@ public class ReaderDAOImplTest {
     public void saveAndGetBySurname() throws Exception {
         reader = readerDAO.save(reader);
         reader.setPassword(Encoder.encode(reader.getPassword()));
-        Reader newReader = readerDAO.getByLogin("ffr@ww").get(0);
+        Reader newReader = readerDAO.findByEmail("ffr@ww").get(0);
         Assert.assertEquals(reader.getName(), newReader.getName());
         readerDAO.delete(reader.getReaderID());
     }
@@ -54,10 +55,10 @@ public class ReaderDAOImplTest {
     public void getAndUpdate() throws Exception {
         readerDAO.save(reader);
         String newSurname = "Иванова";
-        reader = readerDAO.getByLogin("ffr@ww").get(0);
+        reader = readerDAO.findByEmail("ffr@ww").get(0);
         reader.setSurname(newSurname);
-        readerDAO.update(reader);
-        Reader newReader = readerDAO.get(reader.getReaderID());
+        readerDAO.save(reader);
+        Reader newReader = readerDAO.findOne(reader.getReaderID());
         Assert.assertEquals(reader.getSurname(), newReader.getSurname());
         readerDAO.delete(reader.getReaderID());
     }
@@ -65,10 +66,12 @@ public class ReaderDAOImplTest {
     @Test
     public void getAllAndDelete() throws Exception {
         readerDAO.save(reader);
-        List<Reader> readers = readerDAO.getAll();
+        List<Reader> readers = new ArrayList<>();
+        readerDAO.findAll().forEach(readers::add);
         int oldSize = readers.size();
         readerDAO.delete(reader.getReaderID());
-        readers = readerDAO.getAll();
+        readers.clear();
+        readerDAO.findAll().forEach(readers::add);
         Assert.assertEquals(oldSize - 1, readers.size());
     }
 

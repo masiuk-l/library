@@ -1,15 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xmlns:context="http://www.springframework.org/schema/context"
-       xmlns="http://www.springframework.org/schema/beans"
+       xmlns:jpa="http://www.springframework.org/schema/data/jpa" xmlns="http://www.springframework.org/schema/beans"
 
        xsi:schemaLocation="http://www.springframework.org/schema/beans
         http://www.springframework.org/schema/beans/spring-beans.xsd
 
-            http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+              http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa.xsd">
 
-    <context:component-scan base-package="by.itacademy.dao"/>
-    <!--<context:component-scan base-package="by.itacademy.service"/>-->
+    <jpa:repositories base-package="by.itacademy.dao"/>
     <bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource">
         <property name="url"
                   value="jdbc:h2:mem:kr"/>
@@ -38,21 +36,9 @@
             </props>
         </property>
     </bean>
-    <!--<bean id="transactionTemplate" class="org.springframework.transaction.support.TransactionTemplate">-->
-    <!--<property name="transactionManager" ref="txManager"/>-->
-    <!--</bean>-->
-    <bean id="txManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+
+    <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
         <property name="entityManagerFactory" ref="entityManagerFactory"/>
     </bean>
-    <!--<tx:advice id="txAdvice" transaction-manager="txManager">-->
-    <!--<tx:attributes>-->
-    <!--<tx:method name="*"/>-->
-    <!--<tx:method name="get*" propagation="SUPPORTS" read-only="true"/>-->
-    <!--</tx:attributes>-->
-    <!--</tx:advice>-->
-    <!--<tx:annotation-driven transaction-manager="txManager" proxy-target-class="true"/>-->
-    <!--<aop:config>-->
-    <!--<aop:advisor pointcut="execution(* by.itacademy.service.Service.*(..))" advice-ref="txAdvice"/>-->
-    <!--</aop:config>-->
 </beans>
 
