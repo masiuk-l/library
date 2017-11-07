@@ -8,7 +8,6 @@ import lombok.extern.log4j.Log4j;
 import org.hibernate.Session;
 import org.springframework.stereotype.Repository;
 
-import java.sql.SQLException;
 import java.util.List;
 
 
@@ -23,7 +22,7 @@ import java.util.List;
 public class FormDAOImpl extends BaseDAOImpl<Form> implements FormDAO {
 
     @Override
-    public List<Form> getByBook(Book book) throws SQLException {
+    public List<Form> getByBook(Book book) {
         log.info("Get forms by book:" + book);
         Session session = getSession();
         javax.persistence.Query query = session.createQuery("from Form where BOOK_ID = :bookID");
@@ -32,7 +31,7 @@ public class FormDAOImpl extends BaseDAOImpl<Form> implements FormDAO {
     }
 
     @Override
-    public List<Form> getByReader(Reader reader) throws SQLException {
+    public List<Form> getByReader(Reader reader) {
         log.info("Get forms by reader:" + reader);
         Session session = getSession();
         javax.persistence.Query query = session.createQuery("from Form where READER_ID = :readerID");

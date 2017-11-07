@@ -1,7 +1,6 @@
 package by.itacademy.dao.impl;
 
 import by.itacademy.dao.DAO;
-import by.itacademy.util.HibernateUtil;
 import lombok.Getter;
 import lombok.extern.log4j.Log4j;
 import org.hibernate.Session;
@@ -12,7 +11,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
-import java.sql.SQLException;
 import java.util.List;
 
 /**
@@ -31,30 +29,30 @@ public abstract class BaseDAOImpl<T> implements DAO<T> {
     private EntityManager em;
 
     public Session getSession() {
-        return HibernateUtil.getEntityManager().unwrap(Session.class);
+        return em.unwrap(Session.class);
     }
 
     @Override
-    public T save(T t) throws SQLException {
+    public T save(T t) {
         getSession().save(t);
         log.info("Save:" + t);
         return t;
     }
 
     @Override
-    public T get(Serializable id) throws SQLException {
+    public T get(Serializable id) {
         log.info("Get:" + id);
         return (T) getSession().load(getPersistentClass(), id);
     }
 
     @Override
-    public void update(T t) throws SQLException {
+    public void update(T t) {
         getSession().update(t);
         log.info("Update:" + t);
     }
 
     @Override
-    public int delete(Serializable id) throws SQLException {
+    public int delete(Serializable id) {
         log.info("Delete:" + id);
         Session session = getSession();
         javax.persistence.Query query = session.createQuery("delete from " + getClassName(getPersistentClass()) + " where id=:id");
@@ -64,7 +62,7 @@ public abstract class BaseDAOImpl<T> implements DAO<T> {
     }
 
     @Override
-    public List<T> getAll() throws SQLException {
+    public List<T> getAll() {
         log.info("Get all:" + getPersistentClass().getName());
         Session session = getSession();
         javax.persistence.Query query = session.createQuery("from " + getClassName(getPersistentClass()));

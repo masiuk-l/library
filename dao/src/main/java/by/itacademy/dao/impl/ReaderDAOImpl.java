@@ -6,7 +6,6 @@ import lombok.extern.log4j.Log4j;
 import org.hibernate.Session;
 import org.springframework.stereotype.Repository;
 
-import java.sql.SQLException;
 import java.util.List;
 
 /**
@@ -20,7 +19,7 @@ import java.util.List;
 public class ReaderDAOImpl extends BaseDAOImpl<Reader> implements ReaderDAO {
 
     @Override
-    public List<Reader> getByLogin(String login) throws SQLException {
+    public List<Reader> getByLogin(String login) {
         log.info("Get readers by login:" + login);
         Session session = getSession();
         javax.persistence.Query query = session.createQuery("from Reader where EMAIL = :login");
