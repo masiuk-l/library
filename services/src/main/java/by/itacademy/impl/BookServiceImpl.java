@@ -2,14 +2,8 @@ package by.itacademy.impl;
 
 import by.itacademy.BookService;
 import by.itacademy.ServiceException;
-import by.itacademy.dao.AuthorDAO;
 import by.itacademy.dao.BookDAO;
-import by.itacademy.dao.FormDAO;
-import by.itacademy.dao.ReaderDAO;
-import by.itacademy.dao.impl.AuthorDAOImpl;
 import by.itacademy.dao.impl.BookDAOImpl;
-import by.itacademy.dao.impl.FormDAOImpl;
-import by.itacademy.dao.impl.ReaderDAOImpl;
 import by.itacademy.entities.Book;
 import org.hibernate.HibernateException;
 
@@ -27,9 +21,7 @@ public class BookServiceImpl extends AbstractService implements BookService {
     private static volatile BookService INSTANCE = null;
 
     private BookDAO bookDAO = BookDAOImpl.getInstance();
-    private ReaderDAO readerDAO = ReaderDAOImpl.getInstance();
-    private AuthorDAO authorDAO = AuthorDAOImpl.getInstance();
-    private FormDAO formDAO = FormDAOImpl.getInstance();
+
 
     private BookServiceImpl() {
     }
@@ -118,19 +110,6 @@ public class BookServiceImpl extends AbstractService implements BookService {
         }
     }
 
-    @Override
-    public List<Book> getByName(String name) {
-        ArrayList<Book> books;
-        try {
-            startTransaction();
-            books = new ArrayList<>(bookDAO.getByName(name));
-            commit();
-            return books;
-        } catch (HibernateException | SQLException e) {
-            rollback();
-            throw new ServiceException("Error finding Book", e);
-        }
-    }
 
     @Override
     public List<Book> searchByName(String name) {
@@ -143,34 +122,6 @@ public class BookServiceImpl extends AbstractService implements BookService {
                 if (aBook.getName().toLowerCase().contains(searchKey) || aBook.getGenre().toLowerCase().contains(searchKey))
                     books.add(aBook);
             }
-            commit();
-            return books;
-        } catch (HibernateException | SQLException e) {
-            rollback();
-            throw new ServiceException("Error finding Book", e);
-        }
-    }
-
-    @Override
-    public List<Book> getByIsbn(String isbn) {
-        ArrayList<Book> books;
-        try {
-            startTransaction();
-            books = new ArrayList<>(bookDAO.getByIsbn(isbn));
-            commit();
-            return books;
-        } catch (HibernateException | SQLException e) {
-            rollback();
-            throw new ServiceException("Error finding Book", e);
-        }
-    }
-
-    @Override
-    public List<Book> getByGenre(String genre) {
-        ArrayList<Book> books;
-        try {
-            startTransaction();
-            books = new ArrayList<>(bookDAO.getByGenre(genre));
             commit();
             return books;
         } catch (HibernateException | SQLException e) {

@@ -1,12 +1,9 @@
 package by.itacademy.impl;
 
-import by.itacademy.FormService;
 import by.itacademy.ReaderService;
 import by.itacademy.ServiceException;
-import by.itacademy.dao.FormDAO;
 import by.itacademy.dao.ReaderDAO;
 import by.itacademy.dao.auth.Encoder;
-import by.itacademy.dao.impl.FormDAOImpl;
 import by.itacademy.dao.impl.ReaderDAOImpl;
 import by.itacademy.entities.Reader;
 import org.hibernate.HibernateException;
@@ -26,8 +23,6 @@ public class ReaderServiceImpl extends AbstractService implements ReaderService 
     private static volatile ReaderService INSTANCE = null;
 
     private ReaderDAO readerDAO = ReaderDAOImpl.getInstance();
-    private FormDAO formDAO = FormDAOImpl.getInstance();
-    private FormService formService = FormServiceImpl.getInstance();
 
     private ReaderServiceImpl() {
     }
@@ -115,34 +110,6 @@ public class ReaderServiceImpl extends AbstractService implements ReaderService 
         } catch (HibernateException | SQLException e) {
             rollback();
             throw new ServiceException("Error deleting Reader", e);
-        }
-    }
-
-    @Override
-    public List<Reader> getBySurname(String surname) {
-        ArrayList<Reader> readers;
-        try {
-            startTransaction();
-            readers = new ArrayList<>(readerDAO.getBySurname(surname));
-            commit();
-            return readers;
-        } catch (HibernateException | SQLException e) {
-            rollback();
-            throw new ServiceException("Error finding Reader", e);
-        }
-    }
-
-    @Override
-    public List<Reader> getByStatus(String status) {
-        ArrayList<Reader> readers;
-        try {
-            startTransaction();
-            readers = new ArrayList<>(readerDAO.getByStatus(status));
-            commit();
-            return readers;
-        } catch (HibernateException | SQLException e) {
-            rollback();
-            throw new ServiceException("Error finding Reader", e);
         }
     }
 

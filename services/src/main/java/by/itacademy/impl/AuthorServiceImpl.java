@@ -95,19 +95,6 @@ public class AuthorServiceImpl extends AbstractService implements AuthorService 
         }
     }
 
-    @Override
-    public List<Author> getBySurname(String surname) {
-        ArrayList<Author> authors;
-        try {
-            startTransaction();
-            authors = new ArrayList<>(authorDAO.getBySurname(surname));
-            commit();
-            return authors;
-        } catch (HibernateException | SQLException e) {
-            rollback();
-            throw new ServiceException("Error finding Author", e);
-        }
-    }
 
     @Override
     public List<Author> getAll() {

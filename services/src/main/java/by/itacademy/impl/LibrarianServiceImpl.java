@@ -97,19 +97,6 @@ public class LibrarianServiceImpl extends AbstractService implements LibrarianSe
         }
     }
 
-    @Override
-    public List<Librarian> getBySurname(String surname) {
-        ArrayList<Librarian> librarians;
-        try {
-            startTransaction();
-            librarians = new ArrayList<>(librarianDAO.getBySurname(surname));
-            commit();
-            return librarians;
-        } catch (HibernateException | SQLException e) {
-            rollback();
-            throw new ServiceException("Error finding Librarian", e);
-        }
-    }
 
     @Override
     public Librarian getByLogin(String login) {

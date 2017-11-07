@@ -10,24 +10,6 @@ import java.util.List;
 public interface BookService extends Service<Book> {
 
     /**
-     * @param name
-     * @return List of books matching the input
-     */
-    List<Book> getByName(String name);
-
-    /**
-     * @param isbn isbn
-     * @return List of books matching the input
-     */
-    List<Book> getByIsbn(String isbn);
-
-    /**
-     * @param genre genre
-     * @return List of books matching the input
-     */
-    List<Book> getByGenre(String genre);
-
-    /**
      * @param oldBook initial book
      * @param newBook updated info
      */
@@ -39,6 +21,11 @@ public interface BookService extends Service<Book> {
      */
     List<Book> searchByName(String name);
 
+    /**
+     * @param pageNumber number of the catalog page
+     * @param size       number of elements per page
+     * @return List of books matching the input
+     */
     List<Book> getCatalogPage(int pageNumber, int size);
 
 }

@@ -1,19 +1,11 @@
 package by.itacademy.impl;
 
-import by.itacademy.BookService;
 import by.itacademy.FormService;
 import by.itacademy.ServiceException;
-import by.itacademy.dao.BookDAO;
 import by.itacademy.dao.FormDAO;
-import by.itacademy.dao.LibrarianDAO;
-import by.itacademy.dao.ReaderDAO;
-import by.itacademy.dao.impl.BookDAOImpl;
 import by.itacademy.dao.impl.FormDAOImpl;
-import by.itacademy.dao.impl.LibrarianDAOImpl;
-import by.itacademy.dao.impl.ReaderDAOImpl;
 import by.itacademy.entities.Book;
 import by.itacademy.entities.Form;
-import by.itacademy.entities.Librarian;
 import by.itacademy.entities.Reader;
 import org.hibernate.HibernateException;
 
@@ -31,10 +23,6 @@ public class FormServiceImpl extends AbstractService implements FormService {
     private static volatile FormService INSTANCE = null;
 
     private FormDAO formDAO = FormDAOImpl.getInstance();
-    private BookDAO bookDAO = BookDAOImpl.getInstance();
-    private ReaderDAO readerDAO = ReaderDAOImpl.getInstance();
-    private LibrarianDAO librarianDAO = LibrarianDAOImpl.getInstance();
-    private BookService bookService = BookServiceImpl.getInstance();
 
     private FormServiceImpl() {
     }
@@ -124,19 +112,6 @@ public class FormServiceImpl extends AbstractService implements FormService {
         }
     }
 
-    @Override
-    public List<Form> getByLibrarian(Librarian librarian) {
-        ArrayList<Form> forms;
-        try {
-            startTransaction();
-            forms = new ArrayList<>(formDAO.getByLibrarian(librarian));
-            commit();
-            return forms;
-        } catch (HibernateException | SQLException e) {
-            rollback();
-            throw new ServiceException("Error finding Form", e);
-        }
-    }
 
     @Override
     public List<Form> getByBook(Book book) {
@@ -151,38 +126,6 @@ public class FormServiceImpl extends AbstractService implements FormService {
             throw new ServiceException("Error finding Form", e);
         }
     }
-
-    @Override
-    public List<Form> getByReceivalType(String receivalType) {
-        ArrayList<Form> forms;
-        try {
-            startTransaction();
-            forms = new ArrayList<>(formDAO.getByReceivalType(receivalType));
-            commit();
-            return forms;
-        } catch (HibernateException | SQLException e) {
-            rollback();
-            throw new ServiceException("Error finding Form", e);
-        }
-    }
-
-//    @Override
-//    public FormVO getFormVO(Form form) {
-//        try {
-//            startTransaction();
-//            FormVO formVO;
-//            Reader reader = readerDAO.get(form.getReaderID());
-//            Book book = bookDAO.get(form.getBookID());
-//            BookVO bookVO = bookService.getBookVO(book);
-//            Librarian librarian = librarianDAO.get(form.getLibrarianID());
-//            formVO = FormTransfer.toValueObject(form, bookVO, librarian, reader);
-//            commit();
-//            return formVO;
-//        } catch (HibernateException | SQLException e) {
-//            rollback();
-//            throw new ServiceException("Error creating formVO", e);
-//        }
-//    }
 
     @Override
     public List<Form> getAll() {
