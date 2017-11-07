@@ -5,11 +5,14 @@ import by.itacademy.entities.Book;
 import by.itacademy.entities.Form;
 import by.itacademy.entities.Librarian;
 import by.itacademy.entities.Reader;
-import by.itacademy.util.HibernateUtil;
-import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
@@ -18,8 +21,13 @@ import java.util.List;
 /**
  * Project KR. Created by masiuk-l on 10.08.2017.
  */
+
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration("classpath:test-context.xml")
+@Transactional(transactionManager = "txManager")
 public class FormDAOImplTest {
-    private FormDAO formDAO;
+    @Autowired
+    FormDAO formDAO;
     private Form form;
     private Book book;
     private Reader reader;
@@ -27,7 +35,6 @@ public class FormDAOImplTest {
 
     @Before
     public void createForm() {
-        formDAO = FormDAOImpl.getInstance();
         form = new Form();
         book = new Book();
         book.setName("Книга");
@@ -56,16 +63,14 @@ public class FormDAOImplTest {
         form.setReceivalType("Формуляр");
         form.setReceivalDate(LocalDate.now());
         form.setReturnDate(LocalDate.now().plus(14, ChronoUnit.DAYS));
-        HibernateUtil.getEntityManager("by.itacademy.test");
-        HibernateUtil.beginTransaction();
     }
 
     @Test
     public void saveAndGetByReceivalType() throws Exception {
         form = formDAO.save(form);
-//        Form newForm = formDAO.getByReceivalType("Формуляр").get(0);
-//        Assert.assertEquals(form.toString(), newForm.toString());
-//        formDAO.delete(newForm.getFormID());
+        Form newForm = formDAO.getByBook(book).get(0);
+        Assert.assertEquals(form.toString(), newForm.toString());
+        formDAO.delete(newForm.getFormID());
     }
 
 
@@ -87,12 +92,6 @@ public class FormDAOImplTest {
         formDAO.delete(form.getFormID());
         forms = formDAO.getAll();
         Assert.assertEquals(oldSize - 1, forms.size());
-    }
-
-    @After
-    public void tearDown() {
-        HibernateUtil.commit();
-        HibernateUtil.closeEntityManager();
     }
 
 }

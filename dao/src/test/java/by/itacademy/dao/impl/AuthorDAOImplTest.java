@@ -2,11 +2,14 @@ package by.itacademy.dao.impl;
 
 import by.itacademy.dao.AuthorDAO;
 import by.itacademy.entities.Author;
-import by.itacademy.util.HibernateUtil;
-import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -14,28 +17,29 @@ import java.util.List;
 /**
  * Project KR. Created by masiuk-l on 10.08.2017.
  */
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration("classpath:test-context.xml")
+@Transactional(transactionManager = "txManager")
 public class AuthorDAOImplTest {
-    private AuthorDAO authorDAO;
+    @Autowired
+    AuthorDAO authorDAO;
     private Author author;
 
     @Before
     public void createAuthor() {
-        authorDAO = AuthorDAOImpl.getInstance();
         author = new Author();
         author.setName("Иван");
         author.setSecondName("Иванович");
         author.setSurname("Козлов");
         author.setBirthday(LocalDate.of(1996, 12, 1));
         author.setCountry("Россия");
-        HibernateUtil.getEntityManager("by.itacademy.test");
-        HibernateUtil.beginTransaction();
     }
 
     @Test
-    public void saveAndGetBySurname() throws Exception {
+    public void saveAndGet() throws Exception {
         author = authorDAO.save(author);
-        //Author newAuthor = authorDAO.getBySurname("Козлов").get(0);
-//        Assert.assertEquals(author.toString(), newAuthor.toString());
+        Author newAuthor = authorDAO.getAll().get(0);
+        Assert.assertEquals(author.toString(), newAuthor.toString());
         authorDAO.delete(author.getAuthorID());
     }
 
@@ -43,7 +47,6 @@ public class AuthorDAOImplTest {
     @Test
     public void getAndUpdate() throws Exception {
         author = authorDAO.save(author);
-
         String oldSurname = author.getSurname();
         String newSurname = "Иванова";
         author.setSurname(newSurname);
@@ -65,9 +68,4 @@ public class AuthorDAOImplTest {
         Assert.assertEquals(oldSize - 1, authors.size());
     }
 
-    @After
-    public void tearDown() {
-        HibernateUtil.commit();
-        HibernateUtil.closeEntityManager();
-    }
 }

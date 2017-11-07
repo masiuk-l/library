@@ -3,11 +3,14 @@ package by.itacademy.dao.impl;
 import by.itacademy.dao.ReaderDAO;
 import by.itacademy.dao.auth.Encoder;
 import by.itacademy.entities.Reader;
-import by.itacademy.util.HibernateUtil;
-import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -15,13 +18,17 @@ import java.util.List;
 /**
  * Project KR. Created by masiuk-l on 06.08.2017.
  */
+
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration("classpath:test-context.xml")
+@Transactional(transactionManager = "txManager")
 public class ReaderDAOImplTest {
-    private ReaderDAO readerDAO;
+    @Autowired
+    ReaderDAO readerDAO;
     private Reader reader;
 
     @Before
     public void createReader() {
-        readerDAO = ReaderDAOImpl.getInstance();
         reader = new Reader();
         reader.setName("Иван");
         reader.setSecondName("Иванович");
@@ -31,16 +38,14 @@ public class ReaderDAOImplTest {
         reader.setPassword("fvfdcsdv");
         reader.setGender("женский");
         reader.setStatus("");
-        HibernateUtil.getEntityManager("by.itacademy.test");
-        HibernateUtil.beginTransaction();
     }
 
     @Test
     public void saveAndGetBySurname() throws Exception {
         reader = readerDAO.save(reader);
         reader.setPassword(Encoder.encode(reader.getPassword()));
-//        Reader newReader = readerDAO.getBySurname("Козлов").get(0);
-//        Assert.assertEquals(reader.getName(), newReader.getName());
+        Reader newReader = readerDAO.getByLogin("ffr@ww").get(0);
+        Assert.assertEquals(reader.getName(), newReader.getName());
         readerDAO.delete(reader.getReaderID());
     }
 
@@ -49,7 +54,7 @@ public class ReaderDAOImplTest {
     public void getAndUpdate() throws Exception {
         readerDAO.save(reader);
         String newSurname = "Иванова";
-//        reader = readerDAO.getBySurname("Козлов").get(0);
+        reader = readerDAO.getByLogin("ffr@ww").get(0);
         reader.setSurname(newSurname);
         readerDAO.update(reader);
         Reader newReader = readerDAO.get(reader.getReaderID());
@@ -67,9 +72,4 @@ public class ReaderDAOImplTest {
         Assert.assertEquals(oldSize - 1, readers.size());
     }
 
-    @After
-    public void tearDown() {
-        HibernateUtil.commit();
-        HibernateUtil.closeEntityManager();
-    }
 }

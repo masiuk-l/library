@@ -1,22 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:context="http://www.springframework.org/schema/context"
-       xmlns:tx="http://www.springframework.org/schema/tx" xmlns:aop="http://www.springframework.org/schema/aop"
        xmlns="http://www.springframework.org/schema/beans"
 
        xsi:schemaLocation="http://www.springframework.org/schema/beans
         http://www.springframework.org/schema/beans/spring-beans.xsd
 
-            http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
+            http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 
     <context:component-scan base-package="by.itacademy.dao"/>
-    <!--<context:component-scan base-package="by.itacademy.service"/>--> //todo
+    <!--<context:component-scan base-package="by.itacademy.service"/>-->
     <bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource">
         <property name="url"
-                  value="jdbc:mysql://localhost:3306/KR"/>
-        <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
-        <property name="username" value="root"/>
-        <property name="password" value="4242"/>
+                  value="jdbc:h2:mem:kr"/>
+        <property name="driverClassName" value="org.h2.Driver"/>
         <property name="initialSize" value="5"/>
         <property name="maxTotal" value="20"/>
     </bean>
@@ -37,25 +34,25 @@
                 <prop key="hibernate.dialect">org.hibernate.dialect.MySQL55Dialect</prop>
                 <prop key="hibernate.show_sql">true</prop>
                 <prop key="hibernate.format_sql">true</prop>
-                <prop key="hibernate.hbm2ddl.auto">validate</prop>
+                <prop key="hibernate.hbm2ddl.auto">create-drop</prop>
             </props>
         </property>
     </bean>
-    <bean id="transactionTemplate" class="org.springframework.transaction.support.TransactionTemplate">
-        <property name="transactionManager" ref="txManager"/>
-    </bean>
+    <!--<bean id="transactionTemplate" class="org.springframework.transaction.support.TransactionTemplate">-->
+    <!--<property name="transactionManager" ref="txManager"/>-->
+    <!--</bean>-->
     <bean id="txManager" class="org.springframework.orm.jpa.JpaTransactionManager">
         <property name="entityManagerFactory" ref="entityManagerFactory"/>
     </bean>
-    <tx:advice id="txAdvice" transaction-manager="txManager">
-        <tx:attributes>
-            <tx:method name="*"/>
-            <tx:method name="get*" propagation="SUPPORTS" read-only="true"/>
-        </tx:attributes>
-    </tx:advice>
-    <tx:annotation-driven transaction-manager="txManager" proxy-target-class="true"/>
-    <aop:config>
-        <aop:advisor pointcut="execution(* by.itacademy.service.Service.*(..))" advice-ref="txAdvice"/>
-    </aop:config>
+    <!--<tx:advice id="txAdvice" transaction-manager="txManager">-->
+    <!--<tx:attributes>-->
+    <!--<tx:method name="*"/>-->
+    <!--<tx:method name="get*" propagation="SUPPORTS" read-only="true"/>-->
+    <!--</tx:attributes>-->
+    <!--</tx:advice>-->
+    <!--<tx:annotation-driven transaction-manager="txManager" proxy-target-class="true"/>-->
+    <!--<aop:config>-->
+    <!--<aop:advisor pointcut="execution(* by.itacademy.service.Service.*(..))" advice-ref="txAdvice"/>-->
+    <!--</aop:config>-->
 </beans>
 
