@@ -3,7 +3,7 @@ package by.itacademy.command.impl;
 import by.itacademy.command.Controller;
 import by.itacademy.entities.Reader;
 import by.itacademy.service.ReaderService;
-import by.itacademy.service.impl.ReaderServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -15,7 +15,8 @@ import java.util.ArrayList;
  * Project KR. Created by masiuk-l on 19.08.2017.
  */
 public class ReadersController implements Controller {
-    private ReaderService readerService = ReaderServiceImpl.getInstance();
+    @Autowired
+    private ReaderService readerService;
 
     @Override
     public void execute(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

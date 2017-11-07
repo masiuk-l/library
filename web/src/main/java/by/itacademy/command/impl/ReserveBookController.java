@@ -7,9 +7,8 @@ import by.itacademy.entities.Librarian;
 import by.itacademy.entities.Reader;
 import by.itacademy.service.BookService;
 import by.itacademy.service.FormService;
-import by.itacademy.service.impl.BookServiceImpl;
-import by.itacademy.service.impl.FormServiceImpl;
 import com.google.gson.Gson;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -24,8 +23,10 @@ import java.util.concurrent.atomic.AtomicInteger;
  * Project KR. Created by masiuk-l on 18.08.2017.
  */
 public class ReserveBookController implements Controller {
-    private BookService bookService = BookServiceImpl.getInstance();
-    private FormService formService = FormServiceImpl.getInstance();
+    @Autowired
+    private BookService bookService;
+    @Autowired
+    private FormService formService;
 
     @Override
     public void execute(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

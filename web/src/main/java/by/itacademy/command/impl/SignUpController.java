@@ -3,7 +3,7 @@ package by.itacademy.command.impl;
 import by.itacademy.command.Controller;
 import by.itacademy.entities.Reader;
 import by.itacademy.service.ReaderService;
-import by.itacademy.service.impl.ReaderServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -18,7 +18,8 @@ import java.time.temporal.ChronoUnit;
  * Project KR. Created by masiuk-l on 20.08.2017.
  */
 public class SignUpController implements Controller {
-    private ReaderService readerService = ReaderServiceImpl.getInstance();
+    @Autowired
+    private ReaderService readerService;
 
     @Override
     public void execute(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {

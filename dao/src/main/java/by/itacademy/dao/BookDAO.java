@@ -1,14 +1,18 @@
 package by.itacademy.dao;
 
 import by.itacademy.entities.Book;
-import org.springframework.data.repository.PagingAndSortingRepository;
+import by.itacademy.entities.Reader;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+
+import java.util.List;
 
 /**
  * Project KR. Created by masiuk-l on 07.08.2017.
  */
-public interface BookDAO extends PagingAndSortingRepository<Book, Integer> {
+public interface BookDAO extends JpaRepository<Book, Integer> {
 
-
-//   List<Book> ggetCatalogPage(int pageNumber, int size);//todo переделать
+    @Query("select b from Book b join b.forms f where f.reader= ?1")
+    List<Book> getByReader(Reader reader);//todo переделать
 
 }

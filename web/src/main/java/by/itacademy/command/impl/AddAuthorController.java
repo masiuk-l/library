@@ -3,7 +3,7 @@ package by.itacademy.command.impl;
 import by.itacademy.command.Controller;
 import by.itacademy.entities.Author;
 import by.itacademy.service.AuthorService;
-import by.itacademy.service.impl.AuthorServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -18,7 +18,8 @@ import java.time.temporal.ChronoUnit;
  * Project KR. Created by masiuk-l on 22.08.2017.
  */
 public class AddAuthorController implements Controller {
-    private AuthorService authorService = AuthorServiceImpl.getInstance();
+    @Autowired
+    private AuthorService authorService;
 
     @Override
     public void execute(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {

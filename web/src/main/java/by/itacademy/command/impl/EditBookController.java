@@ -4,8 +4,7 @@ import by.itacademy.command.Controller;
 import by.itacademy.entities.Book;
 import by.itacademy.service.AuthorService;
 import by.itacademy.service.BookService;
-import by.itacademy.service.impl.AuthorServiceImpl;
-import by.itacademy.service.impl.BookServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -18,8 +17,10 @@ import java.time.LocalDate;
  * Project KR. Created by masiuk-l on 21.08.2017.
  */
 public class EditBookController implements Controller {
-    private BookService bookService = BookServiceImpl.getInstance();
-    private AuthorService authorService = AuthorServiceImpl.getInstance();
+    @Autowired
+    private BookService bookService;
+    @Autowired
+    private AuthorService authorService;
 
     @Override
     public void execute(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
@@ -84,7 +85,7 @@ public class EditBookController implements Controller {
                 newBook.getAuthors().clear();
                 String[] authorIDs = req.getParameterValues("author");
                 for (String authorID : authorIDs) {
-                    newBook.getAuthors().add(authorService.get(authorID));
+                    newBook.getAuthors().add(authorService.get(Integer.parseInt(authorID)));
                 }
                 bookService.update(oldBook, newBook);
                 req.getSession().setAttribute("errorMsg", "");

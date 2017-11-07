@@ -3,9 +3,7 @@ package by.itacademy.command.impl;
 import by.itacademy.command.Controller;
 import by.itacademy.entities.Book;
 import by.itacademy.service.BookService;
-import by.itacademy.service.ReaderService;
-import by.itacademy.service.impl.BookServiceImpl;
-import by.itacademy.service.impl.ReaderServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -17,8 +15,8 @@ import java.io.IOException;
  */
 public class BookController implements Controller {
 
-    private BookService bookService = BookServiceImpl.getInstance();
-    private ReaderService readerService = ReaderServiceImpl.getInstance();
+    @Autowired
+    private BookService bookService;
 
     @Override
     public void execute(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {

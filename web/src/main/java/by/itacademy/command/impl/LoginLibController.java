@@ -4,7 +4,7 @@ import by.itacademy.command.Controller;
 import by.itacademy.dao.auth.Encoder;
 import by.itacademy.entities.Librarian;
 import by.itacademy.service.LibrarianService;
-import by.itacademy.service.impl.LibrarianServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -16,7 +16,8 @@ import java.io.IOException;
  * Project KR. Created by masiuk-l on 18.08.2017.
  */
 public class LoginLibController implements Controller {
-    LibrarianService librarianService = LibrarianServiceImpl.getInstance();
+    @Autowired
+    LibrarianService librarianService;
 
     @Override
     public void execute(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {

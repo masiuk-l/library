@@ -2,7 +2,7 @@ package by.itacademy.command.impl;
 
 import by.itacademy.command.Controller;
 import by.itacademy.service.ReaderService;
-import by.itacademy.service.impl.ReaderServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -14,7 +14,8 @@ import java.io.IOException;
  * Project KR. Created by masiuk-l on 20.08.2017.
  */
 public class ErrorController implements Controller {
-    ReaderService readerService = ReaderServiceImpl.getInstance();
+    @Autowired
+    ReaderService readerService;
 
     @Override
     public void execute(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {

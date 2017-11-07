@@ -3,10 +3,8 @@ package by.itacademy.command.impl;
 import by.itacademy.command.Controller;
 import by.itacademy.entities.Form;
 import by.itacademy.entities.Reader;
-import by.itacademy.service.BookService;
 import by.itacademy.service.FormService;
-import by.itacademy.service.impl.BookServiceImpl;
-import by.itacademy.service.impl.FormServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -18,8 +16,8 @@ import java.util.ArrayList;
  * Project KR. Created by masiuk-l on 15.08.2017.
  */
 public class MyBooksController implements Controller {
-    private BookService bookService = BookServiceImpl.getInstance();
-    private FormService formService = FormServiceImpl.getInstance();
+    @Autowired
+    private FormService formService;
 
     @Override
     public void execute(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

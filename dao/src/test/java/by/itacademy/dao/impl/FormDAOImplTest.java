@@ -1,5 +1,6 @@
 package by.itacademy.dao.impl;
 
+import by.itacademy.dao.BookDAO;
 import by.itacademy.dao.FormDAO;
 import by.itacademy.entities.Book;
 import by.itacademy.entities.Form;
@@ -29,6 +30,8 @@ import java.util.List;
 public class FormDAOImplTest {
     @Autowired
     FormDAO formDAO;
+    @Autowired
+    BookDAO bookDAO;
     private Form form;
     private Book book;
     private Reader reader;
@@ -95,6 +98,12 @@ public class FormDAOImplTest {
         forms.clear();
         formDAO.findAll().forEach(forms::add);
         Assert.assertEquals(oldSize - 1, forms.size());
+    }
+
+    @Test
+    public void hnf() {
+        form = formDAO.save(form);
+        System.out.println(bookDAO.getByReader(reader));// todo причесать
     }
 
 }
