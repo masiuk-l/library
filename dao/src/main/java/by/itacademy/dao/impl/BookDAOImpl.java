@@ -35,34 +35,6 @@ public class BookDAOImpl extends BaseDAOImpl<Book> implements BookDAO {
         return bookDAO;
     }
 
-
-    @Override
-    public List<Book> getByName(String name) throws SQLException {
-        log.info("Get books by name:" + name);
-        Session session = getSession();
-        javax.persistence.Query query = session.createQuery("from Book where NAME = :name");
-        query.setParameter("name", name);
-        return query.getResultList();
-    }
-
-    @Override
-    public List<Book> getByIsbn(String isbn) throws SQLException {
-        log.info("Get books by isbn:" + isbn);
-        Session session = getSession();
-        javax.persistence.Query query = session.createQuery("from Book where ISBN = :isbn");
-        query.setParameter("isbn", isbn);
-        return query.getResultList();
-    }
-
-    @Override
-    public List<Book> getByGenre(String genre) throws SQLException {
-        log.info("Get books by genre:" + genre);
-        Session session = getSession();
-        javax.persistence.Query query = session.createQuery("from Book where genre = :genre");
-        query.setParameter("genre", genre);
-        return query.getResultList();
-    }
-
     @Override
     public List<Book> getCatalogPage(int pageNumber, int size) throws SQLException {
         log.info("Get catalog page:" + pageNumber);

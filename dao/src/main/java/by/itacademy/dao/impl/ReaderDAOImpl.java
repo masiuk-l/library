@@ -36,25 +36,6 @@ public class ReaderDAOImpl extends BaseDAOImpl<Reader> implements ReaderDAO {
         return readerDAO;
     }
 
-
-    @Override
-    public List<Reader> getBySurname(String surname) throws SQLException {
-        log.info("Get readers by surname:" + surname);
-        Session session = getSession();
-        javax.persistence.Query query = session.createQuery("from Reader where SURNAME = :surname");
-        query.setParameter("surname", surname);
-        return query.getResultList();
-    }
-
-    @Override
-    public List<Reader> getByStatus(String status) throws SQLException {
-        log.info("Get readers by status:" + status);
-        Session session = getSession();
-        javax.persistence.Query query = session.createQuery("from Reader where STATUS = :status");
-        query.setParameter("status", status);
-        return query.getResultList();
-    }
-
     @Override
     public List<Reader> getByLogin(String login) throws SQLException {
         log.info("Get readers by login:" + login);

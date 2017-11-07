@@ -34,16 +34,6 @@ public class LibrarianDAOImpl extends BaseDAOImpl<Librarian> implements Libraria
         return librarianDAO;
     }
 
-
-    @Override
-    public List<Librarian> getBySurname(String surname) throws SQLException {
-        log.info("Get librarians by surname:" + surname);
-        Session session = getSession();
-        javax.persistence.Query query = session.createQuery("from Librarian where SURNAME = :surname");
-        query.setParameter("surname", surname);
-        return query.getResultList();
-    }
-
     @Override
     public List<Librarian> getByLogin(String login) throws SQLException {
         log.info("Get librarians by login:" + login);

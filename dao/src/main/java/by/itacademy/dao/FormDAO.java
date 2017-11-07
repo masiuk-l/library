@@ -2,7 +2,6 @@ package by.itacademy.dao;
 
 import by.itacademy.entities.Book;
 import by.itacademy.entities.Form;
-import by.itacademy.entities.Librarian;
 import by.itacademy.entities.Reader;
 
 import java.sql.SQLException;
@@ -20,24 +19,11 @@ public interface FormDAO extends DAO<Form> {
     List<Form> getByReader(Reader reader) throws SQLException;
 
     /**
-     * @param librarian librarian
-     * @return List of forms matching the input
-     * @throws SQLException
-     */
-    List<Form> getByLibrarian(Librarian librarian) throws SQLException;
-
-    /**
      * @param book book
      * @return List of forms matching the input
      * @throws SQLException
      */
     List<Form> getByBook(Book book) throws SQLException;
 
-    /**
-     * @param receivalType receivalType
-     * @return List of forms matching the input
-     * @throws SQLException
-     */
-    List<Form> getByReceivalType(String receivalType) throws SQLException;
 
 }

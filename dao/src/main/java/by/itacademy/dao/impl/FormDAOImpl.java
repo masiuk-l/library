@@ -3,7 +3,6 @@ package by.itacademy.dao.impl;
 import by.itacademy.dao.FormDAO;
 import by.itacademy.entities.Book;
 import by.itacademy.entities.Form;
-import by.itacademy.entities.Librarian;
 import by.itacademy.entities.Reader;
 import lombok.extern.log4j.Log4j;
 import org.hibernate.Session;
@@ -14,7 +13,7 @@ import java.util.List;
 
 /**
  * Project KR. Created by masiuk-l on 06.08.2017.
- *
+ * <p>
  * Implementation of FormAuthorDAO interface
  */
 
@@ -56,24 +55,6 @@ public class FormDAOImpl extends BaseDAOImpl<Form> implements FormDAO {
         Session session = getSession();
         javax.persistence.Query query = session.createQuery("from Form where READER_ID = :readerID");
         query.setParameter("readerID", reader.getReaderID());
-        return query.getResultList();
-    }
-
-    @Override
-    public List<Form> getByLibrarian(Librarian librarian) throws SQLException {
-        log.info("Get forms by librarian:" + librarian);
-        Session session = getSession();
-        javax.persistence.Query query = session.createQuery("from Form where LIBRARIAN_ID = :librarianID");
-        query.setParameter("librarianID", librarian.getLibrarianID());
-        return query.getResultList();
-    }
-
-    @Override
-    public List<Form> getByReceivalType(String receivalType) throws SQLException {
-        log.info("Get forms by receivalType:" + receivalType);
-        Session session = getSession();
-        javax.persistence.Query query = session.createQuery("from Form where RECEIVAL_TYPE = :receivalType");
-        query.setParameter("receivalType", receivalType);
         return query.getResultList();
     }
 
