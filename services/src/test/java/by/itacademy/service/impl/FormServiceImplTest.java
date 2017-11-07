@@ -5,11 +5,13 @@ import by.itacademy.entities.Form;
 import by.itacademy.entities.Librarian;
 import by.itacademy.entities.Reader;
 import by.itacademy.service.FormService;
-import by.itacademy.util.HibernateUtil;
-import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
@@ -18,15 +20,18 @@ import java.util.List;
 /**
  * Project KR. Created by masiuk-l on 12.08.2017.
  */
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration("classpath:test-service-context.xml")
 public class FormServiceImplTest {
-    private FormService formService;
+    @Autowired
+    FormService formService;
     private Form form;
+    private Book book;
 
     @Before
     public void createForm() {
-        formService = FormServiceImpl.getInstance();
         form = new Form();
-        Book book = new Book();
+        book = new Book();
         book.setName("Книга");
         book.setIsbn("03293849310");
         book.setGenre("Роман");
@@ -53,15 +58,14 @@ public class FormServiceImplTest {
         form.setReceivalType("Формуляр");
         form.setReceivalDate(LocalDate.now());
         form.setReturnDate(LocalDate.now().plus(14, ChronoUnit.DAYS));
-        HibernateUtil.getEntityManager("by.itacademy.test");
     }
 
     @Test
     public void saveAndGetByReceivalType() throws Exception {
         form = formService.save(form);
-        //Form newForm = formService.getByReceivalType("Формуляр").get(0);
-        //Assert.assertEquals(form.toString(), newForm.toString());
-        //formService.delete(newForm.getFormID());
+        Form newForm = formService.getByBook(book).get(0);
+        Assert.assertEquals(form.toString(), newForm.toString());
+        formService.delete(newForm.getFormID());
     }
 
 
@@ -83,12 +87,6 @@ public class FormServiceImplTest {
         formService.delete(form.getFormID());
         forms = formService.getAll();
         Assert.assertEquals(oldSize - 1, forms.size());
-    }
-
-
-    @After
-    public void tearDown() {
-        HibernateUtil.closeEntityManager();
     }
 
 }

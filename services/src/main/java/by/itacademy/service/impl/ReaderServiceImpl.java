@@ -2,14 +2,14 @@ package by.itacademy.service.impl;
 
 import by.itacademy.dao.ReaderDAO;
 import by.itacademy.dao.auth.Encoder;
-import by.itacademy.dao.impl.ReaderDAOImpl;
 import by.itacademy.entities.Reader;
 import by.itacademy.service.ReaderService;
 import by.itacademy.service.ServiceException;
-import org.hibernate.HibernateException;
+import com.google.common.collect.Lists;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
-import java.io.Serializable;
-import java.sql.SQLException;
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,73 +18,39 @@ import java.util.List;
  * <p>
  * Implementation of ReaderService
  */
-public class ReaderServiceImpl extends AbstractService implements ReaderService {
+@Service
+@Transactional
+public class ReaderServiceImpl implements ReaderService {
 
-    private static volatile ReaderService INSTANCE = null;
-
-    private ReaderDAO readerDAO = ReaderDAOImpl.getInstance();
-
-    private ReaderServiceImpl() {
-    }
-
-    public static ReaderService getInstance() {
-        ReaderService readerService = INSTANCE;
-        if (readerService == null) {
-            synchronized (ReaderServiceImpl.class) {
-                readerService = INSTANCE;
-                if (readerService == null) {
-                    INSTANCE = readerService = new ReaderServiceImpl();
-                }
-            }
-        }
-
-        return readerService;
-    }
+    @Autowired
+    ReaderDAO readerDAO;
 
     @Override
     public Reader save(Reader reader) {
-        try {
-            if (reader != null) {
-                startTransaction();
-                reader = readerDAO.save(reader);
-                commit();
-                return reader;
-            } else {
-                throw new ServiceException("Reader not defined");
-            }
-        } catch (HibernateException | SQLException e) {
-            rollback();
-            throw new ServiceException("Error creating Reader", e);
-        }
-
+        return readerDAO.save(reader);
     }
 
     @Override
-    public Reader get(Serializable id) {
-        try {
-            Reader reader;
-            startTransaction();
-            reader = readerDAO.get(id);
-            commit();
-            return reader;
-        } catch (HibernateException | SQLException e) {
-            rollback();
-            throw new ServiceException("Error getting Reader", e);
-        }
+    public Reader get(Integer id) {
+        return readerDAO.findOne(id);
     }
 
     @Override
     public void update(Reader reader) {
-        try {
-            startTransaction();
-            readerDAO.update(reader);
-            commit();
-        } catch (HibernateException | SQLException e) {
-            rollback();
-            throw new ServiceException("Error updating Reader", e);
-        }
+        readerDAO.save(reader);
     }
 
+    @Override
+    public void delete(Integer id) {
+        readerDAO.delete(id);
+    }
+
+    @Override
+    public List<Reader> getAll() {
+        List<Reader> readers = new ArrayList<>();
+        readerDAO.findAll().forEach(readers::add);
+        return readers;
+    }
     @Override
     public void update(Reader oldReader, Reader newReader) {
         Reader reader = new Reader();
@@ -101,48 +67,13 @@ public class ReaderServiceImpl extends AbstractService implements ReaderService 
     }
 
     @Override
-    public int delete(Serializable id) {
-        try {
-            startTransaction();
-            int rows = readerDAO.delete(id);
-            commit();
-            return rows;
-        } catch (HibernateException | SQLException e) {
-            rollback();
-            throw new ServiceException("Error deleting Reader", e);
-        }
-    }
-
-    @Override
     public Reader getByLogin(String login) {
         ArrayList<Reader> readers;
-        try {
-            startTransaction();
-            readers = new ArrayList<>(readerDAO.getByLogin(login));
-            if (readers.size() > 1)
-                throw new ServiceException("Multiple login Error");
-            commit();
-            if (readers.isEmpty())
-                return null;
-            return readers.get(0);
-        } catch (HibernateException | SQLException e) {
-            rollback();
-            throw new ServiceException("Error finding Reader", e);
-        }
-    }
-
-
-    @Override
-    public List<Reader> getAll() {
-        ArrayList<Reader> readers;
-        try {
-            startTransaction();
-            readers = new ArrayList<>(readerDAO.getAll());
-            commit();
-            return readers;
-        } catch (HibernateException | SQLException e) {
-            rollback();
-            throw new ServiceException("Error finding Reader", e);
-        }
+        readers = Lists.newArrayList(readerDAO.findByEmail(login));
+        if (readers.size() > 1)
+            throw new ServiceException("Multiple login Error");
+        if (readers.isEmpty())
+            return null;
+        return readers.get(0);
     }
 }

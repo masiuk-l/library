@@ -1,14 +1,12 @@
 package by.itacademy.service.impl;
 
 import by.itacademy.dao.AuthorDAO;
-import by.itacademy.dao.impl.AuthorDAOImpl;
 import by.itacademy.entities.Author;
 import by.itacademy.service.AuthorService;
-import by.itacademy.service.ServiceException;
-import org.hibernate.HibernateException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
-import java.io.Serializable;
-import java.sql.SQLException;
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,96 +15,37 @@ import java.util.List;
  * <p>
  * Implementation of AuthorService
  */
-public class AuthorServiceImpl extends AbstractService implements AuthorService {
-    private static volatile AuthorService INSTANCE = null;
-    private AuthorDAO authorDAO = AuthorDAOImpl.getInstance();
+@Service
+@Transactional
+public class AuthorServiceImpl implements AuthorService {
 
-    private AuthorServiceImpl() {
-    }
-
-    public static AuthorService getInstance() {
-        AuthorService authorService = INSTANCE;
-        if (authorService == null) {
-            synchronized (AuthorServiceImpl.class) {
-                authorService = INSTANCE;
-                if (authorService == null) {
-                    INSTANCE = authorService = new AuthorServiceImpl();
-                }
-            }
-        }
-
-        return authorService;
-    }
+    @Autowired
+    AuthorDAO authorDAO;
 
     @Override
     public Author save(Author author) {
-        try {
-            if (author != null) {
-                startTransaction();
-                author = authorDAO.save(author);
-                commit();
-                return author;
-            } else {
-                throw new ServiceException("Author not defined");
-            }
-        } catch (HibernateException | SQLException e) {
-            rollback();
-            throw new ServiceException("Error creating Author", e);
-        }
-
+        return authorDAO.save(author);
     }
 
     @Override
-    public Author get(Serializable id) {
-        try {
-            Author author;
-            startTransaction();
-            author = authorDAO.get(id);
-            commit();
-            return author;
-        } catch (HibernateException | SQLException e) {
-            rollback();
-            throw new ServiceException("Error getting Author", e);
-        }
+    public Author get(Integer id) {
+        return authorDAO.findOne(id);
     }
 
     @Override
     public void update(Author author) {
-        try {
-            startTransaction();
-            authorDAO.update(author);
-            commit();
-        } catch (HibernateException | SQLException e) {
-            rollback();
-            throw new ServiceException("Error updating Author", e);
-        }
+        authorDAO.save(author);
     }
 
     @Override
-    public int delete(Serializable id) {
-        try {
-            startTransaction();
-            int rows = authorDAO.delete(id);
-            commit();
-            return rows;
-        } catch (HibernateException | SQLException e) {
-            rollback();
-            throw new ServiceException("Error deleting Author", e);
-        }
+    public void delete(Integer id) {
+        authorDAO.delete(id);
     }
-
 
     @Override
     public List<Author> getAll() {
-        ArrayList<Author> authors;
-        try {
-            startTransaction();
-            authors = new ArrayList<>(authorDAO.getAll());
-            commit();
-            return authors;
-        } catch (HibernateException | SQLException e) {
-            rollback();
-            throw new ServiceException("Error finding Author", e);
-        }
+        List<Author> authors = new ArrayList<>();
+        authorDAO.findAll().forEach(authors::add);
+        return authors;
     }
 }

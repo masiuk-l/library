@@ -9,7 +9,7 @@ import java.util.List;
 /**
  * Project KR. Created by masiuk-l on 15.08.2017.
  */
-public interface FormService extends Service<Form> {
+public interface FormService extends IService<Form> {
 
 
     /**

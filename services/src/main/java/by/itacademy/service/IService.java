@@ -1,9 +1,8 @@
 package by.itacademy.service;
 
-import java.io.Serializable;
 import java.util.List;
 
-public interface Service<T> {
+public interface IService<T> {
 
     /**
      * @param t entity to save
@@ -15,7 +14,7 @@ public interface Service<T> {
      * @param id id of the entity
      * @return entity
      */
-    T get(Serializable id);
+    T get(Integer id);
 
     /**
      * @param t entity to update
@@ -24,9 +23,8 @@ public interface Service<T> {
 
     /**
      * @param id id of the entity
-     * @return affected rows
      */
-    int delete(Serializable id);
+    void delete(Integer id);
 
     /**
      * @return list of all entities

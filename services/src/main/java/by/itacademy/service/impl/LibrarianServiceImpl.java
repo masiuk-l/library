@@ -2,14 +2,14 @@ package by.itacademy.service.impl;
 
 
 import by.itacademy.dao.LibrarianDAO;
-import by.itacademy.dao.impl.LibrarianDAOImpl;
 import by.itacademy.entities.Librarian;
 import by.itacademy.service.LibrarianService;
 import by.itacademy.service.ServiceException;
-import org.hibernate.HibernateException;
+import com.google.common.collect.Lists;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
-import java.io.Serializable;
-import java.sql.SQLException;
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,113 +18,51 @@ import java.util.List;
  * <p>
  * Implementation of LibrarianService
  */
-public class LibrarianServiceImpl extends AbstractService implements LibrarianService {
-    private static volatile LibrarianService INSTANCE = null;
 
-    private LibrarianDAO librarianDAO = LibrarianDAOImpl.getInstance();
+@Service
+@Transactional
+public class LibrarianServiceImpl implements LibrarianService {
 
-    private LibrarianServiceImpl() {
-    }
+    @Autowired
+    LibrarianDAO librarianDAO;
 
-    public static LibrarianService getInstance() {
-        LibrarianService librarianService = INSTANCE;
-        if (librarianService == null) {
-            synchronized (LibrarianServiceImpl.class) {
-                librarianService = INSTANCE;
-                if (librarianService == null) {
-                    INSTANCE = librarianService = new LibrarianServiceImpl();
-                }
-            }
-        }
-
-        return librarianService;
-    }
 
     @Override
     public Librarian save(Librarian librarian) {
-        try {
-            if (librarian != null) {
-                startTransaction();
-                librarian = librarianDAO.save(librarian);
-                commit();
-                return librarian;
-            } else {
-                throw new ServiceException("Librarian not defined");
-            }
-        } catch (HibernateException | SQLException e) {
-            rollback();
-            throw new ServiceException("Error creating Librarian", e);
-        }
-
+        return librarianDAO.save(librarian);
     }
 
     @Override
-    public Librarian get(Serializable id) {
-        try {
-            Librarian librarian;
-            startTransaction();
-            librarian = librarianDAO.get(id);
-            commit();
-            return librarian;
-        } catch (HibernateException | SQLException e) {
-            rollback();
-            throw new ServiceException("Error getting Librarian", e);
-        }
+    public Librarian get(Integer id) {
+        return librarianDAO.findOne(id);
     }
 
     @Override
     public void update(Librarian librarian) {
-        try {
-            startTransaction();
-            librarianDAO.update(librarian);
-            commit();
-        } catch (HibernateException | SQLException e) {
-            rollback();
-            throw new ServiceException("Error updating Librarian", e);
-        }
+        librarianDAO.save(librarian);
     }
 
     @Override
-    public int delete(Serializable id) {
-        try {
-            startTransaction();
-            int rows = librarianDAO.delete(id);
-            commit();
-            return rows;
-        } catch (HibernateException | SQLException e) {
-            rollback();
-            throw new ServiceException("Error deleting Librarian", e);
-        }
-    }
-
-
-    @Override
-    public Librarian getByLogin(String login) {
-        ArrayList<Librarian> librarians;
-        try {
-            startTransaction();
-            librarians = new ArrayList<>(librarianDAO.getByLogin(login));
-            if (librarians.size() > 1)
-                throw new ServiceException("Multiple login Error");
-            commit();
-            return librarians.get(0);
-        } catch (HibernateException | SQLException e) {
-            rollback();
-            throw new ServiceException("Error finding Librarian", e);
-        }
+    public void delete(Integer id) {
+        librarianDAO.delete(id);
     }
 
     @Override
     public List<Librarian> getAll() {
+        List<Librarian> librarians = new ArrayList<>();
+        librarianDAO.findAll().forEach(librarians::add);
+        return librarians;
+    }
+
+    @Override
+    public Librarian getByLogin(String login) {
         ArrayList<Librarian> librarians;
-        try {
-            startTransaction();
-            librarians = new ArrayList<>(librarianDAO.getAll());
-            commit();
-            return librarians;
-        } catch (HibernateException | SQLException e) {
-            rollback();
-            throw new ServiceException("Error finding Librarian", e);
-        }
+        librarians = Lists.newArrayList(librarianDAO.findByEmail(login));
+        if (librarians.size() > 1)
+            throw new ServiceException("Multiple login Error");
+        if (librarians.isEmpty())
+            return null;
+        return librarians.get(0);
+
     }
 }

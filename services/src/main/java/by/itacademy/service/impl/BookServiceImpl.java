@@ -1,14 +1,14 @@
 package by.itacademy.service.impl;
 
 import by.itacademy.dao.BookDAO;
-import by.itacademy.dao.impl.BookDAOImpl;
 import by.itacademy.entities.Book;
 import by.itacademy.service.BookService;
-import by.itacademy.service.ServiceException;
-import org.hibernate.HibernateException;
+import com.google.common.collect.Lists;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.stereotype.Service;
 
-import java.io.Serializable;
-import java.sql.SQLException;
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,71 +17,39 @@ import java.util.List;
  * <p>
  * Implementation of BookService
  */
-public class BookServiceImpl extends AbstractService implements BookService {
-    private static volatile BookService INSTANCE = null;
+@Service
+@Transactional
+public class BookServiceImpl implements BookService {
 
-    private BookDAO bookDAO = BookDAOImpl.getInstance();
+    @Autowired
+    BookDAO bookDAO;
 
-
-    private BookServiceImpl() {
-    }
-
-    public static BookService getInstance() {
-        BookService BookService = INSTANCE;
-        if (BookService == null) {
-            synchronized (BookServiceImpl.class) {
-                BookService = INSTANCE;
-                if (BookService == null) {
-                    INSTANCE = BookService = new BookServiceImpl();
-                }
-            }
-        }
-
-        return BookService;
-    }
 
     @Override
     public Book save(Book book) {
-        try {
-            if (book != null) {
-                startTransaction();
-                book = bookDAO.save(book);
-                commit();
-                return book;
-            } else {
-                throw new ServiceException("Book not defined");
-            }
-        } catch (HibernateException | SQLException e) {
-            rollback();
-            throw new ServiceException("Error creating Book", e);
-        }
-
+        return bookDAO.save(book);
     }
 
     @Override
-    public Book get(Serializable id) {
-        try {
-            Book book;
-            startTransaction();
-            book = bookDAO.get(id);
-            commit();
-            return book;
-        } catch (HibernateException | SQLException e) {
-            rollback();
-            throw new ServiceException("Error getting Book", e);
-        }
+    public Book get(Integer id) {
+        return bookDAO.findOne(id);
     }
 
     @Override
     public void update(Book book) {
-        try {
-            startTransaction();
-            bookDAO.update(book);
-            commit();
-        } catch (HibernateException | SQLException e) {
-            rollback();
-            throw new ServiceException("Error updating Book", e);
-        }
+        bookDAO.save(book);
+    }
+
+    @Override
+    public void delete(Integer id) {
+        bookDAO.delete(id);
+    }
+
+    @Override
+    public List<Book> getAll() {
+        List<Book> books = new ArrayList<>();
+        bookDAO.findAll().forEach(books::add);
+        return books;
     }
 
     @Override
@@ -96,67 +64,24 @@ public class BookServiceImpl extends AbstractService implements BookService {
         update(book);
     }
 
-    @Override
-    public int delete(Serializable id) {
-        try {
-            startTransaction();
-            Book book = bookDAO.get(id);
-            int rows = bookDAO.delete(id);
-            commit();
-            return rows;
-        } catch (HibernateException | SQLException e) {
-            rollback();
-            throw new ServiceException("Error deleting Book", e);
-        }
-    }
-
 
     @Override
     public List<Book> searchByName(String name) {
         String searchKey = name.toLowerCase();
         ArrayList<Book> books = new ArrayList<>();
-        try {
-            startTransaction();
-            ArrayList<Book> allBooks = new ArrayList<>(bookDAO.getAll());
-            for (Book aBook : allBooks) {
-                if (aBook.getName().toLowerCase().contains(searchKey) || aBook.getGenre().toLowerCase().contains(searchKey))
-                    books.add(aBook);
-            }
-            commit();
-            return books;
-        } catch (HibernateException | SQLException e) {
-            rollback();
-            throw new ServiceException("Error finding Book", e);
+        ArrayList<Book> allBooks = Lists.newArrayList(bookDAO.findAll());
+        for (Book aBook : allBooks) {
+            if (aBook.getName().toLowerCase().contains(searchKey) || aBook.getGenre().toLowerCase().contains(searchKey))
+                books.add(aBook);
         }
-    }
-
-
-    @Override
-    public List<Book> getAll() {
-        ArrayList<Book> books;
-        try {
-            startTransaction();
-            books = new ArrayList<>(bookDAO.getAll());
-            commit();
-            return books;
-        } catch (HibernateException | SQLException e) {
-            rollback();
-            throw new ServiceException("Error finding Book", e);
-        }
+        return books;
     }
 
     @Override
     public List<Book> getCatalogPage(int pageNumber, int size) {
         ArrayList<Book> books;
-        try {
-            startTransaction();
-            books = new ArrayList<>(bookDAO.getCatalogPage(pageNumber, size));
-            commit();
-            return books;
-        } catch (HibernateException | SQLException e) {
-            rollback();
-            throw new ServiceException("Error finding Book", e);
-        }
+        books = Lists.newArrayList(bookDAO.findAll(new PageRequest(pageNumber - 1, size)));
+        return books;
     }
 
 }
