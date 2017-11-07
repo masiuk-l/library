@@ -6,6 +6,7 @@ import by.itacademy.entities.Form;
 import by.itacademy.entities.Reader;
 import lombok.extern.log4j.Log4j;
 import org.hibernate.Session;
+import org.springframework.stereotype.Repository;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -18,27 +19,8 @@ import java.util.List;
  */
 
 @Log4j
+@Repository
 public class FormDAOImpl extends BaseDAOImpl<Form> implements FormDAO {
-
-    private static volatile FormDAO INSTANCE = null;
-
-    private FormDAOImpl() {
-    }
-
-    public static FormDAO getInstance() {
-        FormDAO formDAO = INSTANCE;
-        if (formDAO == null) {
-            synchronized (FormDAOImpl.class) {
-                formDAO = INSTANCE;
-                if (formDAO == null) {
-                    INSTANCE = formDAO = new FormDAOImpl();
-                }
-            }
-        }
-
-        return formDAO;
-    }
-
 
     @Override
     public List<Form> getByBook(Book book) throws SQLException {

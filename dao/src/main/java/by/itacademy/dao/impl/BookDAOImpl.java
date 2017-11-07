@@ -4,6 +4,7 @@ import by.itacademy.dao.BookDAO;
 import by.itacademy.entities.Book;
 import lombok.extern.log4j.Log4j;
 import org.hibernate.Session;
+import org.springframework.stereotype.Repository;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -15,25 +16,8 @@ import java.util.List;
  */
 
 @Log4j
+@Repository
 public class BookDAOImpl extends BaseDAOImpl<Book> implements BookDAO {
-
-    private static volatile BookDAO INSTANCE = null;
-
-    private BookDAOImpl() {
-    }
-
-    public static BookDAO getInstance() {
-        BookDAO bookDAO = INSTANCE;
-        if (bookDAO == null) {
-            synchronized (BookDAOImpl.class) {
-                bookDAO = INSTANCE;
-                if (bookDAO == null) {
-                    INSTANCE = bookDAO = new BookDAOImpl();
-                }
-            }
-        }
-        return bookDAO;
-    }
 
     @Override
     public List<Book> getCatalogPage(int pageNumber, int size) throws SQLException {

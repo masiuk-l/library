@@ -1,11 +1,11 @@
-package by.itacademy.impl;
+package by.itacademy.service.impl;
 
-import by.itacademy.ReaderService;
-import by.itacademy.ServiceException;
 import by.itacademy.dao.ReaderDAO;
 import by.itacademy.dao.auth.Encoder;
 import by.itacademy.dao.impl.ReaderDAOImpl;
 import by.itacademy.entities.Reader;
+import by.itacademy.service.ReaderService;
+import by.itacademy.service.ServiceException;
 import org.hibernate.HibernateException;
 
 import java.io.Serializable;

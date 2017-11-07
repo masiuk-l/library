@@ -1,10 +1,10 @@
-package by.itacademy.impl;
+package by.itacademy.service.impl;
 
-import by.itacademy.FormService;
 import by.itacademy.entities.Book;
 import by.itacademy.entities.Form;
 import by.itacademy.entities.Librarian;
 import by.itacademy.entities.Reader;
+import by.itacademy.service.FormService;
 import by.itacademy.util.HibernateUtil;
 import org.junit.After;
 import org.junit.Assert;

@@ -2,9 +2,14 @@ package by.itacademy.dao.impl;
 
 import by.itacademy.dao.DAO;
 import by.itacademy.util.HibernateUtil;
+import lombok.Getter;
 import lombok.extern.log4j.Log4j;
 import org.hibernate.Session;
+import org.springframework.context.annotation.Primary;
+import org.springframework.stereotype.Repository;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
 import java.sql.SQLException;
@@ -17,8 +22,13 @@ import java.util.List;
  */
 
 @Log4j
+@Repository
+@Primary
 public abstract class BaseDAOImpl<T> implements DAO<T> {
 
+    @PersistenceContext
+    @Getter
+    private EntityManager em;
 
     public Session getSession() {
         return HibernateUtil.getEntityManager().unwrap(Session.class);

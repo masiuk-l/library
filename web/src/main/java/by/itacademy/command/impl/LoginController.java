@@ -1,10 +1,10 @@
 package by.itacademy.command.impl;
 
-import by.itacademy.ReaderService;
 import by.itacademy.command.Controller;
 import by.itacademy.dao.auth.Encoder;
 import by.itacademy.entities.Reader;
-import by.itacademy.impl.ReaderServiceImpl;
+import by.itacademy.service.ReaderService;
+import by.itacademy.service.impl.ReaderServiceImpl;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;

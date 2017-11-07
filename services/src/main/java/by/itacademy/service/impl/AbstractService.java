@@ -1,4 +1,4 @@
-package by.itacademy.impl;
+package by.itacademy.service.impl;
 
 import by.itacademy.util.HibernateUtil;
 import org.hibernate.Session;

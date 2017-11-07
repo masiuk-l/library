@@ -1,11 +1,11 @@
-package by.itacademy.impl;
+package by.itacademy.service.impl;
 
 
-import by.itacademy.LibrarianService;
-import by.itacademy.ServiceException;
 import by.itacademy.dao.LibrarianDAO;
 import by.itacademy.dao.impl.LibrarianDAOImpl;
 import by.itacademy.entities.Librarian;
+import by.itacademy.service.LibrarianService;
+import by.itacademy.service.ServiceException;
 import org.hibernate.HibernateException;
 
 import java.io.Serializable;

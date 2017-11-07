@@ -1,9 +1,9 @@
 package by.itacademy.command.impl;
 
-import by.itacademy.BookService;
 import by.itacademy.command.Controller;
 import by.itacademy.entities.Book;
-import by.itacademy.impl.BookServiceImpl;
+import by.itacademy.service.BookService;
+import by.itacademy.service.impl.BookServiceImpl;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;

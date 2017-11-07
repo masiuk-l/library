@@ -1,14 +1,14 @@
 package by.itacademy.command.impl;
 
-import by.itacademy.BookService;
-import by.itacademy.FormService;
 import by.itacademy.command.Controller;
 import by.itacademy.entities.Book;
 import by.itacademy.entities.Form;
 import by.itacademy.entities.Librarian;
 import by.itacademy.entities.Reader;
-import by.itacademy.impl.BookServiceImpl;
-import by.itacademy.impl.FormServiceImpl;
+import by.itacademy.service.BookService;
+import by.itacademy.service.FormService;
+import by.itacademy.service.impl.BookServiceImpl;
+import by.itacademy.service.impl.FormServiceImpl;
 import com.google.gson.Gson;
 
 import javax.servlet.ServletException;

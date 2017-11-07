@@ -1,8 +1,8 @@
-package by.itacademy.impl;
+package by.itacademy.service.impl;
 
-import by.itacademy.ReaderService;
 import by.itacademy.dao.auth.Encoder;
 import by.itacademy.entities.Reader;
+import by.itacademy.service.ReaderService;
 import by.itacademy.util.HibernateUtil;
 import org.junit.After;
 import org.junit.Assert;

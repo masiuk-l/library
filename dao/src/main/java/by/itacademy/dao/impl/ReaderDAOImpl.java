@@ -4,6 +4,7 @@ import by.itacademy.dao.ReaderDAO;
 import by.itacademy.entities.Reader;
 import lombok.extern.log4j.Log4j;
 import org.hibernate.Session;
+import org.springframework.stereotype.Repository;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -15,26 +16,8 @@ import java.util.List;
  */
 
 @Log4j
+@Repository
 public class ReaderDAOImpl extends BaseDAOImpl<Reader> implements ReaderDAO {
-
-    private static volatile ReaderDAO INSTANCE = null;
-
-    private ReaderDAOImpl() {
-    }
-
-    public static ReaderDAO getInstance() {
-        ReaderDAO readerDAO = INSTANCE;
-        if (readerDAO == null) {
-            synchronized (ReaderDAOImpl.class) {
-                readerDAO = INSTANCE;
-                if (readerDAO == null) {
-                    INSTANCE = readerDAO = new ReaderDAOImpl();
-                }
-            }
-        }
-
-        return readerDAO;
-    }
 
     @Override
     public List<Reader> getByLogin(String login) throws SQLException {

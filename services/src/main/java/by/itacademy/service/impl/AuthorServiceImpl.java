@@ -1,10 +1,10 @@
-package by.itacademy.impl;
+package by.itacademy.service.impl;
 
-import by.itacademy.AuthorService;
-import by.itacademy.ServiceException;
 import by.itacademy.dao.AuthorDAO;
 import by.itacademy.dao.impl.AuthorDAOImpl;
 import by.itacademy.entities.Author;
+import by.itacademy.service.AuthorService;
+import by.itacademy.service.ServiceException;
 import org.hibernate.HibernateException;
 
 import java.io.Serializable;

@@ -1,4 +1,4 @@
-package by.itacademy;
+package by.itacademy.service;
 
 import java.io.Serializable;
 import java.util.List;

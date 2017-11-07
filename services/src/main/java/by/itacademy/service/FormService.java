@@ -1,4 +1,4 @@
-package by.itacademy;
+package by.itacademy.service;
 
 import by.itacademy.entities.Book;
 import by.itacademy.entities.Form;

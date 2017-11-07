@@ -1,7 +1,7 @@
-package by.itacademy.impl;
+package by.itacademy.service.impl;
 
-import by.itacademy.AuthorService;
 import by.itacademy.entities.Author;
+import by.itacademy.service.AuthorService;
 import by.itacademy.util.HibernateUtil;
 import org.junit.After;
 import org.junit.Assert;

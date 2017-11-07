@@ -4,6 +4,7 @@ import by.itacademy.dao.LibrarianDAO;
 import by.itacademy.entities.Librarian;
 import lombok.extern.log4j.Log4j;
 import org.hibernate.Session;
+import org.springframework.stereotype.Repository;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -14,25 +15,8 @@ import java.util.List;
  * Implementation of LibrarianDAO interface
  */
 @Log4j
+@Repository
 public class LibrarianDAOImpl extends BaseDAOImpl<Librarian> implements LibrarianDAO {
-
-    private static volatile LibrarianDAO INSTANCE = null;
-
-    private LibrarianDAOImpl() {
-    }
-
-    public static LibrarianDAO getInstance() {
-        LibrarianDAO librarianDAO = INSTANCE;
-        if (librarianDAO == null) {
-            synchronized (LibrarianDAOImpl.class) {
-                librarianDAO = INSTANCE;
-                if (librarianDAO == null) {
-                    INSTANCE = librarianDAO = new LibrarianDAOImpl();
-                }
-            }
-        }
-        return librarianDAO;
-    }
 
     @Override
     public List<Librarian> getByLogin(String login) throws SQLException {
