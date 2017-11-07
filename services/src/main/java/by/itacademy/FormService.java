@@ -1,9 +1,7 @@
 package by.itacademy;
 
-import by.itacademy.VO.FormVO;
 import by.itacademy.entities.Book;
 import by.itacademy.entities.Form;
-import by.itacademy.entities.Librarian;
 import by.itacademy.entities.Reader;
 
 import java.util.List;
@@ -20,11 +18,6 @@ public interface FormService extends Service<Form> {
      */
     List<Form> getByReader(Reader reader);
 
-    /**
-     * @param librarian librarian
-     * @return List of forms matching the input
-     */
-    List<Form> getByLibrarian(Librarian librarian);
 
     /**
      * @param book book
@@ -32,16 +25,5 @@ public interface FormService extends Service<Form> {
      */
     List<Form> getByBook(Book book);
 
-    /**
-     * @param receivalType receivalType
-     * @return List of forms matching the input
-     */
-    List<Form> getByReceivalType(String receivalType);
-
-    /**
-     * @param form form
-     * @return Value object of the form
-     */
-    FormVO getFormVO(Form form);
 
 }

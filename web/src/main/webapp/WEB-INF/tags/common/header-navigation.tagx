@@ -8,11 +8,11 @@
 
     <nav class="navbar navbar-expand-md navbar-light bg-light">
         <a class="navbar-brand" href="${pageContext.request.contextPath}/frontController?command=main">
-            <fmt:message key="menu.name" bundle="${i18n}"></fmt:message>
+            <fmt:message key="menu.name" bundle="${i18n}"/>
         </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse"
                 aria-controls="navbarCollapse">
-            <span class="navbar-toggler-icon"></span>
+            <span class="navbar-toggler-icon"/>
         </button>
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav mr-auto">
@@ -21,7 +21,7 @@
                         <li class="nav-item active">
                             <a class="nav-link"
                                href="${pageContext.request.contextPath}/frontController?command=catalog">
-                                <fmt:message key="menu.catalog" bundle="${i18n}"></fmt:message>
+                                <fmt:message key="menu.catalog" bundle="${i18n}"/>
                             </a>
                         </li>
                     </c:when>
@@ -29,35 +29,33 @@
                         <li class="nav-item">
                             <a class="nav-link"
                                href="${pageContext.request.contextPath}/frontController?command=catalog">
-                                <fmt:message key="menu.catalog" bundle="${i18n}"></fmt:message>
+                                <fmt:message key="menu.catalog" bundle="${i18n}"/>
                             </a>
                         </li>
                     </c:otherwise>
                 </c:choose>
-
 
                 <c:choose>
                     <c:when test="${pageName eq 'about'}">
                         <li class="nav-item active">
                             <a class="nav-link"
                                href="${pageContext.request.contextPath}/frontController?command=about"><fmt:message
-                                    key="about.title" bundle="${i18n}"></fmt:message></a>
+                                    key="about.title" bundle="${i18n}"/></a>
                         </li>
                     </c:when>
                     <c:otherwise>
                         <li class="nav-item">
                             <a class="nav-link"
                                href="${pageContext.request.contextPath}/frontController?command=about"><fmt:message
-                                    key="about.title" bundle="${i18n}"></fmt:message></a>
+                                    key="about.title" bundle="${i18n}"/></a>
                         </li>
                     </c:otherwise>
                 </c:choose>
 
-
-                <c:url var="path" value="/frontController?.command=${sessionScope.pageName}"></c:url>
+                <c:url var="path" value="/frontController?command=${sessionScope.pageName}"/>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown">
-                        <fmt:message key="menu.language" bundle="${i18n}"></fmt:message>
+                        <fmt:message key="menu.language" bundle="${i18n}"/>
                     </a>
                     <div class="dropdown-menu">
                         <a class="dropdown-item" href="${path}&amp;locale=ru">Русский</a>
@@ -70,22 +68,22 @@
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink"
                                data-toggle="dropdown">
-                                <fmt:message key="menu.hello" bundle="${i18n}"></fmt:message>, ${sreader.name}!
+                                <fmt:message key="menu.hello" bundle="${i18n}"/>, ${sreader.name}!
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                                 <a class="dropdown-item"
                                    href="${pageContext.request.contextPath}/frontController?command=editreader">
-                                    <fmt:message key="menu.edit" bundle="${i18n}"></fmt:message>
+                                    <fmt:message key="menu.edit" bundle="${i18n}"/>
                                 </a>
                                 <a class="dropdown-item"
                                    href="${pageContext.request.contextPath}/frontController?command=mybooks">
-                                    <fmt:message key="mybooks.title" bundle="${i18n}"></fmt:message>
+                                    <fmt:message key="mybooks.title" bundle="${i18n}"/>
                                 </a>
-                                <a class="divider"></a>
+                                <a class="divider"/>
 
                                 <a class="dropdown-item"
                                    href="${pageContext.request.contextPath}/frontController?command=logout">
-                                    <fmt:message key="menu.logout" bundle="${i18n}"></fmt:message>
+                                    <fmt:message key="menu.logout" bundle="${i18n}"/>
                                 </a>
                             </div>
                         </li>
@@ -94,20 +92,20 @@
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink"
                                data-toggle="dropdown">
-                                <fmt:message key="menu.hello" bundle="${i18n}"></fmt:message>, ${slibrarian.name}!
+                                <fmt:message key="menu.hello" bundle="${i18n}"/>, ${slibrarian.name}!
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                                 <a class="dropdown-item"
                                    href="${pageContext.request.contextPath}/frontController?command=addbook">
-                                    <fmt:message key="admin.add.book" bundle="${i18n}"></fmt:message>
+                                    <fmt:message key="admin.add.book" bundle="${i18n}"/>
                                 </a>
                                 <a class="dropdown-item"
                                    href="${pageContext.request.contextPath}/frontController?command=readers">
-                                    <fmt:message key="readers.title" bundle="${i18n}"></fmt:message>
+                                    <fmt:message key="readers.title" bundle="${i18n}"/>
                                 </a>
                                 <a class="dropdown-item"
                                    href="${pageContext.request.contextPath}/frontController?command=logout">
-                                    <fmt:message key="menu.logout" bundle="${i18n}"></fmt:message>
+                                    <fmt:message key="menu.logout" bundle="${i18n}"/>
                                 </a>
                             </div>
                         </li>
@@ -115,19 +113,20 @@
                     <c:otherwise>
                         <li class="nav-item navbar-right">
                             <a class="nav-link" href="${pageContext.request.contextPath}/frontController?command=login">
-                                <fmt:message key="menu.signin" bundle="${i18n}"></fmt:message>
+                                <fmt:message key="menu.signin" bundle="${i18n}"/>
                             </a>
                         </li>
                     </c:otherwise>
                 </c:choose>
 
             </ul>
-
-            <form class="form-inline mt-2 mt-md-0" action="frontController?command=searchcatalog" method="post">
-                <input class="form-control mr-sm-2" type="text" required="" pattern=".{3,30}" name="name"/>
-                <button class="btn btn-outline-secondary my-2 my-sm-0" type="submit"><fmt:message
-                        key="searchcatalog.title" bundle="${i18n}"></fmt:message></button>
-            </form>
+            <div class="navbar-nav ">
+                <form class="form-inline mt-2 mt-md-0" action="frontController?command=searchcatalog" method="post">
+                    <input class="form-control mr-sm-2" type="text" required="" pattern=".{3,30}" name="name"/>
+                    <button class="btn btn-outline-secondary my-2 my-sm-0" type="submit"><fmt:message
+                            key="searchcatalog.title" bundle="${i18n}"/></button>
+                </form>
+            </div>
         </div>
     </nav>
 

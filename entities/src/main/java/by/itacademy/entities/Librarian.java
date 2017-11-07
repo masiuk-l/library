@@ -2,19 +2,53 @@ package by.itacademy.entities;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+
+import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Project KR. Created by masiuk-l on 06.08.2017.
  */
 @Data
+@EqualsAndHashCode(callSuper = true)
 @AllArgsConstructor
 @NoArgsConstructor
-public class Librarian {
-    private int librarianID;
-    private String name;
-    private String surname;
-    private String secondName;
-    private String password;
-    private String email;
+@Entity
+@Table(name = "LIBRARIAN")
+public class Librarian extends Person {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "LIBRARIAN_ID")
+    private Integer librarianID;
+
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "librarian", cascade = CascadeType.ALL)
+    private Set<Form> forms = new HashSet<>(0);
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+
+        Librarian librarian = (Librarian) o;
+
+        return librarianID != null ? librarianID.equals(librarian.librarianID) : librarian.librarianID == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = super.hashCode();
+        result = 31 * result + (librarianID != null ? librarianID.hashCode() : 0);
+        return result;
+    }
+
+    @Override
+    public String toString() {
+        return "Librarian{" +
+                "librarianID=" + librarianID +
+                '}';
+    }
 }

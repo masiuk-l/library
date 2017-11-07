@@ -1,7 +1,6 @@
 package by.itacademy.command.impl;
 
 import by.itacademy.BookService;
-import by.itacademy.VO.BookVO;
 import by.itacademy.command.Controller;
 import by.itacademy.entities.Book;
 import by.itacademy.impl.BookServiceImpl;
@@ -24,7 +23,7 @@ public class SearchCatalogController implements Controller {
 
         String name = req.getParameter("name");
         if (name.length() < 3 || name.length() > 30) {
-            req.getSession().setAttribute("bookVOS", null);
+            req.getSession().setAttribute("books", null);
             req.getSession().setAttribute("Msg", "Invalid input");
             RequestDispatcher dispatcher = req.getRequestDispatcher(MAIN_PAGE);
             dispatcher.forward(req, resp);
@@ -32,23 +31,18 @@ public class SearchCatalogController implements Controller {
         } else {
             ArrayList<Book> books = new ArrayList<>(bookService.searchByName(name));
             if (books.isEmpty()) {
-                req.getSession().setAttribute("bookVOS", null);
+                req.getSession().setAttribute("books", null);
+                req.getSession().setAttribute("pageCount", null);
                 req.getSession().setAttribute("Msg", "No books match your input");
                 RequestDispatcher dispatcher = req.getRequestDispatcher(MAIN_PAGE);
                 dispatcher.forward(req, resp);
-                return;
             } else {
-                ArrayList<BookVO> bookVOS = new ArrayList<>();
-                for (Book book : books) {
-                    BookVO bookVO = bookService.getBookVO(book);
-                    bookVOS.add(bookVO);
-                }
-
-                req.getSession().setAttribute("bookVOS", bookVOS);
+                req.getSession().setAttribute("books", books);
+                int pageCount = (int) Math.ceil(books.size() / (double) 3);//todo заменить на количество страниц в настройках
+                req.getSession().setAttribute("pageCount", pageCount);
                 req.getSession().setAttribute("Msg", "");
                 RequestDispatcher dispatcher = req.getRequestDispatcher(MAIN_PAGE);
                 dispatcher.forward(req, resp);
-                return;
             }
 
         }

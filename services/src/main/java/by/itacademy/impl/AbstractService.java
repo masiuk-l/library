@@ -1,9 +1,8 @@
 package by.itacademy.impl;
 
-import by.itacademy.db.ConnectionManager;
-import by.itacademy.db.DBException;
+import by.itacademy.util.HibernateUtil;
+import org.hibernate.Session;
 
-import java.sql.Connection;
 import java.sql.SQLException;
 
 /**
@@ -13,23 +12,20 @@ import java.sql.SQLException;
  */
 public abstract class AbstractService {
 
-    public void startTransaction() throws SQLException {
-        getConnection().setAutoCommit(false);
+    public void startTransaction() {
+        HibernateUtil.beginTransaction();
     }
 
     public void commit() throws SQLException {
-        getConnection().commit();
+        HibernateUtil.commit();
     }
 
-    public Connection getConnection() {
-        return ConnectionManager.getConnection();
+    public Session getSession() {
+        return HibernateUtil.getEntityManager().unwrap(Session.class);
     }
 
     public void rollback() {
-        try {
-            getConnection().rollback();
-        } catch (SQLException e) {
-            throw new DBException("rollback error");
-        }
+        HibernateUtil.rollback();
+
     }
 }

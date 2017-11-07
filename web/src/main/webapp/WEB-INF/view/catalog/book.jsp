@@ -12,37 +12,37 @@
 <div class="col-sm-12">
     <div class="card">
         <div class="card-header p-b-0">
-            <h5 class="card-title"><i class="fa fa-book"></i> ${bookVO.book.name}</h5>
+            <h5 class="card-title"><i class="fa fa-book"></i> ${book.name}</h5>
         </div>
 
         <ul class="list-group list-group-flush">
             <li class="list-group-item"><b><fmt:message bundle="${i18n}" key="catalog.author"/>: </b>
-                <c:forEach var="author" items="${bookVO.authors}" varStatus="status">
+                <c:forEach var="author" items="${book.authors}" varStatus="status">
                     ${author.name} ${author.surname}
                     <c:if test="${not status.last}">,</c:if>
                 </c:forEach>
             </li>
             <li class="list-group-item"><b><fmt:message bundle="${i18n}" key="catalog.genre"/>: </b>
-                ${bookVO.book.genre}
+                ${book.genre}
             </li>
 
             <li class="list-group-item"><b><fmt:message bundle="${i18n}" key="catalog.year"/>: </b>
-                ${bookVO.book.year}
+                ${book.year}
             </li>
 
             <li class="list-group-item"><b><fmt:message bundle="${i18n}" key="catalog.quantity"/>: </b>
-                <span id="quantity">${bookVO.book.quantity}</span>
+                <span id="quantity">${book.quantity}</span>
             </li>
 
             <li class="list-group-item"><b><fmt:message bundle="${i18n}" key="catalog.isbn"></fmt:message>: </b>
-                ${bookVO.book.isbn}
+                ${book.isbn}
             </li>
 
         </ul>
         <!-- логика! -->
         <c:set var="flag" value="false"/>
         <c:if test="${not empty sreader}">
-            <c:forEach var="reader" items="${bookVO.readers}">
+            <c:forEach var="reader" items="${book.readers}">
                 <c:if test="${reader.readerID eq sreader.readerID}">
                     <c:set var="flag" value="true"/>
                 </c:if>
@@ -56,13 +56,13 @@
                     <fmt:message bundle="${i18n}" key="book.reserved"/>
                 </button>
             </c:when>
-            <c:when test="${bookVO.book.quantity eq 0}">
+            <c:when test="${book.quantity eq 0}">
                 <button class="btn disabled">
                     <fmt:message bundle="${i18n}" key="book.unavailable"/>
                 </button>
             </c:when>
             <c:otherwise>
-                <button class="btn btn-primary reserve-book" id="${bookVO.book.bookID}">
+                <button class="btn btn-primary reserve-book" id="${book.bookID}">
                     <fmt:message bundle="${i18n}" key="book.reserve"/>
                 </button>
             </c:otherwise>

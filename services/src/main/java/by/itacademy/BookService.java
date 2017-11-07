@@ -1,6 +1,5 @@
 package by.itacademy;
 
-import by.itacademy.VO.BookVO;
 import by.itacademy.entities.Book;
 
 import java.util.List;
@@ -9,24 +8,6 @@ import java.util.List;
  * Project KR. Created by masiuk-l on 15.08.2017.
  */
 public interface BookService extends Service<Book> {
-
-    /**
-     * @param name
-     * @return List of books matching the input
-     */
-    List<Book> getByName(String name);
-
-    /**
-     * @param isbn isbn
-     * @return List of books matching the input
-     */
-    List<Book> getByIsbn(String isbn);
-
-    /**
-     * @param genre genre
-     * @return List of books matching the input
-     */
-    List<Book> getByGenre(String genre);
 
     /**
      * @param oldBook initial book
@@ -41,8 +22,10 @@ public interface BookService extends Service<Book> {
     List<Book> searchByName(String name);
 
     /**
-     * @param book book
-     * @return Value object of the book
+     * @param pageNumber number of the catalog page
+     * @param size       number of elements per page
+     * @return List of books matching the input
      */
-    BookVO getBookVO(Book book);
+    List<Book> getCatalogPage(int pageNumber, int size);
+
 }

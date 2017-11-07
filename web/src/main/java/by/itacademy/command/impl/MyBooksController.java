@@ -2,7 +2,6 @@ package by.itacademy.command.impl;
 
 import by.itacademy.BookService;
 import by.itacademy.FormService;
-import by.itacademy.VO.FormVO;
 import by.itacademy.command.Controller;
 import by.itacademy.entities.Form;
 import by.itacademy.entities.Reader;
@@ -30,12 +29,7 @@ public class MyBooksController implements Controller {
         }
         Reader reader = (Reader) req.getSession().getAttribute("sreader");
         ArrayList<Form> forms = new ArrayList<>(formService.getByReader(reader));
-        ArrayList<FormVO> formVOS = new ArrayList<>();
-        for (Form form : forms) {
-            FormVO formVO = formService.getFormVO(form);
-            formVOS.add(formVO);
-        }
-        req.getSession().setAttribute("formVOS", formVOS);
+        req.getSession().setAttribute("forms", forms);
         req.getRequestDispatcher(MAIN_PAGE).forward(req, resp);
     }
 }

@@ -21,7 +21,7 @@
             <div id="myTabContent" class="tab-content">
                 <div role="tabpanel" class="tab-pane fade in active show" id="editbook">
                     <p><b><fmt:message bundle="${i18n}" key="editBook.title"/></b></p>
-                    <form class="form-horizontal" action="frontController?command=editBook&id=${bookVO.book.bookID}"
+                    <form class="form-horizontal" action="frontController?command=editBook&id=${book.bookID}"
                           method="post"
                           data-toggle="validator">
                         <fieldset>
@@ -32,7 +32,7 @@
                                     <fmt:message bundle="${i18n}" key="book.name"/>:
                                 </label>
                                 <div class="controls">
-                                    <input id="name" name="name" placeholder="${bookVO.book.name}"
+                                    <input id="name" name="name" placeholder="${book.name}"
                                            class="form-control input-large"
                                            data-pattern-error="<fmt:message bundle='${i18n}' key='data.non-valid'/>"
                                            pattern="^.{1,29}$">
@@ -53,7 +53,7 @@
                                             data-required-error="<fmt:message bundle='${i18n}' key='data.required'/>">
                                         <c:forEach var="author" items="${authors}">
                                             <c:set var="flag" value="false"/>
-                                            <c:forEach var="featuredAuthor" items="${bookVO.authors}">
+                                            <c:forEach var="featuredAuthor" items="${book.authors}">
                                                 <c:if test="${author.authorID eq featuredAuthor.authorID}">
                                                     <c:set var="flag" value="true"/>
                                                 </c:if>
@@ -88,7 +88,7 @@
                                     <fmt:message bundle="${i18n}" key="catalog.isbn"/>:
                                 </label>
                                 <div class="controls">
-                                    <input id="isbn" class="form-control input-large" placeholder="${bookVO.book.isbn}"
+                                    <input id="isbn" class="form-control input-large" placeholder="${book.isbn}"
                                            name="isbn"
                                            data-pattern-error="<fmt:message bundle='${i18n}' key='data.non-valid'/>"
                                            pattern="^[0-9\\-]{1,12}$">
@@ -106,7 +106,7 @@
                                 </label>
                                 <div class="controls">
                                     <input id="genre" class="form-control input-large" name="genre"
-                                           placeholder="${bookVO.book.genre}"
+                                           placeholder="${book.genre}"
                                            data-pattern-error="<fmt:message bundle='${i18n}' key='data.non-valid'/>"
                                            pattern="^.{1,30}$">
                                 </div>
@@ -122,7 +122,7 @@
                                 </label>
                                 <div class="controls">
                                     <input id="year" class="form-control input-large" name="year"
-                                           placeholder="${bookVO.book.year}"
+                                           placeholder="${book.year}"
                                            data-pattern-error="<fmt:message bundle='${i18n}' key='data.non-valid'/>"
                                            pattern="^[0-9]{4}$">
                                 </div>
@@ -136,7 +136,7 @@
                                     <fmt:message bundle="${i18n}" key="catalog.quantity"/>:
                                 </label>
                                 <div class="controls">
-                                    <input type="number" value="${bookVO.book.quantity}" min="1" max="999" id="quantity"
+                                    <input type="number" value="${book.quantity}" min="1" max="999" id="quantity"
                                            class="form-control input-large" name="quantity"
                                            data-pattern-error="<fmt:message bundle='${i18n}' key='data.non-valid'/>">
                                 </div>

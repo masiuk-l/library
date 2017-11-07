@@ -90,7 +90,7 @@
                                     <input id="genre" class="form-control input-large" name="genre"
                                            data-pattern-error="<fmt:message bundle='${i18n}' key='data.non-valid'/>"
                                            data-required-error="<fmt:message bundle='${i18n}' key='data.required'/>"
-                                           required pattern="^.{1,30}$">
+                                           required pattern="^.{1,29}$">
                                 </div>
                                 <small class=" form-text text-muted help-block with-errors">
 

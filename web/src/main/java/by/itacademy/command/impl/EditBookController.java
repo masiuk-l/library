@@ -1,13 +1,10 @@
 package by.itacademy.command.impl;
 
 import by.itacademy.AuthorService;
-import by.itacademy.BookAuthorService;
 import by.itacademy.BookService;
 import by.itacademy.command.Controller;
 import by.itacademy.entities.Book;
-import by.itacademy.entities.BookAuthor;
 import by.itacademy.impl.AuthorServiceImpl;
-import by.itacademy.impl.BookAuthorServiceImpl;
 import by.itacademy.impl.BookServiceImpl;
 
 import javax.servlet.RequestDispatcher;
@@ -16,7 +13,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.time.LocalDate;
-import java.util.ArrayList;
 
 /**
  * Project KR. Created by masiuk-l on 21.08.2017.
@@ -24,14 +20,13 @@ import java.util.ArrayList;
 public class EditBookController implements Controller {
     private BookService bookService = BookServiceImpl.getInstance();
     private AuthorService authorService = AuthorServiceImpl.getInstance();
-    private BookAuthorService bookAuthorService = BookAuthorServiceImpl.getInstance();
 
     @Override
     public void execute(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
         if (req.getMethod().equals("GET")) {
             int bookID = Integer.parseInt(req.getParameter("id"));
             Book book = bookService.get(bookID);
-            req.getSession().setAttribute("bookVO", bookService.getBookVO(book));
+            req.getSession().setAttribute("book", book);
             req.getSession().setAttribute("authors", authorService.getAll());
             RequestDispatcher dispatcher = req.getRequestDispatcher(MAIN_PAGE);
             dispatcher.forward(req, resp);
@@ -85,18 +80,13 @@ public class EditBookController implements Controller {
             }
 
             if (validData) {
-                bookService.update(oldBook, newBook);
-                ArrayList<BookAuthor> bookAuthors = new ArrayList<>(bookAuthorService.getByBookID(oldBook));
-                for (BookAuthor bookAuthor : bookAuthors) {
-                    bookAuthorService.delete(bookAuthor.getBookAuthorID());
-                }
+
+                newBook.getAuthors().clear();
                 String[] authorIDs = req.getParameterValues("author");
                 for (String authorID : authorIDs) {
-                    BookAuthor bookAuthor = new BookAuthor();
-                    bookAuthor.setBookID(oldBook.getBookID());
-                    bookAuthor.setAuthorID(Integer.parseInt(authorID));
-                    bookAuthorService.save(bookAuthor);
+                    newBook.getAuthors().add(authorService.get(authorID));
                 }
+                bookService.update(oldBook, newBook);
                 req.getSession().setAttribute("errorMsg", "");
                 String contextPath = req.getContextPath();
                 resp.sendRedirect(contextPath + "/frontController?command=catalog");

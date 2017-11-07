@@ -17,16 +17,16 @@
 
 <div class="container">
     <div class="card-columns">
-        <c:forEach var="readerVO" items="${readerVOS}">
+        <c:forEach var="reader" items="${readers}">
             <div class="card">
                 <div class="card-body">
-                    <h4 class="card-title">${readerVO.reader.surname} ${readerVO.reader.name} ${readerVO.reader.secondName}</h4>
+                    <h4 class="card-title">${reader.surname} ${reader.name} ${reader.secondName}</h4>
                 </div>
                 <ul class="list-group list-group-flush">
                     <li class="list-group-item">
                         <b><fmt:message bundle="${i18n}" key="login.gender"/>: </b>
                         <c:choose>
-                            <c:when test="${readerVO.reader.gender eq 'male'}">
+                            <c:when test="${reader.gender eq 'male'}">
                                 <fmt:message bundle="${i18n}" key="login.gender.male"/>
                             </c:when>
                             <c:otherwise>
@@ -36,21 +36,21 @@
                     </li>
                     <li class="list-group-item">
                         <b><fmt:message bundle="${i18n}" key="login.birthday"/>: </b>
-                            ${readerVO.reader.birthday}
+                            ${reader.birthday}
                     </li>
                     <li class="list-group-item">
                         <b><fmt:message bundle="${i18n}" key="reader.books"/>: </b>
                         <ul class=" list-group list-unstyled">
-                            <c:forEach var="formVO" items="${readerVO.formVOS}">
+                            <c:forEach var="form" items="${reader.forms}">
                                 <li class="">
                                     <c:choose>
-                                        <c:when test="${formVO.form.returnDate gt strDate}">
+                                        <c:when test="${form.returnDate gt strDate}">
                                             <span class="text-success"><i
-                                                    class="fa fa-check-circle-o"></i> ${formVO.bookVO.book.name}</span>
+                                                    class="fa fa-check-circle-o"></i> ${form.book.name}</span>
                                         </c:when>
                                         <c:otherwise>
                                             <span class="text-danger"><i
-                                                    class="fa fa-times-circle-o"></i> ${formVO.bookVO.book.name}</span>
+                                                    class="fa fa-times-circle-o"></i> ${form.book.name}</span>
                                         </c:otherwise>
                                     </c:choose>
                                 </li>
@@ -60,13 +60,13 @@
                 </ul>
                 <div class="card-body">
                     <c:choose>
-                        <c:when test="${readerVO.reader.status eq 'BANNED'}">
-                            <button id="${readerVO.reader.readerID}" class="btn btn-success ban-reader">
+                        <c:when test="${reader.status eq 'BANNED'}">
+                            <button id="${reader.readerID}" class="btn btn-success ban-reader">
                                 <fmt:message bundle="${i18n}" key="reader.unban"/>
                             </button>
                         </c:when>
                         <c:otherwise>
-                            <button id="${readerVO.reader.readerID}" class="btn btn-danger ban-reader">
+                            <button id="${reader.readerID}" class="btn btn-danger ban-reader">
                                 <fmt:message bundle="${i18n}" key="reader.ban"/>
                             </button>
                         </c:otherwise>
