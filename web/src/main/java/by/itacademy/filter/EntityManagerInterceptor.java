@@ -1,13 +1,12 @@
 package by.itacademy.filter;
 
 import javax.servlet.*;
-import javax.servlet.annotation.WebFilter;
 import java.io.IOException;
 
 /**
  * Project KR. Created by masiuk-l on 13.10.2017.
  */
-@WebFilter(urlPatterns = {"/frontController"})
+//@WebFilter(urlPatterns = {"/frontController"})
 public class EntityManagerInterceptor implements Filter {
 
     @Override
