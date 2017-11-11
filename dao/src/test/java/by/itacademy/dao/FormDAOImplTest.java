@@ -1,7 +1,5 @@
-package by.itacademy.dao.impl;
+package by.itacademy.dao;
 
-import by.itacademy.dao.BookDAO;
-import by.itacademy.dao.FormDAO;
 import by.itacademy.entities.Book;
 import by.itacademy.entities.Form;
 import by.itacademy.entities.Librarian;
@@ -25,7 +23,7 @@ import java.util.List;
  */
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration("classpath:test-context.xml")
+@ContextConfiguration("classpath:/test-context.xml")
 @Transactional(transactionManager = "transactionManager")
 public class FormDAOImplTest {
     @Autowired
@@ -103,7 +101,7 @@ public class FormDAOImplTest {
     @Test
     public void hnf() {
         form = formDAO.save(form);
-        System.out.println(bookDAO.getByReader(reader));// todo причесать
+        System.out.println(bookDAO.getBookReaders(book));// todo причесать
     }
 
 }

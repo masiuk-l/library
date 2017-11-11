@@ -1,6 +1,5 @@
-package by.itacademy.dao.impl;
+package by.itacademy.dao;
 
-import by.itacademy.dao.LibrarianDAO;
 import by.itacademy.entities.Librarian;
 import org.junit.Assert;
 import org.junit.Before;
@@ -19,7 +18,7 @@ import java.util.List;
  */
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration("classpath:test-context.xml")
+@ContextConfiguration("classpath:/test-context.xml")
 @Transactional(transactionManager = "transactionManager")
 public class LibrarianDAOImplTest {
     @Autowired

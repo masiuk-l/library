@@ -10,9 +10,9 @@ import java.util.List;
 /**
  * Project KR. Created by masiuk-l on 07.08.2017.
  */
-public interface BookDAO extends JpaRepository<Book, Integer> {
+public interface BookDAO extends JpaRepository<Book, Integer>, DAO<Book> {
 
-    @Query("select b from Book b join b.forms f where f.reader= ?1")
-    List<Book> getByReader(Reader reader);//todo переделать
+    @Query("select r from Reader r join r.forms f where f.book= ?1")
+    List<Reader> getBookReaders(Book book);
 
 }

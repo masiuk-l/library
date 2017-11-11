@@ -1,6 +1,5 @@
-package by.itacademy.dao.impl;
+package by.itacademy.dao;
 
-import by.itacademy.dao.ReaderDAO;
 import by.itacademy.dao.auth.Encoder;
 import by.itacademy.entities.Reader;
 import org.junit.Assert;
@@ -21,7 +20,7 @@ import java.util.List;
  */
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration("classpath:test-context.xml")
+@ContextConfiguration("classpath:/test-context.xml")
 @Transactional(transactionManager = "transactionManager")
 public class ReaderDAOImplTest {
     @Autowired

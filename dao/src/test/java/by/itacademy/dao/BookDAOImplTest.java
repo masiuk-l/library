@@ -1,6 +1,5 @@
-package by.itacademy.dao.impl;
+package by.itacademy.dao;
 
-import by.itacademy.dao.BookDAO;
 import by.itacademy.entities.Book;
 import org.junit.Assert;
 import org.junit.Before;
@@ -18,7 +17,7 @@ import java.util.List;
  * Project KR. Created by masiuk-l on 10.08.2017.
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration("classpath:test-context.xml")
+@ContextConfiguration("classpath:/test-context.xml")
 @Transactional(transactionManager = "transactionManager")
 public class BookDAOImplTest {
     @Autowired

@@ -7,5 +7,5 @@ import org.springframework.data.repository.CrudRepository;
 /**
  * Project KR. Created by masiuk-l on 06.08.2017.
  */
-public interface AuthorDAO extends CrudRepository<Author, Integer> {
+public interface AuthorDAO extends CrudRepository<Author, Integer>, DAO<Author> {
 }
