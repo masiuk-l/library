@@ -1,13 +1,11 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%@ page contentType="text/html;charset=UTF-8" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 
-<fmt:setLocale value="${sessionScope.locale}"/>
-<fmt:setBundle basename="messages" var="i18n"/>
+<%@ page contentType="text/html;charset=UTF-8" %>
 
 
 <script>
-    var reserved = '<fmt:message bundle="${i18n}" key="book.reserved"/>';
+    var reserved = '<spring:message code="book.reserved"/>';
 </script>
 <div class="col-sm-12">
     <div class="card">
@@ -16,25 +14,25 @@
         </div>
 
         <ul class="list-group list-group-flush">
-            <li class="list-group-item"><b><fmt:message bundle="${i18n}" key="catalog.author"/>: </b>
+            <li class="list-group-item"><b><spring:message code="catalog.author"/>: </b>
                 <c:forEach var="author" items="${book.authors}" varStatus="status">
                     ${author.name} ${author.surname}
                     <c:if test="${not status.last}">,</c:if>
                 </c:forEach>
             </li>
-            <li class="list-group-item"><b><fmt:message bundle="${i18n}" key="catalog.genre"/>: </b>
+            <li class="list-group-item"><b><spring:message code="catalog.genre"/>: </b>
                 ${book.genre}
             </li>
 
-            <li class="list-group-item"><b><fmt:message bundle="${i18n}" key="catalog.year"/>: </b>
+            <li class="list-group-item"><b><spring:message code="catalog.year"/>: </b>
                 ${book.year}
             </li>
 
-            <li class="list-group-item"><b><fmt:message bundle="${i18n}" key="catalog.quantity"/>: </b>
+            <li class="list-group-item"><b><spring:message code="catalog.quantity"/>: </b>
                 <span id="quantity">${book.quantity}</span>
             </li>
 
-            <li class="list-group-item"><b><fmt:message bundle="${i18n}" key="catalog.isbn"></fmt:message>: </b>
+            <li class="list-group-item"><b><spring:message code="catalog.isbn"/>: </b>
                 ${book.isbn}
             </li>
 
@@ -42,7 +40,7 @@
         <!-- логика! -->
         <c:set var="flag" value="false"/>
         <c:if test="${not empty sreader}">
-            <c:forEach var="reader" items="${book.readers}">
+            <c:forEach var="reader" items="${readers}">
                 <c:if test="${reader.readerID eq sreader.readerID}">
                     <c:set var="flag" value="true"/>
                 </c:if>
@@ -53,17 +51,17 @@
         <c:choose>
             <c:when test="${flag eq \"true\"}">
                 <button class="btn disabled">
-                    <fmt:message bundle="${i18n}" key="book.reserved"/>
+                    <spring:message code="book.reserved"/>
                 </button>
             </c:when>
             <c:when test="${book.quantity eq 0}">
                 <button class="btn disabled">
-                    <fmt:message bundle="${i18n}" key="book.unavailable"/>
+                    <spring:message code="book.unavailable"/>
                 </button>
             </c:when>
             <c:otherwise>
                 <button class="btn btn-primary reserve-book" id="${book.bookID}">
-                    <fmt:message bundle="${i18n}" key="book.reserve"/>
+                    <spring:message code="book.reserve"/>
                 </button>
             </c:otherwise>
         </c:choose>

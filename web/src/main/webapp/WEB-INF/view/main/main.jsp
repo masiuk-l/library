@@ -1,9 +1,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+
 <%@ page contentType="text/html;charset=UTF-8" %>
 
-<fmt:setLocale value="${sessionScope.locale}"/>
-<fmt:setBundle basename="messages" var="i18n"/>
 
 <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
     <ol class="carousel-indicators">
@@ -14,26 +14,26 @@
     <div class="carousel-inner">
         <div class="carousel-item active">
             <div class="carousel-caption d-none d-md-block">
-                <h1 class="display-1"><fmt:message bundle="${i18n}" key="menu.name"/></h1>
-                <h3 class="display-3"><fmt:message bundle="${i18n}" key="menu.welcome"/></h3>
+                <h1 class="display-1"><spring:message code="menu.name"/></h1>
+                <h3 class="display-3"><spring:message code="menu.welcome"/></h3>
             </div>
-            <img class="d-block w-100" src="${pageContext.request.contextPath}/assests/img/book1d.jpg"
+            <img class="d-block w-100" src="${pageContext.request.contextPath}/asserts/img/book1d.jpg"
                  alt="First slide">
         </div>
         <div class="carousel-item">
             <div class="carousel-caption d-none d-md-block">
-                <h1 class="display-1"><fmt:message bundle="${i18n}" key="menu.name"/></h1>
-                <h3 class="display-3"><fmt:message bundle="${i18n}" key="menu.welcome"/></h3>
+                <h1 class="display-1"><spring:message code="menu.name"/></h1>
+                <h3 class="display-3"><spring:message code="menu.welcome"/></h3>
             </div>
-            <img class="d-block w-100" src="${pageContext.request.contextPath}/assests/img/book2d.jpg"
+            <img class="d-block w-100" src="${pageContext.request.contextPath}/asserts/img/book2d.jpg"
                  alt="Second slide">
         </div>
         <div class="carousel-item">
             <div class="carousel-caption d-none d-md-block">
-                <h1 class="display-1"><fmt:message bundle="${i18n}" key="menu.name"/></h1>
-                <h3 class="display-3"><fmt:message bundle="${i18n}" key="menu.welcome"/></h3>
+                <h1 class="display-1"><spring:message code="menu.name"/></h1>
+                <h3 class="display-3"><spring:message code="menu.welcome"/></h3>
             </div>
-            <img class="d-block w-100" src="${pageContext.request.contextPath}/assests/img/book3d.jpg"
+            <img class="d-block w-100" src="${pageContext.request.contextPath}/asserts/img/book3d.jpg"
                  alt="Third slide">
         </div>
     </div>

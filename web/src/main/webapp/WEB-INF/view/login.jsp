@@ -1,9 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
 
-<fmt:setLocale value="${sessionScope.locale}"/>
-<fmt:setBundle basename="messages" var="i18n"/>
 
 <!-- Button trigger modal -->
 <c:if test="${not empty errorMsg and not (errorMsg eq '')}">
@@ -13,10 +11,10 @@
         </button>
         <c:choose>
             <c:when test="${errorMsg eq 'Invalid Login or Password'}">
-                <fmt:message bundle="${i18n}" key="data.lp"/>
+                <spring:message code="data.lp"/>
             </c:when>
             <c:otherwise>
-                <fmt:message bundle="${i18n}" key="data.invalid-rerty"/>
+                <spring:message code="data.invalid-rerty"/>
             </c:otherwise>
         </c:choose>
 
@@ -27,10 +25,10 @@
     <hr class="prettyline">
     <br>
     <div class="text-center">
-        <h3><fmt:message bundle="${i18n}" key="login.continue"/></h3>
+        <h3><spring:message code="login.continue"/></h3>
         <br>
         <a class="btn btn-primary btn-lg" href="#signin" data-toggle="modal" data-target=".bs-modal-sm">
-            <fmt:message bundle="${i18n}" key="login.signin"/>/<fmt:message bundle="${i18n}" key="login.signup"/>
+            <spring:message code="login.signin"/>/<spring:message code="login.signup"/>
         </a>
     </div>
     <br>
@@ -47,16 +45,16 @@
             <div class="bs-example bs-example-tabs">
                 <ul class="nav nav-tabs" role="tablist">
                     <li class="nav-item">
-                        <a class="nav-link active" href="#signin" role="tab" data-toggle="tab"><fmt:message
-                                bundle="${i18n}" key="login.signin"/></a>
+                        <a class="nav-link active" href="#signin" role="tab" data-toggle="tab"><spring:message
+                                code="login.signin"/></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#signup" role="tab" data-toggle="tab"><fmt:message bundle="${i18n}"
-                                                                                                     key="login.signup"/></a>
+                        <a class="nav-link" href="#signup" role="tab" data-toggle="tab"><spring:message
+                                code="login.signup"/></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#lib" role="tab" data-toggle="tab"><fmt:message bundle="${i18n}"
-                                                                                                  key="login.librarians"/></a>
+                        <a class="nav-link" href="#lib" role="tab" data-toggle="tab"><spring:message
+                                code="login.librarians"/></a>
                     </li>
                 </ul>
             </div>
@@ -72,12 +70,12 @@
                                 <!-- Sign In Form -->
                                 <!-- email-->
                                 <div class="form-group">
-                                    <label class="control-label" for="log"><fmt:message bundle="${i18n}"
-                                                                                        key="login.email"/>:</label>
+                                    <label class="control-label" for="log"><spring:message
+                                            code="login.email"/>:</label>
                                     <div class="controls">
                                         <input id="log" name="login" type="email" class="form-control input-medium"
-                                               data-pattern-error="<fmt:message bundle='${i18n}' key='data.non-valid'/>"
-                                               data-required-error="<fmt:message bundle='${i18n}' key='data.required'/>"
+                                               data-pattern-error="<spring:message  code='data.non-valid'/>"
+                                               data-required-error="<spring:message  code='data.required'/>"
                                                required>
                                         <small class=" form-text text-muted help-block with-errors"></small>
                                     </div>
@@ -85,12 +83,12 @@
 
                                 <!--password-->
                                 <div class="form-group">
-                                    <label class="control-label" for="pass"><fmt:message bundle="${i18n}"
-                                                                                         key="login.password"/>:</label>
+                                    <label class="control-label" for="pass"><spring:message
+                                            code="login.password"/>:</label>
                                     <div class="controls">
                                         <input id="pass" name="password"
                                                class="form-control input-medium" type="password" placeholder="********"
-                                               data-required-error="<fmt:message bundle='${i18n}' key='data.required'/>"
+                                               data-required-error="<spring:message  code='data.required'/>"
                                                required>
                                         <small class=" form-text text-muted help-block with-errors">
                                         </small>
@@ -102,7 +100,7 @@
                                     <label class="control-label"></label>
                                     <div class="controls">
                                         <input type="submit" class="btn btn-success"
-                                               value="<fmt:message bundle="${i18n}" key="login.signin"/>"/>
+                                               value="<spring:message code="login.signin"/>"/>
                                     </div>
                                 </div>
                             </fieldset>
@@ -117,13 +115,13 @@
                                 <!-- Sign Up Form -->
                                 <!-- email-->
                                 <div class="form-group">
-                                    <label class="control-label" for="email"><fmt:message bundle="${i18n}"
-                                                                                          key="login.email"/>:</label>
+                                    <label class="control-label" for="email"><spring:message
+                                            code="login.email"/>:</label>
                                     <div class="controls">
                                         <input type="email" id="email" name="email" class="form-control input-large"
                                                placeholder="JohnDoe@example.com"
-                                               data-pattern-error="<fmt:message bundle='${i18n}' key='data.non-valid'/>"
-                                               data-required-error="<fmt:message bundle='${i18n}' key='data.required'/>"
+                                               data-pattern-error="<spring:message  code='data.non-valid'/>"
+                                               data-required-error="<spring:message  code='data.required'/>"
                                                required>
                                         <small class=" form-text text-muted help-block with-errors"></small>
                                     </div>
@@ -131,30 +129,30 @@
 
                                 <!--password-->
                                 <div class="form-group">
-                                    <label class="control-label" for="password"><fmt:message bundle="${i18n}"
-                                                                                             key="login.password"/>:</label>
+                                    <label class="control-label" for="password"><spring:message
+                                            code="login.password"/>:</label>
                                     <div class="controls">
                                         <input id="password" name="password" class="form-control input-large"
                                                type="password" placeholder="********"
-                                               data-pattern-error="<fmt:message bundle='${i18n}' key='data.non-valid'/>"
-                                               data-required-error="<fmt:message bundle='${i18n}' key='data.required'/>"
+                                               data-pattern-error="<spring:message  code='data.non-valid'/>"
+                                               data-required-error="<spring:message  code='data.required'/>"
                                                required pattern=".{6,30}">
-                                        <small class=" form-text text-muted help-block with-errors"><fmt:message
-                                                bundle='${i18n}' key='data.6-30'/>
+                                        <small class=" form-text text-muted help-block with-errors"><spring:message
+                                                code='data.6-30'/>
                                         </small>
                                     </div>
                                 </div>
 
                                 <!-- password2-->
                                 <div class="form-group has-danger">
-                                    <label class="control-label" for="reenterpassword"><fmt:message bundle="${i18n}"
-                                                                                                    key="login.repassword"/>:</label>
+                                    <label class="control-label" for="reenterpassword"><spring:message
+                                            code="login.repassword"/>:</label>
                                     <div class="controls">
                                         <input id="reenterpassword" class="form-control input-large"
                                                data-match="#password"
-                                               data-pattern-error="<fmt:message bundle='${i18n}' key='data.non-valid'/>"
-                                               data-required-error="<fmt:message bundle='${i18n}' key='data.required'/>"
-                                               data-match-error="<fmt:message bundle='${i18n}' key='data.no-match'/>"
+                                               data-pattern-error="<spring:message  code='data.non-valid'/>"
+                                               data-required-error="<spring:message  code='data.required'/>"
+                                               data-match-error="<spring:message  code='data.no-match'/>"
                                                name="reenterpassword" type="password" placeholder="********"
                                                required pattern=".{6,30}">
                                         <small class=" form-text text-muted help-block with-errors"></small>
@@ -166,58 +164,58 @@
                                 <!-- surname-->
                                 <div class="form-group">
                                     <label class="control-label" for="surname">
-                                        <fmt:message bundle="${i18n}" key="login.surname"/>:
+                                        <spring:message code="login.surname"/>:
                                     </label>
                                     <div class="controls">
                                         <input id="surname" class="form-control input-large" name="surname"
-                                               data-pattern-error="<fmt:message bundle='${i18n}' key='data.non-valid'/>"
-                                               data-required-error="<fmt:message bundle='${i18n}' key='data.required'/>"
+                                               data-pattern-error="<spring:message  code='data.non-valid'/>"
+                                               data-required-error="<spring:message  code='data.required'/>"
                                                required pattern="^[А-ЯЁ]([a-яё]){0,29}$">
                                     </div>
                                     <small class=" form-text text-muted help-block with-errors">
-                                        <fmt:message bundle='${i18n}' key='data.less-30'/>
+                                        <spring:message code='data.less-30'/>
                                     </small>
                                 </div>
 
                                 <!-- name-->
                                 <div class="form-group">
-                                    <label class="control-label" for="name"><fmt:message bundle="${i18n}"
-                                                                                         key="login.name"/>:</label>
+                                    <label class="control-label" for="name"><spring:message
+                                            code="login.name"/>:</label>
                                     <div class="controls">
                                         <input id="name" class="form-control input-large" name="name"
-                                               data-pattern-error="<fmt:message bundle='${i18n}' key='data.non-valid'/>"
-                                               data-required-error="<fmt:message bundle='${i18n}' key='data.required'/>"
+                                               data-pattern-error="<spring:message  code='data.non-valid'/>"
+                                               data-required-error="<spring:message  code='data.required'/>"
                                                required pattern="^[А-ЯЁ][a-яё]{0,29}$">
                                     </div>
                                     <small class=" form-text text-muted help-block with-errors">
-                                        <fmt:message bundle='${i18n}' key='data.less-30'/>
+                                        <spring:message code='data.less-30'/>
                                     </small>
                                 </div>
 
                                 <!-- second name-->
                                 <div class="form-group">
-                                    <label class="control-label" for="secondname"><fmt:message bundle="${i18n}"
-                                                                                               key="login.secondname"/>:</label>
+                                    <label class="control-label" for="secondname"><spring:message
+                                            code="login.secondname"/>:</label>
                                     <div class="controls">
                                         <input id="secondname" class="form-control input-large" name="secondname"
-                                               data-pattern-error="<fmt:message bundle='${i18n}' key='data.non-valid'/>"
-                                               data-required-error="<fmt:message bundle='${i18n}' key='data.required'/>"
+                                               data-pattern-error="<spring:message  code='data.non-valid'/>"
+                                               data-required-error="<spring:message  code='data.required'/>"
                                                required pattern="^[А-ЯЁ][a-яё]{0,29}$">
                                     </div>
                                     <small class=" form-text text-muted help-block with-errors">
-                                        <fmt:message bundle='${i18n}' key='data.less-30'/>
+                                        <spring:message code='data.less-30'/>
                                     </small>
                                 </div>
 
                                 <br>
                                 <!-- birthday-->
                                 <div class="form-group">
-                                    <label class="control-label" for="birthday"><fmt:message bundle="${i18n}"
-                                                                                             key="login.birthday"/>:</label>
+                                    <label class="control-label" for="birthday"><spring:message
+                                            code="login.birthday"/>:</label>
                                     <div class="controls">
                                         <input id="birthday" class="form-control input-large" name="birthday"
                                                type="Date" max="2000-01-01" value="1999-05-09"
-                                               data-required-error="<fmt:message bundle='${i18n}' key='data.required'/>"
+                                               data-required-error="<spring:message  code='data.required'/>"
                                                required>
                                     </div>
                                     <small class=" form-text text-muted help-block with-errors">
@@ -226,14 +224,14 @@
 
                                 <!-- gender-->
                                 <div class="form-group">
-                                    <label class="control-label" for="gender"><fmt:message bundle="${i18n}"
-                                                                                           key="login.gender"/>:</label>
+                                    <label class="control-label" for="gender"><spring:message
+                                            code="login.gender"/>:</label>
                                     <div class="controls">
                                         <select class="form-control input-large" name="gender" id="gender" required>
-                                            <option value="1"><fmt:message bundle="${i18n}"
-                                                                           key="login.gender.male"/></option>
-                                            <option value="2"><fmt:message bundle="${i18n}"
-                                                                           key="login.gender.female"/></option>
+                                            <option value="1"><spring:message
+                                                    code="login.gender.male"/></option>
+                                            <option value="2"><spring:message
+                                                    code="login.gender.female"/></option>
                                         </select>
                                     </div>
                                 </div>
@@ -243,7 +241,7 @@
                                     <label class="control-label"></label>
                                     <div class="controls">
                                         <input type="submit" class="btn btn-success"
-                                               value="<fmt:message bundle="${i18n}" key="login.signup"/>"/>
+                                               value="<spring:message code="login.signup"/>"/>
                                     </div>
                                 </div>
                             </fieldset>
@@ -255,13 +253,13 @@
                             <fieldset>
                                 <!-- Librarians form -->
                                 <div class="form-group">
-                                    <label class="control-label" for="loginlib"><fmt:message bundle="${i18n}"
-                                                                                             key="login.email"/>:</label>
+                                    <label class="control-label" for="loginlib"><spring:message
+                                            code="login.email"/>:</label>
                                     <div class="controls">
                                         <input id="loginlib" name="loginlib" type="email"
                                                class="form-control input-medium"
-                                               data-pattern-error="<fmt:message bundle='${i18n}' key='data.non-valid'/>"
-                                               data-required-error="<fmt:message bundle='${i18n}' key='data.required'/>"
+                                               data-pattern-error="<spring:message  code='data.non-valid'/>"
+                                               data-required-error="<spring:message  code='data.required'/>"
                                                required>
                                         <small class=" form-text text-muted help-block with-errors"></small>
                                     </div>
@@ -269,15 +267,15 @@
 
                                 <!--password-->
                                 <div class="form-group">
-                                    <label class="control-label" for="passwordlib"><fmt:message bundle="${i18n}"
-                                                                                                key="login.password"/>:</label>
+                                    <label class="control-label" for="passwordlib"><spring:message
+                                            code="login.password"/>:</label>
                                     <div class="controls">
                                         <input id="passwordlib" name="passwordlib"
                                                class="form-control input-medium" type="password" placeholder="********"
-                                               data-required-error="<fmt:message bundle='${i18n}' key='data.required'/>"
+                                               data-required-error="<spring:message  code='data.required'/>"
                                                required>
-                                        <small class=" form-text text-muted help-block with-errors"><fmt:message
-                                                bundle='${i18n}' key='data.6-30'/>
+                                        <small class=" form-text text-muted help-block with-errors"><spring:message
+                                                code='data.6-30'/>
                                         </small>
                                     </div>
                                 </div>
@@ -287,7 +285,7 @@
                                     <label class="control-label"></label>
                                     <div class="controls">
                                         <input type="submit" class="btn btn-success"
-                                               value="<fmt:message bundle="${i18n}" key="login.signin"/>"/>
+                                               value="<spring:message code="login.signin"/>"/>
                                     </div>
                                 </div>
                             </fieldset>
@@ -296,8 +294,8 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal"><fmt:message bundle="${i18n}"
-                                                                                                key="login.close"/></button>
+                <button type="button" class="btn btn-default" data-dismiss="modal"><spring:message
+                        code="login.close"/></button>
             </div>
         </div>
     </div>

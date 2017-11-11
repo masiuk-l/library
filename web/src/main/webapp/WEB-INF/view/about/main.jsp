@@ -12,6 +12,6 @@
             <small><fmt:message bundle="${i18n}" key="error.page_under_construction"/></small>
         </h1>
     </div>
-    <img src="assests/img/build.gif" class="rounded w-50">
+    <img src="asserts/img/build.gif" class="rounded w-50">
 </div>
 

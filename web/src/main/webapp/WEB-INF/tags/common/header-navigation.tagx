@@ -1,14 +1,11 @@
 <jsp:root xmlns:jsp="http://java.sun.com/JSP/Page"
           xmlns:c="http://java.sun.com/jsp/jstl/core"
-          xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
-          version="2.0">
-    <fmt:setLocale value="${sessionScope.locale}"/>
-    <fmt:setBundle basename="messages" var="i18n"/>
+          version="2.0" xmlns:spring="http://www.springframework.org/tags">
 
 
     <nav class="navbar navbar-expand-md navbar-light bg-light">
-        <a class="navbar-brand" href="${pageContext.request.contextPath}/frontController?command=main">
-            <fmt:message key="menu.name" bundle="${i18n}"/>
+        <a class="navbar-brand" href="${pageContext.request.contextPath}/main/">
+            <spring:message code="menu.name"/>
         </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse"
                 aria-controls="navbarCollapse">
@@ -20,16 +17,16 @@
                     <c:when test="${pageName eq 'catalog'}">
                         <li class="nav-item active">
                             <a class="nav-link"
-                               href="${pageContext.request.contextPath}/frontController?command=catalog">
-                                <fmt:message key="menu.catalog" bundle="${i18n}"/>
+                               href="${pageContext.request.contextPath}/book/">
+                                <spring:message code="menu.catalog"/>
                             </a>
                         </li>
                     </c:when>
                     <c:otherwise>
                         <li class="nav-item">
                             <a class="nav-link"
-                               href="${pageContext.request.contextPath}/frontController?command=catalog">
-                                <fmt:message key="menu.catalog" bundle="${i18n}"/>
+                               href="${pageContext.request.contextPath}/book/">
+                                <spring:message code="menu.catalog"/>
                             </a>
                         </li>
                     </c:otherwise>
@@ -39,27 +36,29 @@
                     <c:when test="${pageName eq 'about'}">
                         <li class="nav-item active">
                             <a class="nav-link"
-                               href="${pageContext.request.contextPath}/frontController?command=about"><fmt:message
-                                    key="about.title" bundle="${i18n}"/></a>
+                               href="${pageContext.request.contextPath}/about/">
+                                <spring:message code="about.title"/>
+                            </a>
                         </li>
                     </c:when>
                     <c:otherwise>
                         <li class="nav-item">
                             <a class="nav-link"
-                               href="${pageContext.request.contextPath}/frontController?command=about"><fmt:message
-                                    key="about.title" bundle="${i18n}"/></a>
+                               href="${pageContext.request.contextPath}/about/">
+                                <spring:message code="about.title"/>
+                            </a>
                         </li>
                     </c:otherwise>
                 </c:choose>
 
-                <c:url var="path" value="/frontController?command=${sessionScope.pageName}"/>
+                <c:set var="locale" value="${request.LOCALE.language}"/>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown">
-                        <fmt:message key="menu.language" bundle="${i18n}"/>
+                        <spring:message code="menu.language"/>
                     </a>
                     <div class="dropdown-menu">
-                        <a class="dropdown-item" href="${path}&amp;locale=ru">Русский</a>
-                        <a class="dropdown-item" href="${path}&amp;locale=en">English</a>
+                        <a class="dropdown-item" href="?locale=ru">Русский</a>
+                        <a class="dropdown-item" href="?locale=en">English</a>
                     </div>
                 </li>
 
@@ -68,22 +67,22 @@
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink"
                                data-toggle="dropdown">
-                                <fmt:message key="menu.hello" bundle="${i18n}"/>, ${sreader.name}!
+                                <spring:message code="menu.hello"/>, ${sreader.name}!
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                                 <a class="dropdown-item"
-                                   href="${pageContext.request.contextPath}/frontController?command=editreader">
-                                    <fmt:message key="menu.edit" bundle="${i18n}"/>
+                                   href="${pageContext.request.contextPath}/reader/edit/${sreader.readerID}">
+                                    <spring:message code="menu.edit"/>
                                 </a>
                                 <a class="dropdown-item"
-                                   href="${pageContext.request.contextPath}/frontController?command=mybooks">
-                                    <fmt:message key="mybooks.title" bundle="${i18n}"/>
+                                   href="${pageContext.request.contextPath}/book/myBooks">
+                                    <spring:message code="mybooks.title"/>
                                 </a>
                                 <a class="divider"/>
 
                                 <a class="dropdown-item"
-                                   href="${pageContext.request.contextPath}/frontController?command=logout">
-                                    <fmt:message key="menu.logout" bundle="${i18n}"/>
+                                   href="${pageContext.request.contextPath}/login/logout">
+                                    <spring:message code="menu.logout"/>
                                 </a>
                             </div>
                         </li>
@@ -92,28 +91,28 @@
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink"
                                data-toggle="dropdown">
-                                <fmt:message key="menu.hello" bundle="${i18n}"/>, ${slibrarian.name}!
+                                <spring:message code="menu.hello"/>, ${slibrarian.name}!
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                                 <a class="dropdown-item"
-                                   href="${pageContext.request.contextPath}/frontController?command=addbook">
-                                    <fmt:message key="admin.add.book" bundle="${i18n}"/>
+                                   href="${pageContext.request.contextPath}/book/add">
+                                    <spring:message code="admin.add.book"/>
                                 </a>
                                 <a class="dropdown-item"
-                                   href="${pageContext.request.contextPath}/frontController?command=readers">
-                                    <fmt:message key="readers.title" bundle="${i18n}"/>
+                                   href="${pageContext.request.contextPath}/reader/all">
+                                    <spring:message code="readers.title"/>
                                 </a>
                                 <a class="dropdown-item"
-                                   href="${pageContext.request.contextPath}/frontController?command=logout">
-                                    <fmt:message key="menu.logout" bundle="${i18n}"/>
+                                   href="${pageContext.request.contextPath}/login/logout">
+                                    <spring:message code="menu.logout"/>
                                 </a>
                             </div>
                         </li>
                     </c:when>
                     <c:otherwise>
                         <li class="nav-item navbar-right">
-                            <a class="nav-link" href="${pageContext.request.contextPath}/frontController?command=login">
-                                <fmt:message key="menu.signin" bundle="${i18n}"/>
+                            <a class="nav-link" href="${pageContext.request.contextPath}/login/">
+                                <spring:message code="menu.signin"/>
                             </a>
                         </li>
                     </c:otherwise>
@@ -121,10 +120,10 @@
 
             </ul>
             <div class="navbar-nav ">
-                <form class="form-inline mt-2 mt-md-0" action="frontController?command=searchcatalog" method="post">
+                <form class="form-inline mt-2 mt-md-0" action="/book/search" method="post">
                     <input class="form-control mr-sm-2" type="text" required="" pattern=".{3,30}" name="name"/>
-                    <button class="btn btn-outline-secondary my-2 my-sm-0" type="submit"><fmt:message
-                            key="searchcatalog.title" bundle="${i18n}"/></button>
+                    <button class="btn btn-outline-secondary my-2 my-sm-0" type="submit"><spring:message
+                            code="searchcatalog.title"/></button>
                 </form>
             </div>
         </div>
