@@ -49,9 +49,7 @@ public class LibrarianServiceImpl implements LibrarianService {
 
     @Override
     public List<Librarian> getAll() {
-        List<Librarian> librarians = new ArrayList<>();
-        librarianDAO.findAll().forEach(librarians::add);
-        return librarians;
+        return Lists.newArrayList(librarianDAO.findAll());
     }
 
     @Override

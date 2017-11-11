@@ -2,7 +2,7 @@ package by.itacademy.service;
 
 import java.util.List;
 
-public interface IService<T> {
+public interface IService<T> {// todo переделать?
 
     /**
      * @param t entity to save

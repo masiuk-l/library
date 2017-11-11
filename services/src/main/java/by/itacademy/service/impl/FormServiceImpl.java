@@ -49,9 +49,7 @@ public class FormServiceImpl implements FormService {
 
     @Override
     public List<Form> getAll() {
-        List<Form> forms = new ArrayList<>();
-        formDAO.findAll().forEach(forms::add);
-        return forms;
+        return Lists.newArrayList(formDAO.findAll());
     }
 
     @Override

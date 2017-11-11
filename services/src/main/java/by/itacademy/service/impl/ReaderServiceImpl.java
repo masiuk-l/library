@@ -47,9 +47,7 @@ public class ReaderServiceImpl implements ReaderService {
 
     @Override
     public List<Reader> getAll() {
-        List<Reader> readers = new ArrayList<>();
-        readerDAO.findAll().forEach(readers::add);
-        return readers;
+        return Lists.newArrayList(readerDAO.findAll());
     }
     @Override
     public void update(Reader oldReader, Reader newReader) {

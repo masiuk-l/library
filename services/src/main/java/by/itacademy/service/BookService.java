@@ -1,6 +1,7 @@
 package by.itacademy.service;
 
 import by.itacademy.entities.Book;
+import by.itacademy.entities.Reader;
 
 import java.util.List;
 
@@ -27,5 +28,10 @@ public interface BookService extends IService<Book> {
      * @return List of books matching the input
      */
     List<Book> getCatalogPage(int pageNumber, int size);
+
+    /**
+     * @param book current book
+     */
+    List<Reader> getBookReaders(Book book);
 
 }

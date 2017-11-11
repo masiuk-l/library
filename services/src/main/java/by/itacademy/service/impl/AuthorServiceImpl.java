@@ -3,11 +3,11 @@ package by.itacademy.service.impl;
 import by.itacademy.dao.AuthorDAO;
 import by.itacademy.entities.Author;
 import by.itacademy.service.AuthorService;
+import com.google.common.collect.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -44,8 +44,6 @@ public class AuthorServiceImpl implements AuthorService {
 
     @Override
     public List<Author> getAll() {
-        List<Author> authors = new ArrayList<>();
-        authorDAO.findAll().forEach(authors::add);
-        return authors;
+        return Lists.newArrayList(authorDAO.findAll());
     }
 }

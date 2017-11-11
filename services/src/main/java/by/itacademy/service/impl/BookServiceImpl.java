@@ -2,6 +2,7 @@ package by.itacademy.service.impl;
 
 import by.itacademy.dao.BookDAO;
 import by.itacademy.entities.Book;
+import by.itacademy.entities.Reader;
 import by.itacademy.service.BookService;
 import com.google.common.collect.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,9 +48,7 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public List<Book> getAll() {
-        List<Book> books = new ArrayList<>();
-        bookDAO.findAll().forEach(books::add);
-        return books;
+        return Lists.newArrayList(bookDAO.findAll());
     }
 
     @Override
@@ -84,4 +83,8 @@ public class BookServiceImpl implements BookService {
         return books;
     }
 
+    @Override
+    public List<Reader> getBookReaders(Book book) {
+        return Lists.newArrayList(bookDAO.getBookReaders(book));
+    }
 }
