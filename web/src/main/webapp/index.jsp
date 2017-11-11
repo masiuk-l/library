@@ -4,6 +4,6 @@
     <title>$Title$</title>
 </head>
 <body>
-<jsp:forward page="/frontController?command=main"/>
+<jsp:forward page="/main/"/>
 </body>
 </html>
