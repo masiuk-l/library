@@ -18,7 +18,7 @@ import java.util.ArrayList;
 @RequestMapping("/reader")
 public class ReaderController {
     public static final String MAIN = "main";
-    public static final String READERS = "readers";
+    public static final String READERS = "admin/readers";
 
     @Autowired
     private ReaderService readerService;
@@ -109,9 +109,10 @@ public class ReaderController {
     }
 
     @RequestMapping(value = "/all", method = RequestMethod.GET)
-    public String Readers(ModelMap model) {
+    public String readers(ModelMap model) {
         ArrayList<Reader> readers = new ArrayList<>(readerService.getAll());
         model.put("readers", readers);
+        model.put("pageName", "readers");
         return READERS;
     }
 

@@ -164,28 +164,25 @@ public class BookController {
     }
 
 
-    @RequestMapping(value = "/search", method = RequestMethod.GET)
+    @RequestMapping(value = "/search", method = RequestMethod.POST)
     public String search(ModelMap model, @RequestParam(value = "name") String name, HttpServletRequest request) {
+        model.put("pageName", "catalog");
         if (name.length() < 3 || name.length() > 30) {
             model.put("books", null);
             model.put("Msg", "Invalid input");
-            return MAIN_CATALOG;
+
         } else {
             ArrayList<Book> books = new ArrayList<>(bookService.searchByName(name));
             if (books.isEmpty()) {
                 model.put("books", null);
                 model.put("pageCount", null);
                 model.put("Msg", "No books match your input");
-                return MAIN_CATALOG;
             } else {
                 model.put("books", books);
                 int pageCount = (int) Math.ceil(books.size() / (double) 3);//todo заменить на количество страниц в настройках
                 model.put("pageCount", pageCount);
-                model.put("Msg", "");
-                return MAIN_CATALOG;
             }
-
         }
+        return MAIN_CATALOG;//todo пока работает криво
     }
-
 }

@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -32,55 +33,55 @@ public class LoginController {
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String login(ModelMap model, HttpServletRequest req) {
-        log.error("login");
         model.put("pageName", "login");
         return LOGIN;
     }
 
     @RequestMapping(value = "/reader", method = RequestMethod.POST)
-    public String loginReader(ModelMap model, HttpServletRequest req) {
-        String login = req.getParameter("login");
-        String password = req.getParameter("password");
+    public String loginReader(ModelMap model, HttpServletRequest req, @RequestParam("login") String login, @RequestParam("password") String password) {
         if (login == null || password == null) {
-            return LOGIN;
+            model.put("errorMsg", "Invalid Login or Password");
+            model.put("pageName", "login");
+            return "redirect:/login/";
         }
         Reader reader = readerService.getByLogin(login);
         if (reader != null && reader.getPassword().equals(Encoder.encode(password))) {
             //if (reader != null && password.equals(reader.getPassword())) {
             req.getSession().setAttribute("sreader", reader);
-            return MAIN;
+            return "redirect:/main/";
         } else {
             model.put("errorMsg", "Invalid Login or Password");
-            return LOGIN;
+            model.put("pageName", "login");
+            return "redirect:/login/";
         }
     }
 
     @RequestMapping(value = "/lib", method = RequestMethod.POST)
-    public String loginLib(ModelMap model, HttpServletRequest req) {
-        String login = req.getParameter("loginlib");
-        String password = req.getParameter("passwordlib");
+    public String loginLib(ModelMap model, HttpServletRequest req, @RequestParam("loginlib") String login, @RequestParam("passwordlib") String password) {
         if (login == null || password == null) {
-            return LOGIN;
+            model.put("pageName", "login");
+            return "redirect:/login/";
         }
         Librarian librarian = librarianService.getByLogin(login);
         if (librarian != null && librarian.getPassword().equals(Encoder.encode(password))) {
             //if (librarian != null && password.equals(librarian.getPassword())) {
             req.getSession().setAttribute("slibrarian", librarian);
-
-            return MAIN;
+            return "redirect:/main/";
         } else {
             model.put("errorMsg", "Invalid Login or Password");
-            return LOGIN;
+            model.put("pageName", "login");
+            return "redirect:/login/";
         }
     }
 
     @RequestMapping(value = "/logout", method = RequestMethod.GET)
     public String logout(ModelMap model, HttpServletRequest req) {
         req.getSession().invalidate();
+        model.put("pageName", "login");
         return MAIN;
     }
 
-    @RequestMapping(value = "/signup", method = RequestMethod.GET)
+    @RequestMapping(value = "/signup", method = RequestMethod.POST)
     public String singUp(ModelMap model, HttpServletRequest req) {
 //
 //
