@@ -2,18 +2,19 @@
 <html xmlns:jsp="http://java.sun.com/JSP/Page"
       xmlns:u="urn:jsptagdir:/WEB-INF/tags/utils"
       xmlns:com="urn:jsptagdir:/WEB-INF/tags/common"
-      xmlns:fmt="http://java.sun.com/jsp/jstl/fmt" xmlns:spring="http://www.springframework.org/tags"
+      xmlns:spring="http://www.springframework.org/tags"
       xmlns:tiles="http://tiles.apache.org/tags-tiles">
 
 <jsp:directive.page pageEncoding="UTF-8" contentType="text/html; UTF-8"/>
-<fmt:setLocale value="${sessionScope.locale}"/>
-<fmt:setBundle basename="messages" var="i18n"/>
 <style>
     footer {
         background-color: #eef1ff;
         padding: 25px;
     }
 </style>
+<script>
+    var contextUrl = ${pageContext.request.contextPath};
+</script>
 <head>
     <![CDATA[
     <meta charset="utf-8"></meta>

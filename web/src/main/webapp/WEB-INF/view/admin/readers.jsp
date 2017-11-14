@@ -1,5 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
 
 <jsp:useBean id="now" class="java.util.Date" scope="page"/>
@@ -7,12 +8,9 @@
 <fmt:formatDate value='${now}' pattern='yyyy-MM-dd' var="searchFormated"/>
 <c:set var="strDate" value="${searchFormated}"/>
 
-<fmt:setLocale value="${sessionScope.locale}"/>
-<fmt:setBundle basename="messages" var="i18n"/>
-
 <script>
-    var ban = '<fmt:message bundle="${i18n}" key="reader.ban"></fmt:message>';
-    var unban = '<fmt:message bundle="${i18n}" key="reader.unban"></fmt:message>';
+    var ban = '<spring:message code="reader.ban"/>';
+    var unban = '<spring:message code="reader.unban"/>';
 </script>
 
 <div class="container">
@@ -24,22 +22,22 @@
                 </div>
                 <ul class="list-group list-group-flush">
                     <li class="list-group-item">
-                        <b><fmt:message bundle="${i18n}" key="login.gender"/>: </b>
+                        <b><spring:message code="login.gender"/>: </b>
                         <c:choose>
                             <c:when test="${reader.gender eq 'male'}">
-                                <fmt:message bundle="${i18n}" key="login.gender.male"/>
+                                <spring:message code="login.gender.male"/>
                             </c:when>
                             <c:otherwise>
-                                <fmt:message bundle="${i18n}" key="login.gender.female"/>
+                                <spring:message code="login.gender.female"/>
                             </c:otherwise>
                         </c:choose>
                     </li>
                     <li class="list-group-item">
-                        <b><fmt:message bundle="${i18n}" key="login.birthday"/>: </b>
+                        <b><spring:message code="login.birthday"/>: </b>
                             ${reader.birthday}
                     </li>
                     <li class="list-group-item">
-                        <b><fmt:message bundle="${i18n}" key="reader.books"/>: </b>
+                        <b><spring:message code="reader.books"/>: </b>
                         <ul class=" list-group list-unstyled">
                             <c:forEach var="form" items="${reader.forms}">
                                 <li class="">
@@ -62,12 +60,12 @@
                     <c:choose>
                         <c:when test="${reader.status eq 'BANNED'}">
                             <button id="${reader.readerID}" class="btn btn-success ban-reader">
-                                <fmt:message bundle="${i18n}" key="reader.unban"/>
+                                <spring:message code="reader.unban"/>
                             </button>
                         </c:when>
                         <c:otherwise>
                             <button id="${reader.readerID}" class="btn btn-danger ban-reader">
-                                <fmt:message bundle="${i18n}" key="reader.ban"/>
+                                <spring:message code="reader.ban"/>
                             </button>
                         </c:otherwise>
                     </c:choose>

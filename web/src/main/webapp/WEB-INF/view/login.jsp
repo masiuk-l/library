@@ -64,7 +64,8 @@
                 <div id="myTabContent" class="tab-content">
 
                     <div role="tabpanel" class="tab-pane fade in active show" id="signin">
-                        <form class="form-horizontal" action="frontController?command=login" method="post"
+                        <form class="form-horizontal" action="${pageContext.request.contextPath}/login/reader"
+                              method="post"
                               data-toggle="validator">
                             <fieldset>
                                 <!-- Sign In Form -->
@@ -109,7 +110,8 @@
 
 
                     <div role="tabpanel" class="tab-pane fade" id="signup">
-                        <form class="form-horizontal" action="frontController?command=signup" method="post"
+                        <form class="form-horizontal" action="${pageContext.request.contextPath}/login/signup"
+                              method="post"
                               data-toggle="validator" role="form">
                             <fieldset>
                                 <!-- Sign Up Form -->
@@ -249,7 +251,8 @@
                     </div>
 
                     <div role="tabpanel" class="tab-pane fade" id="lib">
-                        <form class="form-horizontal" action="frontController?command=loginlib" method="post">
+                        <form class="form-horizontal" action="${pageContext.request.contextPath}/login/lib"
+                              method="post">
                             <fieldset>
                                 <!-- Librarians form -->
                                 <div class="form-group">

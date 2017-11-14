@@ -1,17 +1,14 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
 
-
-<fmt:setLocale value="${sessionScope.locale}"/>
-<fmt:setBundle basename="messages" var="i18n"/>
 
 <c:if test="${not empty errorMsg and not (errorMsg eq '')}">
     <div class="alert alert-warning alert-dismissible fade show" role="alert">
         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
             <i class="fa fa-times-circle-o"></i>
         </button>
-        <fmt:message bundle="${i18n}" key="data.invalid-rerty"/>
+        <spring:message code="data.invalid-rerty"/>
     </div>
 </c:if>
 
@@ -20,7 +17,7 @@
         <div class="modal-body">
             <div id="myTabContent" class="tab-content">
                 <div role="tabpanel" class="tab-pane fade in active show" id="editbook">
-                    <p><b><fmt:message bundle="${i18n}" key="editBook.title"/></b></p>
+                    <p><b><spring:message code="editBook.title"/></b></p>
                     <form class="form-horizontal" action="frontController?command=editBook&id=${book.bookID}"
                           method="post"
                           data-toggle="validator">
@@ -29,28 +26,28 @@
                             <!-- name-->
                             <div class="form-group">
                                 <label class="control-label" for="name">
-                                    <fmt:message bundle="${i18n}" key="book.name"/>:
+                                    <spring:message code="book.name"/>:
                                 </label>
                                 <div class="controls">
                                     <input id="name" name="name" placeholder="${book.name}"
                                            class="form-control input-large"
-                                           data-pattern-error="<fmt:message bundle='${i18n}' key='data.non-valid'/>"
+                                           data-pattern-error="<spring:message code='data.non-valid'/>"
                                            pattern="^.{1,29}$">
                                 </div>
                                 <small class=" form-text text-muted help-block with-errors">
-                                    <fmt:message bundle='${i18n}' key='data.less-30'/>
+                                    <spring:message code='data.less-30'/>
                                 </small>
                             </div>
 
                             <!--author(s)-->
                             <div class="form-group">
                                 <label class="control-label" for="author">
-                                    <fmt:message bundle="${i18n}" key="catalog.author"/>:
+                                    <spring:message code="catalog.author"/>:
                                 </label>
                                 <div class="controls">
                                     <select multiple class="form-control input-large" name="author" id="author"
                                             required
-                                            data-required-error="<fmt:message bundle='${i18n}' key='data.required'/>">
+                                            data-required-error="<spring:message code='data.required'/>">
                                         <c:forEach var="author" items="${authors}">
                                             <c:set var="flag" value="false"/>
                                             <c:forEach var="featuredAuthor" items="${book.authors}">
@@ -71,11 +68,11 @@
                                     </select>
                                 </div>
                                 <small class=" form-text text-muted help-block with-errors">
-                                    <fmt:message bundle='${i18n}' key='data.less-30'/>
+                                    <spring:message code='data.less-30'/>
                                 </small>
                                 <%--<small class="form-text text-muted">--%>
                                 <%--<a href="#addauthor" data-toggle="modal" data-target=".bs-modal-sm">--%>
-                                <%--<fmt:message bundle="${i18n}" key="author.add"/>--%>
+                                <%--<spring:message code="author.add"/>--%>
                                 <%--</a>--%>
                                 <%--</small>--%>
 
@@ -85,16 +82,16 @@
                             <!--isbn-->
                             <div class="form-group">
                                 <label class="control-label" for="isbn">
-                                    <fmt:message bundle="${i18n}" key="catalog.isbn"/>:
+                                    <spring:message code="catalog.isbn"/>:
                                 </label>
                                 <div class="controls">
                                     <input id="isbn" class="form-control input-large" placeholder="${book.isbn}"
                                            name="isbn"
-                                           data-pattern-error="<fmt:message bundle='${i18n}' key='data.non-valid'/>"
+                                           data-pattern-error="<spring:message code='data.non-valid'/>"
                                            pattern="^[0-9\\-]{1,12}$">
                                 </div>
                                 <small class=" form-text text-muted help-block with-errors">
-                                    <fmt:message bundle='${i18n}' key='data.less-12'/>
+                                    <spring:message code='data.less-12'/>
                                 </small>
                             </div>
 
@@ -102,12 +99,12 @@
                             <!--genre-->
                             <div class="form-group">
                                 <label class="control-label" for="genre">
-                                    <fmt:message bundle="${i18n}" key="catalog.genre"/>:
+                                    <spring:message code="catalog.genre"/>:
                                 </label>
                                 <div class="controls">
                                     <input id="genre" class="form-control input-large" name="genre"
                                            placeholder="${book.genre}"
-                                           data-pattern-error="<fmt:message bundle='${i18n}' key='data.non-valid'/>"
+                                           data-pattern-error="<spring:message code='data.non-valid'/>"
                                            pattern="^.{1,30}$">
                                 </div>
                                 <small class=" form-text text-muted help-block with-errors">
@@ -118,12 +115,12 @@
                             <!--year-->
                             <div class="form-group">
                                 <label class="control-label" for="year">
-                                    <fmt:message bundle="${i18n}" key="catalog.year"/>:
+                                    <spring:message code="catalog.year"/>:
                                 </label>
                                 <div class="controls">
                                     <input id="year" class="form-control input-large" name="year"
                                            placeholder="${book.year}"
-                                           data-pattern-error="<fmt:message bundle='${i18n}' key='data.non-valid'/>"
+                                           data-pattern-error="<spring:message code='data.non-valid'/>"
                                            pattern="^[0-9]{4}$">
                                 </div>
                                 <small class=" form-text text-muted help-block with-errors">
@@ -133,12 +130,12 @@
                             <!--quantity-->
                             <div class="form-group">
                                 <label class="control-label" for="quantity">
-                                    <fmt:message bundle="${i18n}" key="catalog.quantity"/>:
+                                    <spring:message code="catalog.quantity"/>:
                                 </label>
                                 <div class="controls">
                                     <input type="number" value="${book.quantity}" min="1" max="999" id="quantity"
                                            class="form-control input-large" name="quantity"
-                                           data-pattern-error="<fmt:message bundle='${i18n}' key='data.non-valid'/>">
+                                           data-pattern-error="<spring:message code='data.non-valid'/>">
                                 </div>
                                 <small class=" form-text text-muted help-block with-errors">
                                 </small>
@@ -150,10 +147,10 @@
                                 <label class="control-label"></label>
                                 <div class="controls">
                                     <input type="submit" class="btn btn-success"
-                                           value="<fmt:message bundle="${i18n}" key="editBook.title"/>"/>
+                                           value="<spring:message code="editBook.title"/>"/>
                                     <a href="${pageContext.request.contextPath}/frontController?command=catalog"
                                        class="btn btn-secondary">
-                                        <fmt:message bundle="${i18n}" key="login.close"/>
+                                        <spring:message code="login.close"/>
                                     </a>
                                 </div>
                             </div>
@@ -181,58 +178,58 @@
 <%--<!-- surname-->--%>
 <%--<div class="form-group">--%>
 <%--<label class="control-label" for="surname">--%>
-<%--<fmt:message bundle="${i18n}" key="login.surname"/>:--%>
+<%--<spring:message code="login.surname"/>:--%>
 <%--</label>--%>
 <%--<div class="controls">--%>
 <%--<input id="surname" class="form-control input-large" name="surname"--%>
-<%--data-pattern-error="<fmt:message bundle='${i18n}' key='data.non-valid'/>"--%>
-<%--data-required-error="<fmt:message bundle='${i18n}' key='data.required'/>"--%>
+<%--data-pattern-error="<spring:message code='data.non-valid'/>"--%>
+<%--data-required-error="<spring:message code='data.required'/>"--%>
 <%--required pattern="^[А-ЯЁ]([a-яё]){0,29}$">--%>
 <%--</div>--%>
 <%--<small class=" form-text text-muted help-block with-errors">--%>
-<%--<fmt:message bundle='${i18n}' key='data.less-30'/>--%>
+<%--<spring:message code='data.less-30'/>--%>
 <%--</small>--%>
 <%--</div>--%>
 
 <%--<!-- name-->--%>
 <%--<div class="form-group">--%>
-<%--<label class="control-label" for="authorname"><fmt:message bundle="${i18n}"--%>
+<%--<label class="control-label" for="authorname"><spring:message bundle="${i18n}"--%>
 <%--key="login.name"/>:</label>--%>
 <%--<div class="controls">--%>
 <%--<input id="authorname" class="form-control input-large" name="name"--%>
-<%--data-pattern-error="<fmt:message bundle='${i18n}' key='data.non-valid'/>"--%>
-<%--data-required-error="<fmt:message bundle='${i18n}' key='data.required'/>"--%>
+<%--data-pattern-error="<spring:message code='data.non-valid'/>"--%>
+<%--data-required-error="<spring:message code='data.required'/>"--%>
 <%--required pattern="^[А-ЯЁ][a-яё]{0,29}$">--%>
 <%--</div>--%>
 <%--<small class=" form-text text-muted help-block with-errors">--%>
-<%--<fmt:message bundle='${i18n}' key='data.less-30'/>--%>
+<%--<spring:message code='data.less-30'/>--%>
 <%--</small>--%>
 <%--</div>--%>
 
 <%--<!-- second name-->--%>
 <%--<div class="form-group">--%>
-<%--<label class="control-label" for="secondname"><fmt:message bundle="${i18n}"--%>
+<%--<label class="control-label" for="secondname"><spring:message bundle="${i18n}"--%>
 <%--key="login.secondname"/>:</label>--%>
 <%--<div class="controls">--%>
 <%--<input id="secondname" class="form-control input-large" name="secondname"--%>
-<%--data-pattern-error="<fmt:message bundle='${i18n}' key='data.non-valid'/>"--%>
-<%--data-required-error="<fmt:message bundle='${i18n}' key='data.required'/>"--%>
+<%--data-pattern-error="<spring:message code='data.non-valid'/>"--%>
+<%--data-required-error="<spring:message code='data.required'/>"--%>
 <%--required pattern="^[А-ЯЁ][a-яё]{0,29}$">--%>
 <%--</div>--%>
 <%--<small class=" form-text text-muted help-block with-errors">--%>
-<%--<fmt:message bundle='${i18n}' key='data.less-30'/>--%>
+<%--<spring:message code='data.less-30'/>--%>
 <%--</small>--%>
 <%--</div>--%>
 
 
 <%--<!-- birthday -->--%>
 <%--<div class="form-group">--%>
-<%--<label class="control-label" for="birthday"><fmt:message bundle="${i18n}"--%>
+<%--<label class="control-label" for="birthday"><spring:message bundle="${i18n}"--%>
 <%--key="login.birthday"/>:</label>--%>
 <%--<div class="controls">--%>
 <%--<input id="birthday" class="form-control input-large" name="birthday"--%>
 <%--type="Date" max="2000-01-01" value="1999-05-09"--%>
-<%--data-required-error="<fmt:message bundle='${i18n}' key='data.required'/>"--%>
+<%--data-required-error="<spring:message code='data.required'/>"--%>
 <%--required>--%>
 <%--</div>--%>
 <%--<small class=" form-text text-muted help-block with-errors">--%>
@@ -242,16 +239,16 @@
 <%--<!-- country-->--%>
 <%--<div class="form-group">--%>
 <%--<label class="control-label" for="country">--%>
-<%--<fmt:message bundle="${i18n}" key="author.country"/>:--%>
+<%--<spring:message code="author.country"/>:--%>
 <%--</label>--%>
 <%--<div class="controls">--%>
 <%--<input id="country" name="country" class="form-control input-medium"--%>
-<%--data-pattern-error="<fmt:message bundle='${i18n}' key='data.non-valid'/>"--%>
-<%--data-required-error="<fmt:message bundle='${i18n}' key='data.required'/>"--%>
+<%--data-pattern-error="<spring:message code='data.non-valid'/>"--%>
+<%--data-required-error="<spring:message code='data.required'/>"--%>
 <%--required pattern="^[А-ЯЁ][a-яё]{0,29}$">--%>
 <%--</div>--%>
 <%--<small class=" form-text text-muted help-block with-errors">--%>
-<%--<fmt:message bundle='${i18n}' key='data.less-30'/>--%>
+<%--<spring:message code='data.less-30'/>--%>
 <%--</small>--%>
 <%--</div>--%>
 
@@ -260,7 +257,7 @@
 <%--<label class="control-label"></label>--%>
 <%--<div class="controls">--%>
 <%--<input type="submit" class="btn btn-success"--%>
-<%--value="<fmt:message bundle='${i18n}' key='author.add'/>"/>--%>
+<%--value="<spring:message code='author.add'/>"/>--%>
 <%--</div>--%>
 <%--</div>--%>
 <%--</fieldset>--%>
@@ -270,7 +267,7 @@
 <%--</div>--%>
 <%--<div class="modal-footer">--%>
 <%--<button type="button" class="btn btn-default" data-dismiss="modal">--%>
-<%--<fmt:message bundle="${i18n}" key="login.close"/>--%>
+<%--<spring:message code="login.close"/>--%>
 <%--</button>--%>
 <%--</div>--%>
 <%--</div>--%>
