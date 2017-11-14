@@ -1,5 +1,6 @@
 package by.itacademy.service.impl;
 
+import by.itacademy.dao.DAO;
 import by.itacademy.dao.FormDAO;
 import by.itacademy.entities.Book;
 import by.itacademy.entities.Form;
@@ -20,36 +21,14 @@ import java.util.List;
  */
 @Service
 @Transactional
-public class FormServiceImpl implements FormService {
+public class FormServiceImpl extends IServiceImpl<Form> implements FormService {
+
 
     @Autowired
     FormDAO formDAO;
 
-
-
-    @Override
-    public Form save(Form form) {
-        return formDAO.save(form);
-    }
-
-    @Override
-    public Form get(Integer id) {
-        return formDAO.findOne(id);
-    }
-
-    @Override
-    public void update(Form form) {
-        formDAO.save(form);
-    }
-
-    @Override
-    public void delete(Integer id) {
-        formDAO.delete(id);
-    }
-
-    @Override
-    public List<Form> getAll() {
-        return Lists.newArrayList(formDAO.findAll());
+    public FormServiceImpl(@Autowired DAO<Form, Integer> dao) {
+        this.dao = dao;
     }
 
     @Override

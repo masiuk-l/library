@@ -1,6 +1,7 @@
 package by.itacademy.service.impl;
 
 
+import by.itacademy.dao.DAO;
 import by.itacademy.dao.LibrarianDAO;
 import by.itacademy.entities.Librarian;
 import by.itacademy.service.LibrarianService;
@@ -11,7 +12,6 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Project KR. Created by masiuk-l on 15.08.2017.
@@ -21,36 +21,14 @@ import java.util.List;
 
 @Service
 @Transactional
-public class LibrarianServiceImpl implements LibrarianService {
+public class LibrarianServiceImpl extends IServiceImpl<Librarian> implements LibrarianService {
+
+    public LibrarianServiceImpl(@Autowired DAO<Librarian, Integer> dao) {
+        this.dao = dao;
+    }
 
     @Autowired
     LibrarianDAO librarianDAO;
-
-
-    @Override
-    public Librarian save(Librarian librarian) {
-        return librarianDAO.save(librarian);
-    }
-
-    @Override
-    public Librarian get(Integer id) {
-        return librarianDAO.findOne(id);
-    }
-
-    @Override
-    public void update(Librarian librarian) {
-        librarianDAO.save(librarian);
-    }
-
-    @Override
-    public void delete(Integer id) {
-        librarianDAO.delete(id);
-    }
-
-    @Override
-    public List<Librarian> getAll() {
-        return Lists.newArrayList(librarianDAO.findAll());
-    }
 
     @Override
     public Librarian getByLogin(String login) {

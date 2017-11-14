@@ -1,6 +1,7 @@
 package by.itacademy.service.impl;
 
 import by.itacademy.dao.BookDAO;
+import by.itacademy.dao.DAO;
 import by.itacademy.entities.Book;
 import by.itacademy.entities.Reader;
 import by.itacademy.service.BookService;
@@ -20,35 +21,13 @@ import java.util.List;
  */
 @Service
 @Transactional
-public class BookServiceImpl implements BookService {
+public class BookServiceImpl extends IServiceImpl<Book> implements BookService {
 
     @Autowired
     BookDAO bookDAO;
 
-
-    @Override
-    public Book save(Book book) {
-        return bookDAO.save(book);
-    }
-
-    @Override
-    public Book get(Integer id) {
-        return bookDAO.findOne(id);
-    }
-
-    @Override
-    public void update(Book book) {
-        bookDAO.save(book);
-    }
-
-    @Override
-    public void delete(Integer id) {
-        bookDAO.delete(id);
-    }
-
-    @Override
-    public List<Book> getAll() {
-        return Lists.newArrayList(bookDAO.findAll());
+    public BookServiceImpl(@Autowired DAO<Book, Integer> dao) {
+        this.dao = dao;
     }
 
     @Override

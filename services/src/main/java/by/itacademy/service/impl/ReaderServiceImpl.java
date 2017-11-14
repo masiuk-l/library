@@ -1,5 +1,6 @@
 package by.itacademy.service.impl;
 
+import by.itacademy.dao.DAO;
 import by.itacademy.dao.ReaderDAO;
 import by.itacademy.dao.auth.Encoder;
 import by.itacademy.entities.Reader;
@@ -11,7 +12,6 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Project KR. Created by masiuk-l on 06.08.2017.
@@ -20,35 +20,15 @@ import java.util.List;
  */
 @Service
 @Transactional
-public class ReaderServiceImpl implements ReaderService {
+public class ReaderServiceImpl extends IServiceImpl<Reader> implements ReaderService {
+
+    public ReaderServiceImpl(@Autowired DAO<Reader, Integer> dao) {
+        this.dao = dao;
+    }
 
     @Autowired
     ReaderDAO readerDAO;
 
-    @Override
-    public Reader save(Reader reader) {
-        return readerDAO.save(reader);
-    }
-
-    @Override
-    public Reader get(Integer id) {
-        return readerDAO.findOne(id);
-    }
-
-    @Override
-    public void update(Reader reader) {
-        readerDAO.save(reader);
-    }
-
-    @Override
-    public void delete(Integer id) {
-        readerDAO.delete(id);
-    }
-
-    @Override
-    public List<Reader> getAll() {
-        return Lists.newArrayList(readerDAO.findAll());
-    }
     @Override
     public void update(Reader oldReader, Reader newReader) {
         Reader reader = new Reader();
