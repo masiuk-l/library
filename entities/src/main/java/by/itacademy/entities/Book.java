@@ -30,11 +30,11 @@ public class Book {
     @Pattern(regexp = "^.{1,29}$", message = "Book title must be 1 - 29 symbols long.")
     private String name;
 
-    @Pattern(regexp = "^[0-9\\-]{1,12}$", message = "ISBN must consist of digits and be 1 - 12 symbols long.")
+    @Pattern(regexp = "^[0-9\\-]{1,15}$", message = "ISBN must consist of digits and be 1 - 15 symbols long.")
     @Column(name = "ISBN")
     private String isbn;
 
-    @Pattern(regexp = "^.{1,30}$", message = "Genre must be 1 - 29 symbols long.")
+    @Pattern(regexp = "^.{1,35}$", message = "Genre must be 1 - 35 symbols long.")
     @Column(name = "GENRE")
     private String genre;
 
@@ -51,7 +51,7 @@ public class Book {
     @JoinTable(name = "BOOK_AUTHOR", joinColumns = {@JoinColumn(name = "BOOK_ID")}, inverseJoinColumns = {@JoinColumn(name = "AUTHOR_ID")})
     private Set<Author> authors = new HashSet<>(0);
 
-    @OneToMany(mappedBy = "book", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "book")
     private Set<Form> forms = new HashSet<>(0);
 
     @Override

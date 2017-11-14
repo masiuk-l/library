@@ -24,7 +24,7 @@ public class Librarian extends Person {
     @Column(name = "LIBRARIAN_ID")
     private Integer librarianID;
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "librarian", cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "librarian")
     private Set<Form> forms = new HashSet<>(0);
 
     @Override

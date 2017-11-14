@@ -37,7 +37,7 @@ public class Reader extends Person {
     @Column(name = "STATUS")
     private String status;
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "reader", cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "reader")
     private Set<Form> forms = new HashSet<>(0);
 
     @Override
