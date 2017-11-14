@@ -15,12 +15,12 @@ function reserveBook(element) {
     var bookID = $(element).attr('id');
     $.ajax({
         type: 'get',
-        url: contextUrl + '/frontController?command=reserveBook&bookID=' + bookID,
+        url: contextUrl + '/book/reserve/' + bookID,
         success: function (response) {
             var str = "\"Auth required\"";
 
             if (response.toString() === str) {
-                window.location.href = contextUrl + '/frontController?command=login';
+                window.location.href = contextUrl + '/login/';
             }
             else {
                 $('#quantity').text(response);
@@ -39,12 +39,12 @@ function returnBook(element) {
     var bookID = $(element).attr('id');
     $.ajax({
         type: 'get',
-        url: contextUrl + '/frontController?command=returnBook&bookID=' + bookID,
+        url: contextUrl + '/book/return/' + bookID,
         success: function (response) {
             var str = "\"Auth required\"";
 
             if (response.toString() === str) {
-                window.location.href = contextUrl + '/frontController?command=login';
+                window.location.href = contextUrl + '/login/';
             }
             else {
                 $('.return-book#' + bookID).attr('class', 'btn btn-secondary disabled').text(returned);
@@ -63,7 +63,7 @@ function banReader(element) {
     var readerID = $(element).attr('id');
     $.ajax({
         type: 'get',
-        url: contextUrl + '/frontController?command=banReader&readerID=' + readerID,
+        url: contextUrl + '/reader/ban/' + readerID,
         success: function (response) {
             var str = $('.ban-reader#' + readerID).text().trim();
             if (str === ban) {

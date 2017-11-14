@@ -13,7 +13,7 @@
     }
 </style>
 <script>
-    var contextUrl = ${pageContext.request.contextPath};
+    var contextUrl = '${pageContext.request.contextPath}';
 </script>
 <head>
     <![CDATA[
