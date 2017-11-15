@@ -47,7 +47,7 @@ public class Author {
     @Column(name = "COUNTRY")
     private String country;
 
-    @ManyToMany(mappedBy = "authors", fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+    @ManyToMany(mappedBy = "authors", fetch = FetchType.EAGER)
     private Set<Book> books = new HashSet<>(0);
 
     @Override
