@@ -3,12 +3,8 @@ package by.itacademy.entities;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.validator.constraints.Range;
 
 import javax.persistence.*;
-import javax.validation.constraints.DecimalMax;
-import javax.validation.constraints.DecimalMin;
-import javax.validation.constraints.Pattern;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -27,23 +23,23 @@ public class Book {
     private Integer bookID;
 
     @Column(name = "NAME")
-    @Pattern(regexp = "^.{1,29}$", message = "Book title must be 1 - 29 symbols long.")
+//    @Pattern(regexp = "^.{1,29}$", message = "Book title must be 1 - 29 symbols long.")
     private String name;
 
-    @Pattern(regexp = "^[0-9\\-]{1,15}$", message = "ISBN must consist of digits and be 1 - 15 symbols long.")
+    //    @Pattern(regexp = "^[0-9\\-]{1,15}$", message = "ISBN must consist of digits and be 1 - 15 symbols long.")
     @Column(name = "ISBN")
     private String isbn;
 
-    @Pattern(regexp = "^.{1,35}$", message = "Genre must be 1 - 35 symbols long.")
+    //    @Pattern(regexp = "^.{1,35}$", message = "Genre must be 1 - 35 symbols long.")
     @Column(name = "GENRE")
     private String genre;
 
-    @Range(min = 1900, max = 2017, message = "Year must be greater than 1900 and less than 2017.")
+    //    @Range(min = 1900, max = 2017, message = "Year must be greater than 1900 and less than 2017.")
     @Column(name = "YEAR")
     private Integer year;
 
-    @DecimalMin(value = "0", message = "Quantity must be greater than 0.")
-    @DecimalMax(value = "999", message = "Quantity must be less than 999.")
+    //    @DecimalMin(value = "0", message = "Quantity must be greater than 0.")
+//    @DecimalMax(value = "999", message = "Quantity must be less than 999.")
     @Column(name = "QUANTITY")
     private Integer quantity;
 

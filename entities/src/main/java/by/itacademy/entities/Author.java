@@ -5,8 +5,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import javax.validation.constraints.PastOrPresent;
-import javax.validation.constraints.Pattern;
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
@@ -27,23 +25,23 @@ public class Author {
     @Column(name = "AUTHOR_ID")
     private Integer authorID;
 
-    @Pattern(regexp = "^[А-ЯЁ]([a-яё]){0,29}$", message = "Name must start with capital and be 1 - 30 symbols long.")
+    //    @Pattern(regexp = "^[А-ЯЁ]([a-яё]){0,29}$", message = "Name must start with capital and be 1 - 30 symbols long.")
     @Column(name = "NAME")
     private String name;
 
-    @Pattern(regexp = "^[А-ЯЁ]([a-яё]){0,29}$", message = "Surname must start with capital and be 1 - 30 symbols long.")
+    //    @Pattern(regexp = "^[А-ЯЁ]([a-яё]){0,29}$", message = "Surname must start with capital and be 1 - 30 symbols long.")
     @Column(name = "SURNAME")
     private String surname;
 
-    @Pattern(regexp = "^[А-ЯЁ]([a-яё]){0,29}$", message = "Second name must start with capital and be 1 - 30 symbols long.")
+    //    @Pattern(regexp = "^[А-ЯЁ]([a-яё]){0,29}$", message = "Second name must start with capital and be 1 - 30 symbols long.")
     @Column(name = "SECOND_NAME")
     private String secondName;
 
-    @PastOrPresent(message = "Birthday must be a past date")
+    //    @PastOrPresent(message = "Birthday must be a past date")
     @Column(name = "BIRTHDAY")
     private LocalDate birthday;
 
-    @Pattern(regexp = "^[А-ЯЁ]([a-яё]){0,29}$", message = "Country name must start with capital and be 1 - 30 symbols long.")
+    //    @Pattern(regexp = "^[А-ЯЁ]([a-яё]){0,29}$", message = "Country name must start with capital and be 1 - 30 symbols long.")
     @Column(name = "COUNTRY")
     private String country;
 

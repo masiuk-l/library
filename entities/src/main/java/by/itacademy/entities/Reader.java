@@ -6,7 +6,6 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import javax.validation.constraints.PastOrPresent;
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
@@ -27,7 +26,7 @@ public class Reader extends Person {
     @Column(name = "READER_ID")
     private Integer readerID;
 
-    @PastOrPresent(message = "Birthday must be a past date")
+    //    @PastOrPresent(message = "Birthday must be a past date")
     @Column(name = "BIRTHDAY")
     private LocalDate birthday;
 
