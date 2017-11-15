@@ -34,7 +34,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 @Log4j
 @Controller
 @RequestMapping("/book")
-public class BookController {
+public class BookController {//todo general return errorhandler
     public static final String CATALOG = "catalog";
     public static final String MAIN_ERROR = "book/add";//todo ???
     public static final String MAIN_BOOK = "catalog/book";
@@ -131,7 +131,7 @@ public class BookController {
     }
 
     @RequestMapping(value = "/return/{id}", method = RequestMethod.GET)
-    public void returnBook(ModelMap model, HttpServletRequest request, HttpServletResponse response, @PathVariable(value = "id") Integer id) {
+    public void returnBook(HttpServletRequest request, @PathVariable(value = "id") Integer id) {
         Book book = bookService.get(id);
         Form form = new Form();
         if (request.getSession().getAttribute("sreader") != null) {

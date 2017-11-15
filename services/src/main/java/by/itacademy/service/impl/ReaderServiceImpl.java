@@ -54,4 +54,10 @@ public class ReaderServiceImpl extends IServiceImpl<Reader> implements ReaderSer
             return null;
         return readers.get(0);
     }
+
+    @Override
+    public Reader save(Reader reader) {
+        reader.setPassword(Encoder.encode(reader.getPassword()));
+        return super.save(reader);
+    }
 }
