@@ -2,6 +2,7 @@ package by.itacademy.command;
 
 import by.itacademy.entities.Reader;
 import by.itacademy.service.ReaderService;
+import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -10,6 +11,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.time.temporal.ChronoUnit;
@@ -21,7 +25,6 @@ import java.util.ArrayList;
 @Controller
 @RequestMapping("/reader")
 public class ReaderController {
-    public static final String MAIN = "main";
     public static final String READERS = "admin/readers";
     public static final String READER_EDIT = "cabinet/editReader";
 
@@ -29,7 +32,7 @@ public class ReaderController {
     private ReaderService readerService;
 
     @RequestMapping(value = "/ban/{id}", method = RequestMethod.GET)
-    public void banReader(@PathVariable(value = "id") Integer id) {
+    public void banReader(ModelMap model, @PathVariable(value = "id") Integer id, HttpServletResponse response) throws IOException {
         Reader reader = readerService.get(id);
         if (reader.getStatus().equals("BANNED")) {
             reader.setStatus("ACTIVE");
@@ -37,6 +40,8 @@ public class ReaderController {
             reader.setStatus("BANNED");
         }
         readerService.update(reader);
+        PrintWriter writer = response.getWriter();
+        writer.print(new Gson().toJson("OK"));
     }
 
     @RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
@@ -102,6 +107,8 @@ public class ReaderController {
 
         } else { //forward user to the same page with error message
             model.put("errorMsg", "Invalid data. Please, retry");
+            model.put("pageName", "editreader");
+            return READER_EDIT;
         }
         return "redirect:/main/";
     }

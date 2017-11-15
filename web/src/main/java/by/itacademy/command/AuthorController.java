@@ -19,7 +19,7 @@ import java.time.temporal.ChronoUnit;
 @Controller
 @RequestMapping("/author")
 public class AuthorController {
-//    public static final String MAIN = "book/add";
+    public static final String BOOK_ADD = "book/add";
 //    public static final String MAIN_ERROR = "author/add";
 
     @Autowired
@@ -71,8 +71,9 @@ public class AuthorController {
         if (validData) {
             authorService.save(author);
         } else { //forward user to the same page with error message
-            model.put("pageName", "addbook");
             model.put("errorMsg", "Invalid data. Please, retry");
+            model.put("pageName", "addbook");
+            return BOOK_ADD;
         }
         return "redirect:/book/add";
     }

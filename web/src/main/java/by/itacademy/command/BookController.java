@@ -108,7 +108,8 @@ public class BookController {//todo general return errorhandler
             bookService.save(book);
         } else { //forward user to the same page with error message
             model.put("errorMsg", "Invalid data. Please, retry");
-
+            model.put("pageName", "addbook");
+            return BOOK_ADD;
         }
         return "redirect:/book/";
     }
@@ -210,6 +211,8 @@ public class BookController {//todo general return errorhandler
 
         } else { //forward user to the same page with error message
             model.put("errorMsg", "Invalid data. Please, retry");
+            model.put("pageName", "editBook");
+            return BOOK_EDIT;
         }
         return "redirect:/book/";
     }
@@ -235,13 +238,12 @@ public class BookController {//todo general return errorhandler
         bookService.update(book);
         Form form = new Form(null, "Абонемент", LocalDate.now(), LocalDate.now().plus(14, ChronoUnit.DAYS), book, librarianService.get(1), (Reader) request.getSession().getAttribute("sreader"));
         formService.save(form);
-        log.error("book");
         PrintWriter writer = response.getWriter();
         writer.print(new Gson().toJson(currentCount));
     }
 
     @RequestMapping(value = "/return/{id}", method = RequestMethod.GET)
-    public void returnBook(HttpServletRequest request, @PathVariable(value = "id") Integer id) {
+    public void returnBook(ModelMap model, HttpServletRequest request, @PathVariable(value = "id") Integer id, HttpServletResponse response) throws IOException {
         Book book = bookService.get(id);
         Form form = new Form();
         if (request.getSession().getAttribute("sreader") != null) {
@@ -257,6 +259,8 @@ public class BookController {//todo general return errorhandler
             }
             formService.delete(form.getFormID());
         }
+        PrintWriter writer = response.getWriter();
+        writer.print(new Gson().toJson("OK"));
     }
 
 

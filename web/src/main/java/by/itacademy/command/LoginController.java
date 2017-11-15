@@ -45,7 +45,7 @@ public class LoginController {
         if (login == null || password == null) {
             model.put("errorMsg", "Invalid Login or Password");
             model.put("pageName", "login");
-            return "redirect:/login/";
+            return LOGIN;
         }
         Reader reader = readerService.getByLogin(login);
         if (reader != null && reader.getPassword().equals(Encoder.encode(password))) {
@@ -55,7 +55,7 @@ public class LoginController {
         } else {
             model.put("errorMsg", "Invalid Login or Password");
             model.put("pageName", "login");
-            return "redirect:/login/";
+            return LOGIN;
         }
     }
 
