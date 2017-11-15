@@ -18,7 +18,7 @@
             <div id="myTabContent" class="tab-content">
                 <div role="tabpanel" class="tab-pane fade in active show" id="editbook">
                     <p><b><spring:message code="editBook.title"/></b></p>
-                    <form class="form-horizontal" action="frontController?command=editBook&id=${book.bookID}"
+                    <form class="form-horizontal" action="${pageContext.request.contextPath}/book/edit/${book.bookID}"
                           method="post"
                           data-toggle="validator">
                         <fieldset>
@@ -148,7 +148,7 @@
                                 <div class="controls">
                                     <input type="submit" class="btn btn-success"
                                            value="<spring:message code="editBook.title"/>"/>
-                                    <a href="${pageContext.request.contextPath}/frontController?command=catalog"
+                                    <a href="${pageContext.request.contextPath}/main/"
                                        class="btn btn-secondary">
                                         <spring:message code="login.close"/>
                                     </a>
@@ -162,115 +162,4 @@
     </div>
 </div>
 
-
-<%--<!-- Modal -->--%>
-<%--<div class="modal fade bs-modal-sm" id="Modal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">--%>
-<%--<div class="modal-dialog ">--%>
-<%--<div class="modal-content">--%>
-<%--<div class="modal-body">--%>
-<%--<div id="TabContent" class="tab-content">--%>
-<%--<div role="tabpanel" class="tab-pane fade in active show" id="addauthor">--%>
-<%--<p><b>Добавление книги</b></p>--%>
-<%--<form class="form-horizontal" action="frontController?command=addauthor" method="post"--%>
-<%--data-toggle="validator">--%>
-<%--<fieldset>--%>
-<%--<!-- Add Author Form -->--%>
-<%--<!-- surname-->--%>
-<%--<div class="form-group">--%>
-<%--<label class="control-label" for="surname">--%>
-<%--<spring:message code="login.surname"/>:--%>
-<%--</label>--%>
-<%--<div class="controls">--%>
-<%--<input id="surname" class="form-control input-large" name="surname"--%>
-<%--data-pattern-error="<spring:message code='data.non-valid'/>"--%>
-<%--data-required-error="<spring:message code='data.required'/>"--%>
-<%--required pattern="^[А-ЯЁ]([a-яё]){0,29}$">--%>
-<%--</div>--%>
-<%--<small class=" form-text text-muted help-block with-errors">--%>
-<%--<spring:message code='data.less-30'/>--%>
-<%--</small>--%>
-<%--</div>--%>
-
-<%--<!-- name-->--%>
-<%--<div class="form-group">--%>
-<%--<label class="control-label" for="authorname"><spring:message bundle="${i18n}"--%>
-<%--key="login.name"/>:</label>--%>
-<%--<div class="controls">--%>
-<%--<input id="authorname" class="form-control input-large" name="name"--%>
-<%--data-pattern-error="<spring:message code='data.non-valid'/>"--%>
-<%--data-required-error="<spring:message code='data.required'/>"--%>
-<%--required pattern="^[А-ЯЁ][a-яё]{0,29}$">--%>
-<%--</div>--%>
-<%--<small class=" form-text text-muted help-block with-errors">--%>
-<%--<spring:message code='data.less-30'/>--%>
-<%--</small>--%>
-<%--</div>--%>
-
-<%--<!-- second name-->--%>
-<%--<div class="form-group">--%>
-<%--<label class="control-label" for="secondname"><spring:message bundle="${i18n}"--%>
-<%--key="login.secondname"/>:</label>--%>
-<%--<div class="controls">--%>
-<%--<input id="secondname" class="form-control input-large" name="secondname"--%>
-<%--data-pattern-error="<spring:message code='data.non-valid'/>"--%>
-<%--data-required-error="<spring:message code='data.required'/>"--%>
-<%--required pattern="^[А-ЯЁ][a-яё]{0,29}$">--%>
-<%--</div>--%>
-<%--<small class=" form-text text-muted help-block with-errors">--%>
-<%--<spring:message code='data.less-30'/>--%>
-<%--</small>--%>
-<%--</div>--%>
-
-
-<%--<!-- birthday -->--%>
-<%--<div class="form-group">--%>
-<%--<label class="control-label" for="birthday"><spring:message bundle="${i18n}"--%>
-<%--key="login.birthday"/>:</label>--%>
-<%--<div class="controls">--%>
-<%--<input id="birthday" class="form-control input-large" name="birthday"--%>
-<%--type="Date" max="2000-01-01" value="1999-05-09"--%>
-<%--data-required-error="<spring:message code='data.required'/>"--%>
-<%--required>--%>
-<%--</div>--%>
-<%--<small class=" form-text text-muted help-block with-errors">--%>
-<%--</small>--%>
-<%--</div>--%>
-
-<%--<!-- country-->--%>
-<%--<div class="form-group">--%>
-<%--<label class="control-label" for="country">--%>
-<%--<spring:message code="author.country"/>:--%>
-<%--</label>--%>
-<%--<div class="controls">--%>
-<%--<input id="country" name="country" class="form-control input-medium"--%>
-<%--data-pattern-error="<spring:message code='data.non-valid'/>"--%>
-<%--data-required-error="<spring:message code='data.required'/>"--%>
-<%--required pattern="^[А-ЯЁ][a-яё]{0,29}$">--%>
-<%--</div>--%>
-<%--<small class=" form-text text-muted help-block with-errors">--%>
-<%--<spring:message code='data.less-30'/>--%>
-<%--</small>--%>
-<%--</div>--%>
-
-<%--<!-- submit -->--%>
-<%--<div class="form-group">--%>
-<%--<label class="control-label"></label>--%>
-<%--<div class="controls">--%>
-<%--<input type="submit" class="btn btn-success"--%>
-<%--value="<spring:message code='author.add'/>"/>--%>
-<%--</div>--%>
-<%--</div>--%>
-<%--</fieldset>--%>
-<%--</form>--%>
-<%--</div>--%>
-<%--</div>--%>
-<%--</div>--%>
-<%--<div class="modal-footer">--%>
-<%--<button type="button" class="btn btn-default" data-dismiss="modal">--%>
-<%--<spring:message code="login.close"/>--%>
-<%--</button>--%>
-<%--</div>--%>
-<%--</div>--%>
-<%--</div>--%>
-<%--</div>--%>
 

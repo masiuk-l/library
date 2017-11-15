@@ -14,6 +14,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
+import java.time.temporal.ChronoUnit;
 
 /**
  * Project KR. Created by masiuk-l on 18.08.2017.
@@ -83,71 +86,63 @@ public class LoginController {
 
     @RequestMapping(value = "/signup", method = RequestMethod.POST)
     public String singUp(ModelMap model, HttpServletRequest req) {
-//
-//
-//        boolean validData = true;//flag to indicate whether all input data is valid
-//        Reader reader = new Reader();
-//        if (req.getParameter("surname").matches("^[А-ЯЁ]([a-яё]){0,29}$")) {
-//            reader.setSurname(req.getParameter("surname"));
-//        } else {
-//            validData = false;
-//        }
-//        if (req.getParameter("name").matches("^[А-ЯЁ]([a-яё]){0,29}$")) {
-//            reader.setName(req.getParameter("name"));
-//        } else {
-//            validData = false;
-//        }
-//        if (req.getParameter("secondname").matches("^[А-ЯЁ]([a-яё]){0,29}$")) {
-//            reader.setSecondName(req.getParameter("secondname"));
-//        } else {
-//            validData = false;
-//        }
-//        if (req.getParameter("email").matches("^([a-z0-9_\\.-]+\\@[\\da-z\\.-]+\\.[a-z\\.]{2,6})$")) {
-//            Reader emreader = readerService.getByLogin(req.getParameter("email"));
-//            if (emreader != null) {
-//                validData = false;
-//            }
-//            reader.setEmail(req.getParameter("email"));
-//        } else {
-//            validData = false;
-//        }
-//        if (req.getParameter("password").matches(".{6,30}")) {
-//            reader.setPassword(req.getParameter("password"));
-//        } else {
-//            validData = false;
-//        }
-//        LocalDate birthday;
-//        try {
-//            birthday = LocalDate.parse(req.getParameter("birthday"));
-//            if (birthday.compareTo(LocalDate.now().minus(18, ChronoUnit.YEARS)) < 0) {//check whether the author is over 18
-//                reader.setBirthday(birthday);
-//            } else {
-//                validData = false;
-//            }
-//        } catch (DateTimeParseException e) {
-//            validData = false;
-//        }
-//        if (req.getParameter("gender").equals("1"))
-//            reader.setGender("male");
-//        else if (req.getParameter("gender").equals("2"))
-//            reader.setGender("female");
-//        else validData = false;
-//        reader.setStatus("ACTIVE");
-//
-//        if (validData) {
-//            readerService.save(reader);
-//            req.getSession().setAttribute("errorMsg", "");
-//            String contextPath = req.getContextPath();
-//            resp.sendRedirect(contextPath + "/frontController?command=main");
-//            return;
-//        } else { //forward user to the same page with error message
-//            req.getSession().setAttribute("errorMsg", "Invalid data. Please, retry");
-//            RequestDispatcher dispatcher = req.getRequestDispatcher(MAIN_PAGE);
-//            dispatcher.forward(req, resp);
-//            return;
-//        }
-//
-        return MAIN;
+        boolean validData = true;//flag to indicate whether all input data is valid
+        Reader reader = new Reader();
+        if (req.getParameter("surname").matches("^[А-ЯЁ]([a-яё]){0,29}$")) {
+            reader.setSurname(req.getParameter("surname"));
+        } else {
+            validData = false;
+        }
+        if (req.getParameter("name").matches("^[А-ЯЁ]([a-яё]){0,29}$")) {
+            reader.setName(req.getParameter("name"));
+        } else {
+            validData = false;
+        }
+        if (req.getParameter("secondname").matches("^[А-ЯЁ]([a-яё]){0,29}$")) {
+            reader.setSecondName(req.getParameter("secondname"));
+        } else {
+            validData = false;
+        }
+        if (req.getParameter("email").matches("^([a-z0-9_\\.-]+\\@[\\da-z\\.-]+\\.[a-z\\.]{2,6})$")) {
+            Reader emreader = readerService.getByLogin(req.getParameter("email"));
+            if (emreader != null) {
+                validData = false;
+            }
+            reader.setEmail(req.getParameter("email"));
+        } else {
+            validData = false;
+        }
+        if (req.getParameter("password").matches(".{6,30}")) {
+            reader.setPassword(req.getParameter("password"));
+        } else {
+            validData = false;
+        }
+        LocalDate birthday;
+        try {
+            birthday = LocalDate.parse(req.getParameter("birthday"));
+            if (birthday.compareTo(LocalDate.now().minus(18, ChronoUnit.YEARS)) < 0) {//check whether the author is over 18
+                reader.setBirthday(birthday);
+            } else {
+                validData = false;
+            }
+        } catch (DateTimeParseException e) {
+            validData = false;
+        }
+        if (req.getParameter("gender").equals("1"))
+            reader.setGender("male");
+        else if (req.getParameter("gender").equals("2"))
+            reader.setGender("female");
+        else validData = false;
+        reader.setStatus("ACTIVE");
+
+        if (validData) {
+            readerService.save(reader);
+        } else { //forward user to the same page with error message
+            model.put("errorMsg", "Invalid data. Please, retry");
+            model.put("pageName", "login");
+            return MAIN;
+        }
+        return "redirect:/main/";
     }
 
 }

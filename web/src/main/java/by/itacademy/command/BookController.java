@@ -3,6 +3,7 @@ package by.itacademy.command;
 import by.itacademy.entities.Book;
 import by.itacademy.entities.Form;
 import by.itacademy.entities.Reader;
+import by.itacademy.service.AuthorService;
 import by.itacademy.service.BookService;
 import by.itacademy.service.FormService;
 import by.itacademy.service.LibrarianService;
@@ -11,7 +12,6 @@ import lombok.extern.log4j.Log4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.validation.Valid;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.time.LocalDate;
@@ -36,7 +35,8 @@ import java.util.concurrent.atomic.AtomicInteger;
 @RequestMapping("/book")
 public class BookController {//todo general return errorhandler
     public static final String CATALOG = "catalog";
-    public static final String MAIN_ERROR = "book/add";//todo ???
+    public static final String BOOK_ADD = "admin/addBook";
+    public static final String BOOK_EDIT = "admin/editBook";
     public static final String MAIN_BOOK = "catalog/book";
     public static final String MY_BOOKS = "cabinet/myBooks";
 
@@ -46,20 +46,72 @@ public class BookController {//todo general return errorhandler
     private FormService formService;
     @Autowired
     private LibrarianService librarianService;
+    @Autowired
+    private AuthorService authorService;
 
     @RequestMapping(value = "/add", method = RequestMethod.GET)
-    public String addBook(@Valid Book book, BindingResult br, ModelMap model) {
-        if (!br.hasErrors()) {
-            if (book != null) {
-                bookService.save(book);
-            }
-            return CATALOG;
-        } else { //forward user to the same page with error message
-            model.put("errorMsg", "Invalid data. Please, retry");
-            return MAIN_ERROR;//todo редирект
-        }
+    public String showAddBook(ModelMap model, HttpServletRequest req) {
+        model.put("authors", authorService.getAll());
+        model.put("pageName", "addbook");
+        return BOOK_ADD;
+
     }
 
+    @RequestMapping(value = "/add", method = RequestMethod.POST)
+    public String addBook(ModelMap model, HttpServletRequest req) {
+        model.put("authors", authorService.getAll());
+        Book book = new Book();
+        boolean validData = true; //flag to indicate whether all input data is valid
+        if (req.getParameter("name").matches("^.{1,29}$")) {
+            book.setName(req.getParameter("name"));
+        } else {
+            validData = false;
+        }
+        if (req.getParameter("isbn").matches("^[0-9\\\\-]{1,12}$")) {
+            book.setIsbn(req.getParameter("isbn"));
+        } else {
+            validData = false;
+        }
+        if (req.getParameter("genre").matches("^.{1,30}$")) {
+            book.setGenre(req.getParameter("genre"));
+        } else {
+            validData = false;
+        }
+        int year;
+        try {
+            year = Integer.parseInt(req.getParameter("year"));
+            if (year <= LocalDate.now().getYear() && year > 0) {
+                book.setYear(year);
+            } else {
+                validData = false;
+            }
+        } catch (NumberFormatException e) {
+            validData = false;
+        }
+        int quantity;
+        try {
+            quantity = Integer.parseInt(req.getParameter("quantity"));
+            if (quantity <= 999 && quantity > 0) {
+                book.setQuantity(quantity);
+            } else {
+                validData = false;
+            }
+        } catch (NumberFormatException e) {
+            validData = false;
+        }
+
+        if (validData) {
+            String[] authorIDs = req.getParameterValues("author");
+            for (String authorID : authorIDs) {
+                book.getAuthors().add(authorService.get(Integer.parseInt(authorID)));
+            }
+            bookService.save(book);
+        } else { //forward user to the same page with error message
+            model.put("errorMsg", "Invalid data. Please, retry");
+
+        }
+        return "redirect:/book/";
+    }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public String book(ModelMap model, @PathVariable(value = "id") Integer id) {
@@ -88,26 +140,84 @@ public class BookController {//todo general return errorhandler
         if (book != null) {
             bookService.delete(book.getBookID());
         }
-        return CATALOG;//todo redirect?
+        return "redirect:/book/";//todo redirect?
     }
 
     @RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
-    public String editBook(ModelMap model, @PathVariable(value = "id") Integer id, @Valid Book book, BindingResult br) {
-        if (!br.hasErrors()) {
-            if (book != null) {
-                book = bookService.save(book);
+    public String showEditBook(ModelMap model, @PathVariable(value = "id") Integer id, HttpServletRequest req) {
+        Book book = bookService.get(id);
+        model.put("book", book);
+        model.put("authors", authorService.getAll());
+        model.put("pageName", "editBook");
+        return BOOK_EDIT;
+    }
+
+    @RequestMapping(value = "/edit/{id}", method = RequestMethod.POST)
+    public String editBook(ModelMap model, @PathVariable(value = "id") Integer id, HttpServletRequest req) {
+        Book oldBook = bookService.get(id);
+        Book newBook = new Book();
+        boolean validData = true;//flag to indicate whether all input data is valid
+        if (req.getParameter("name").matches("^.{1,29}$") || req.getParameter("name").length() == 0) {
+            newBook.setName(req.getParameter("name"));
+        } else {
+            validData = false;
+        }
+        if (req.getParameter("isbn").matches("^[0-9\\\\-]{1,12}$") || req.getParameter("isbn").length() == 0) {
+            newBook.setIsbn(req.getParameter("isbn"));
+        } else {
+            validData = false;
+        }
+        if (req.getParameter("genre").matches("^.{1,30}$") || req.getParameter("genre").length() == 0) {
+            newBook.setGenre(req.getParameter("genre"));
+        } else {
+            validData = false;
+        }
+        int year;
+        try {
+            if (req.getParameter("year").length() == 0) {
+                newBook.setYear(0);
+            } else {
+                year = Integer.parseInt(req.getParameter("year"));
+                if (year <= LocalDate.now().getYear() && year > 0) {
+                    newBook.setYear(year);
+                } else {
+                    validData = false;
+                }
             }
-            return CATALOG;
+
+        } catch (NumberFormatException e) {
+            validData = false;
+        }
+        int quantity;
+        try {
+            quantity = Integer.parseInt(req.getParameter("quantity"));
+            if (quantity <= 999 && quantity > 0) {
+                newBook.setQuantity(quantity);
+            } else {
+                validData = false;
+            }
+        } catch (NumberFormatException e) {
+            validData = false;
+        }
+
+        if (validData) {
+            newBook.getAuthors().clear();
+            String[] authorIDs = req.getParameterValues("author");
+            for (String authorID : authorIDs) {
+                newBook.getAuthors().add(authorService.get(Integer.parseInt(authorID)));
+            }
+            bookService.update(oldBook, newBook);
+
         } else { //forward user to the same page with error message
             model.put("errorMsg", "Invalid data. Please, retry");
-            return MAIN_ERROR;//todo правильно (это вообще 2 метода!)
         }
+        return "redirect:/book/";
     }
 
     @RequestMapping(value = "/myBooks", method = RequestMethod.GET)
     public String myBooks(ModelMap model, HttpServletRequest request) {
         if (request.getSession().getAttribute("sreader") == null) {
-            return "redirect:/catalog/";
+            return "redirect:/book/";
         }
         Reader reader = (Reader) request.getSession().getAttribute("sreader");
         ArrayList<Form> forms = new ArrayList<>(formService.getByReader(reader));

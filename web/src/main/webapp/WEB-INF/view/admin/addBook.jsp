@@ -18,7 +18,7 @@
             <div id="myTabContent" class="tab-content">
                 <div role="tabpanel" class="tab-pane fade in active show" id="addbook">
                     <p><b><spring:message code="admin.add.book"/></b></p>
-                    <form class="form-horizontal" action="frontController?command=addbook" method="post"
+                    <form class="form-horizontal" action="${pageContext.request.contextPath}/book/add" method="post"
                           data-toggle="validator">
                         <fieldset>
                             <!-- Add Book Form -->
@@ -132,7 +132,7 @@
                                 <div class="controls">
                                     <input type="submit" class="btn btn-success"
                                            value="<spring:message code="addbook.title"/>"/>
-                                    <a href="${pageContext.request.contextPath}/frontController?command=main"
+                                    <a href="${pageContext.request.contextPath}/main/"
                                        class="btn btn-secondary">
                                         <spring:message code="login.close"/>
                                     </a>
@@ -155,7 +155,8 @@
                 <div id="TabContent" class="tab-content">
                     <div role="tabpanel" class="tab-pane fade in active show" id="addauthor">
                         <p><b>Добавление книги</b></p>
-                        <form class="form-horizontal" action="frontController?command=addauthor" method="post"
+                        <form class="form-horizontal" action="${pageContext.request.contextPath}/author/add"
+                              method="post"
                               data-toggle="validator">
                             <fieldset>
                                 <!-- Add Author Form -->

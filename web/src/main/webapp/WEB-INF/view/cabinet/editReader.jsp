@@ -23,7 +23,8 @@
 
                     <!-- Edit Reader Form -->
 
-                    <form class="form-horizontal" action="frontController?command=editreader" method="post"
+                    <form class="form-horizontal"
+                          action="${pageContext.request.contextPath}/reader/edit/${sreader.readerID}" method="post"
                           data-toggle="validator">
                         <fieldset>
                             <!-- edit reader Form -->
