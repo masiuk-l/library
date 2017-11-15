@@ -52,10 +52,11 @@ public class ReaderServiceImplTest {
         readerService.save(reader);
         String newSurname = "Иванова";
         reader = readerService.getByLogin("ffr@ww");
-        reader.setSurname(newSurname);
-        readerService.update(reader);
-        Reader newReader = readerService.get(reader.getReaderID());
-        Assert.assertEquals(reader.getSurname(), newReader.getSurname());
+        Reader newReader = readerService.get(1);
+        newReader.setSurname(newSurname);
+        readerService.update(reader, newReader);
+        Reader readerFromDb = readerService.get(reader.getReaderID());
+        Assert.assertEquals(newSurname, readerFromDb.getSurname());
         readerService.delete(reader.getReaderID());
     }
 

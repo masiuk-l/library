@@ -44,14 +44,13 @@ public class BookServiceImplTest {
     @Test
     public void getAndUpdate() throws Exception {
         book = bookService.save(book);
-        book = bookService.searchByName("Книга").get(0);
-        book.setName("Не книга");
-        bookService.update(book);
-        Book newBook = bookService.get(book.getBookID());
+        Book newBook = new Book(null, "Не книга", "", "", 0, 0, null, null);
+        bookService.update(book, newBook);
+        Book bookFromDb = bookService.get(book.getBookID());
         System.out.println(book);
-        System.out.println(newBook);
+        System.out.println(bookFromDb);
         System.out.println(book.equals(newBook));
-        Assert.assertTrue(book.equals(newBook));
+        Assert.assertEquals("Не книга", bookFromDb.getName());
         bookService.delete(book.getBookID());
     }
 
@@ -66,7 +65,7 @@ public class BookServiceImplTest {
     }
 
     @Test
-    public void getAllAndbcfcDelete() throws Exception {
+    public void getCatalogPage() throws Exception {
         Book book1 = new Book(null, "iji", "jkiji", "jij", 678, 7, null, null);
         Book book2 = new Book(null, "iji", "jkiji", "jij", 678, 7, null, null);
         Book book3 = new Book(null, "iji", "jkiji", "jij", 678, 7, null, null);
@@ -79,7 +78,11 @@ public class BookServiceImplTest {
         book = bookService.save(book4);
         book = bookService.save(book5);
         book = bookService.save(book6);
+        bookService.getCatalogPage(1, 3).forEach(System.out::println);
+        Assert.assertTrue(bookService.getCatalogPage(1, 3).get(0).getBookID() >= 1);
 
-        bookService.getCatalogPage(2, 3).forEach(System.out::println);// todo причесать
+
     }
+
+
 }

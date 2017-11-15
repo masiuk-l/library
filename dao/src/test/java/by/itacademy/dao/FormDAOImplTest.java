@@ -30,6 +30,10 @@ public class FormDAOImplTest {
     FormDAO formDAO;
     @Autowired
     BookDAO bookDAO;
+    @Autowired
+    LibrarianDAO librarianDAO;
+    @Autowired
+    ReaderDAO readerDAO;
     private Form form;
     private Book book;
     private Reader reader;
@@ -65,11 +69,14 @@ public class FormDAOImplTest {
         form.setReceivalType("Формуляр");
         form.setReceivalDate(LocalDate.now());
         form.setReturnDate(LocalDate.now().plus(14, ChronoUnit.DAYS));
+        book = bookDAO.save(book);
+        librarian = librarianDAO.save(librarian);
+        reader = readerDAO.save(reader);
+        form = formDAO.save(form);
     }
 
     @Test
     public void saveAndGetByReceivalType() throws Exception {
-        form = formDAO.save(form);
         Form newForm = formDAO.findAll().iterator().next();
         Assert.assertEquals(form.toString(), newForm.toString());
         formDAO.delete(newForm.getFormID());
@@ -78,7 +85,6 @@ public class FormDAOImplTest {
 
     @Test
     public void getAndUpdate() throws Exception {
-        form = formDAO.save(form);
         form.setReceivalType("Формулярpp");
         formDAO.save(form);
         Form newForm = formDAO.findAll().iterator().next();
@@ -88,7 +94,6 @@ public class FormDAOImplTest {
 
     @Test
     public void getAllAndDelete() throws Exception {
-        formDAO.save(form);
         List<Form> forms = new ArrayList<>();
         formDAO.findAll().forEach(forms::add);
         int oldSize = forms.size();
@@ -100,7 +105,6 @@ public class FormDAOImplTest {
 
     @Test
     public void hnf() {
-        form = formDAO.save(form);
         System.out.println(bookDAO.getBookReaders(book));// todo причесать
     }
 

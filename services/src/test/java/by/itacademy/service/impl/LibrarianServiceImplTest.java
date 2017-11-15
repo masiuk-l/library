@@ -30,11 +30,12 @@ public class LibrarianServiceImplTest {
         librarian.setSurname("Иванов");
         librarian.setEmail("ffr@ww");
         librarian.setPassword("fvfdcsdv");
+        librarian = librarianService.save(librarian);
     }
 
     @Test
     public void saveAndGetBySurname() throws Exception {
-        librarian = librarianService.save(librarian);
+
         Librarian newLibrarian = librarianService.getByLogin("ffr@ww");
         librarian.setPassword(librarian.getPassword());
         Assert.assertEquals(librarian.getName(), newLibrarian.getName());
@@ -44,7 +45,6 @@ public class LibrarianServiceImplTest {
 
     @Test
     public void getAndUpdate() throws Exception {
-        librarianService.save(librarian);
         String newSurname = "Иванова";
         librarian = librarianService.getByLogin("ffr@ww");
         librarian.setSurname(newSurname);
@@ -56,11 +56,11 @@ public class LibrarianServiceImplTest {
 
     @Test
     public void getAllAndDelete() throws Exception {
-        librarianService.save(librarian);
         List<Librarian> librarians = librarianService.getAll();
         int oldSize = librarians.size();
         librarianService.delete(librarian.getLibrarianID());
         librarians = librarianService.getAll();
         Assert.assertEquals(oldSize - 1, librarians.size());
     }
+
 }

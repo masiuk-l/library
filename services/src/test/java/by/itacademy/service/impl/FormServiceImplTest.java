@@ -4,7 +4,10 @@ import by.itacademy.entities.Book;
 import by.itacademy.entities.Form;
 import by.itacademy.entities.Librarian;
 import by.itacademy.entities.Reader;
+import by.itacademy.service.BookService;
 import by.itacademy.service.FormService;
+import by.itacademy.service.LibrarianService;
+import by.itacademy.service.ReaderService;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -25,6 +28,17 @@ import java.util.List;
 public class FormServiceImplTest {
     @Autowired
     FormService formService;
+
+    @Autowired
+    LibrarianService librarianService;
+
+    @Autowired
+    ReaderService readerService;
+
+    @Autowired
+    private BookService bookService;
+
+
     private Form form;
     private Book book;
 
@@ -42,7 +56,7 @@ public class FormServiceImplTest {
         librarian.setName("Иван");
         librarian.setSecondName("Иванович");
         librarian.setSurname("Иванов");
-        librarian.setEmail("ffr@ww");
+        librarian.setEmail("ffr@www");
         librarian.setPassword("fvfdcsdv");
         form.setLibrarian(librarian);
         Reader reader = new Reader();
@@ -50,7 +64,7 @@ public class FormServiceImplTest {
         reader.setSecondName("Иванович");
         reader.setSurname("Козлов");
         reader.setBirthday(LocalDate.of(1996, 12, 1));
-        reader.setEmail("ffr@ww");
+        reader.setEmail("ffr@www");
         reader.setPassword("fvfdcsdv");
         reader.setGender("женский");
         reader.setStatus("");
@@ -58,11 +72,14 @@ public class FormServiceImplTest {
         form.setReceivalType("Формуляр");
         form.setReceivalDate(LocalDate.now());
         form.setReturnDate(LocalDate.now().plus(14, ChronoUnit.DAYS));
+        book = bookService.save(book);
+        librarian = librarianService.save(librarian);
+        reader = readerService.save(reader);
+        form = formService.save(form);
     }
 
     @Test
     public void saveAndGetByReceivalType() throws Exception {
-        form = formService.save(form);
         Form newForm = formService.getByBook(book).get(0);
         Assert.assertEquals(form.toString(), newForm.toString());
         formService.delete(newForm.getFormID());
@@ -71,7 +88,6 @@ public class FormServiceImplTest {
 
     @Test
     public void getAndUpdate() throws Exception {
-        form = formService.save(form);
         form.setReceivalType("Формулярpp");
         formService.update(form);
         Form newForm = formService.get(form.getFormID());
@@ -81,7 +97,6 @@ public class FormServiceImplTest {
 
     @Test
     public void getAllAndDelete() throws Exception {
-        form = formService.save(form);
         List<Form> forms = formService.getAll();
         int oldSize = forms.size();
         formService.delete(form.getFormID());
