@@ -38,6 +38,7 @@ public class BookServiceImpl extends IServiceImpl<Book> implements BookService {
         book.setIsbn((newBook.getIsbn().length() == 0) ? oldBook.getIsbn() : newBook.getIsbn());
         book.setGenre((newBook.getGenre().length() == 0) ? oldBook.getGenre() : newBook.getGenre());
         book.setYear((newBook.getYear() == 0) ? oldBook.getYear() : newBook.getYear());
+        book.setAuthors(newBook.getAuthors());
         book.setQuantity(newBook.getQuantity());
         update(book);
     }

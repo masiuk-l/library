@@ -140,7 +140,7 @@ public class LoginController {
         } else { //forward user to the same page with error message
             model.put("errorMsg", "Invalid data. Please, retry");
             model.put("pageName", "login");
-            return MAIN;
+            return LOGIN;
         }
         return "redirect:/main/";
     }
